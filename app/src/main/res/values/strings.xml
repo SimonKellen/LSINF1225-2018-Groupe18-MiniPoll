@@ -1,3 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MiniPoll</string>
+    <string name="app_name">My Application</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_my_list">MyListActivity</string>
+    <string name="button_choose_item">Choose new item</string>
+    <string name="label_current_selection">Current selection: </string>
+    <string name="label_default_selection">None</string>
+    <string name="incorrect_password">Mot de Passe Incorrect</string>
 </resources>
+
+
+
