@@ -1,7 +1,9 @@
-package be.lsinf1225.minipoll;
+package be.lsinf1225.minipoll.Activites;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import be.lsinf1225.minipoll.R;
 
 public class MainActivity extends AppCompatActivity {
 

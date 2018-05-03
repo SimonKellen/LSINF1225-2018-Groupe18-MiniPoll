@@ -1,6 +1,5 @@
-package be.lsinf1225.minipoll;
+package be.lsinf1225.minipoll.Classes;
 
-import java.sql.Blob;
 import java.util.ArrayList;
 
 /**

@@ -1,4 +1,4 @@
-package be.lsinf1225.minipoll;
+package be.lsinf1225.minipoll.Classes;
 
 /**
  * Created by Simon Kellen on 03-05-18.
