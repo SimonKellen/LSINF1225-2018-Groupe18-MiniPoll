@@ -11,6 +11,8 @@ public class Utilisateur {
 
     // Variables
 
+    public static int idUtilisateur = 1;
+    public int id;
     public static ArrayList listeUtilisateurs;
     public String motDePasse;
     public String nom;
@@ -35,6 +37,8 @@ public class Utilisateur {
         this.amis = null;
         this.demandeAmis = null;
         this.poll = null;
+        this.id = idUtilisateur;
+        idUtilisateur++;
     }
 
     //Demande d'ami (TODO) (lien avec la bdd)
