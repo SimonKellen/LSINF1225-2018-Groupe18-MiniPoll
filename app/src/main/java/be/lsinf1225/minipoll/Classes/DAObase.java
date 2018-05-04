@@ -16,16 +16,16 @@ public abstract class DAObase {
     // Le nom du fichier qui représente ma base
     protected final static String NOM = "database.db";
 
-    protected SQLiteDatabase mDb = null
-    protected DatabaseHandler mHandler = null;
+    protected SQLiteDatabase mDb = null;
+    //protected DatabaseHandler mHandler = null;
 
-    public DAOBase(Context pContext) {
-        this.mHandler = new DatabaseHandler(pContext, NOM, null, VERSION);
+    public DAObase(Context pContext) {
+        //this.mHandler = new DatabaseHandler(pContext, NOM, null, VERSION);
     }
 
     public SQLiteDatabase open() {
         // Pas besoin de fermer la dernière base puisque getWritableDatabase s'en charge
-        mDb = mHandler.getWritableDatabase();
+        //mDb = mHandler.getWritableDatabase();
         return mDb;
     }
 

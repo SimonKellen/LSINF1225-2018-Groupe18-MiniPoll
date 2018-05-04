@@ -42,7 +42,7 @@ public class Utilisateur {
 
     //Demande d'ami (TODO) (lien avec la bdd)
 
-    public void demande_ami(Utilisateur utilisateur){
-        utilisateur.ajout_Ami(this);
-    }
+    //public void demande_ami(Utilisateur utilisateur){
+        //utilisateur.ajout_Ami(this);
+    //}
 }
