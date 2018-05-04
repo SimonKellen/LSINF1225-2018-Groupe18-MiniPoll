@@ -7,11 +7,11 @@
 
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_alignParentStart="true"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="21dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="57dp"
         android:gravity="center"
         android:text="Que voulez-vous faire aujourd'hui ?"
         android:textColor="@color/black"
@@ -20,21 +20,21 @@
 
     <Button
         android:id="@+id/gestion_d_amis1"
-        android:layout_width="250dp"
+        android:layout_width="275dp"
         android:layout_height="63dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="177dp"
+        android:layout_marginTop="199dp"
         android:gravity="center"
         android:text="Ajouter un ami" />
 
     <Button
         android:id="@+id/gestion_d_amis2"
-        android:layout_width="250dp"
+        android:layout_width="275dp"
         android:layout_height="63dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="185dp"
+        android:layout_marginBottom="172dp"
         android:gravity="center"
         android:text="Consulter ma liste d'amis" />
 

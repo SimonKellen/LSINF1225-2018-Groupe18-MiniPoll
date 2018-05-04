@@ -7,10 +7,11 @@
 
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="74dp"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
         android:gravity="center"
         android:text="Que voulez-vous faire aujourd'hui ?"
         android:textColor="@color/black"
@@ -19,64 +20,59 @@
 
     <Button
         android:id="@+id/menu_principal1"
-        android:layout_width="wrap_content"
+        android:layout_width="275dp"
         android:layout_height="63dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="104dp"
         android:gravity="center"
         android:text="Trouver un accord entre amis" />
 
     <Button
         android:id="@+id/menu_principal2"
-        android:layout_width="wrap_content"
+        android:layout_width="275dp"
         android:layout_height="63dp"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/menu_principal1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="142dp"
         android:gravity="center"
         android:text="Répondre à un questionnaire" />
 
     <Button
         android:id="@+id/menu_principal3"
-        android:layout_width="wrap_content"
+        android:layout_width="275dp"
         android:layout_height="63dp"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/menu_principal2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="213dp"
         android:gravity="center"
         android:text="Aider un ami à faire un choix" />
 
 
     <Button
         android:id="@+id/menu_principal4"
-        android:layout_width="wrap_content"
+        android:layout_width="275dp"
         android:layout_height="63dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/menu_principal3"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="163dp"
         android:gravity="center"
         android:text="Créer un sondage" />
 
 
     <Button
         android:id="@+id/menu_principal5"
-        android:layout_width="wrap_content"
+        android:layout_width="275dp"
         android:layout_height="63dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/menu_principal4"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="89dp"
         android:gravity="center"
         android:text="Gérer mon profil" />
 
 
     <Button
         android:id="@+id/menu_principal6"
-        android:layout_width="wrap_content"
+        android:layout_width="275dp"
         android:layout_height="63dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/menu_principal5"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="Gérer ma liste d'amis" />
 

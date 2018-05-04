@@ -19,17 +19,16 @@
 
     <EditText
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="191dp"
         android:hint="Nom d'utilisateur"
         android:inputType="text" />
 
     <EditText
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -39,21 +38,21 @@
 
     <EditText
         android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="159dp"
+        android:layout_marginTop="-220dp"
         android:hint="Confirmation du mot de passe"
         android:inputType="text" />
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="198dp"
+        android:layout_width="275dp"
         android:layout_height="63dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="66dp"
+        android:layout_marginBottom="70dp"
         android:gravity="center"
         android:text="Continuer" />
 

@@ -15,7 +15,7 @@
         android:layout_marginTop="37dp"
         android:gravity="center"
         android:text="Bienvenue !"
-        android:textColor="#112233"
+        android:textColor="@color/black"
         android:textSize="24sp" />
 
     <TextView
@@ -26,47 +26,45 @@
         android:layout_marginTop="85dp"
         android:gravity="center"
         android:text="Avez-vous déjà un compte MiniPoll ?"
-        android:textColor="#112233"
+        android:textColor="@color/black"
         android:textSize="24sp"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="199dp"
+        android:layout_marginTop="179dp"
         android:gravity="center"
         android:hint="Nom d'utilisateur"
         android:inputType="text" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="198dp"
+        android:layout_centerInParent="true"
         android:gravity="center"
         android:hint="Mot de passe"
         android:inputType="text" />
 
     <Button
         android:id="@+id/connexion1"
-        android:layout_width="198dp"
+        android:layout_width="275dp"
         android:layout_height="63dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="124dp"
+        android:layout_marginBottom="157dp"
         android:gravity="center"
-        android:text="Me connecter"/>
+        android:text="Me connecter" />
 
 
     <Button
         android:id="@+id/connexion2"
-        android:layout_width="233dp"
+        android:layout_width="275dp"
         android:layout_height="63dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="33dp"
+        android:layout_marginBottom="50dp"
         android:gravity="center"
         android:text="Je n'ai pas encore de compte, je veux m'inscrire" />
 
