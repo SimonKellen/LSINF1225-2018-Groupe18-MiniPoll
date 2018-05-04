@@ -14,7 +14,8 @@
         android:layout_marginTop="67dp"
         android:gravity="center"
         android:text="Pour continuer, vous devez choisir un nom d'utilisateur et un mot de passe."
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textColor="@color/black"/>
 
     <EditText
         android:id="@+id/textView2"
