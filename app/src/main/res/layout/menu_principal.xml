@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
+    android:layout_height="match_parent">
 
 
     <TextView
@@ -12,10 +11,10 @@
         android:layout_height="41dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="11dp"
         android:gravity="center"
         android:text="Que voulez-vous faire aujourd'hui ?"
-        android:textColor="#112233"
+        android:textColor="@color/black"
         android:textSize="24sp" />
 
 
@@ -25,7 +24,7 @@
         android:layout_height="63dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="82dp"
+        android:layout_marginTop="72dp"
         android:gravity="center"
         android:text="Trouver un accord entre amis" />
 
@@ -35,7 +34,7 @@
         android:layout_height="63dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="142dp"
         android:gravity="center"
         android:text="Répondre à un questionnaire" />
 
@@ -43,7 +42,9 @@
         android:id="@+id/menu_principal3"
         android:layout_width="wrap_content"
         android:layout_height="63dp"
-        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="213dp"
         android:gravity="center"
         android:text="Aider un ami à faire un choix" />
 
@@ -54,7 +55,7 @@
         android:layout_height="63dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="163dp"
         android:gravity="center"
         android:text="Créer un sondage" />
 
@@ -65,7 +66,7 @@
         android:layout_height="63dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="89dp"
         android:gravity="center"
         android:text="Gérer mon profil" />
 
@@ -76,6 +77,7 @@
         android:layout_height="63dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="Gérer ma liste d'amis" />
 
