@@ -61,7 +61,7 @@
 
 
     <Button
-        android:id="@+id/connection2"
+        android:id="@+id/connexion2"
         android:layout_width="233dp"
         android:layout_height="63dp"
         android:layout_alignParentBottom="true"
