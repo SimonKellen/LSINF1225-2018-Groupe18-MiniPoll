@@ -15,7 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Questionnaires disponibles"
+        android:text="Répondre à un questionnaire"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

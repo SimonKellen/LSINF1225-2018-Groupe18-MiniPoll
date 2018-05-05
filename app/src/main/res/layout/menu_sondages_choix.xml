@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/textView7"
-        android:layout_width="250dp"
+        android:layout_width="200dp"
         android:layout_height="74dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -15,7 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Demandes d'aide pour un choix disponibles"
+        android:text="Aider un ami à faire un choix"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
