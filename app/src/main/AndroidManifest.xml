@@ -33,6 +33,18 @@
 
         </activity>
 
+        <activity android:name=".Activites.MenuAccordActivity">
+
+        </activity>
+
+        <activity android:name=".Activites.MenuChoixActivity">
+
+        </activity>
+
+        <activity android:name=".Activites.MenuQuestionnaireActivity">
+
+        </activity>
+
     </application>
 
 </manifest>
