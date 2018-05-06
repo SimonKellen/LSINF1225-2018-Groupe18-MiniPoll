@@ -25,6 +25,10 @@
 
         </activity>
 
+        <activity android:name=".Activites.CreationCompteActivity">
+
+        </activity>
+
     </application>
 
 </manifest>

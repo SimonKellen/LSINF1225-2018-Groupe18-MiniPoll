@@ -12,6 +12,7 @@ import be.lsinf1225.minipoll.R;
 public class ConnexionActivity extends AppCompatActivity
 {
     private Button button1;
+    private Button button2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,10 +30,26 @@ public class ConnexionActivity extends AppCompatActivity
                 openMenuActivity();
             }
         });
+
+        button2 = (Button) findViewById(R.id.connexion2);
+        button2.setOnClickListener(new View.OnClickListener()
+        {
+
+            @Override
+            public void onClick(View v)
+            {
+                openCreationCompteActivity();
+            }
+        });
     }
 
     public void openMenuActivity(){
         Intent intent = new Intent(this, MenuPrincipalActivity.class);
+        startActivity(intent);
+    }
+
+    public void openCreationCompteActivity(){
+        Intent intent = new Intent(this, CreationCompteActivity.class);
         startActivity(intent);
     }
 
