@@ -8,64 +8,54 @@
 
 
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="41dp"
-        android:layout_alignParentStart="true"
+        android:id="@+id/textView8"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="37dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="59dp"
         android:gravity="center"
-        android:text="Bienvenue !"
+        android:text="Bienvenue ! Avez-vous déjà un compte MiniPoll ?"
         android:textColor="@color/black"
         android:textSize="24sp" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="62dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="85dp"
-        android:gravity="center"
-        android:text="Avez-vous déjà un compte MiniPoll ?"
-        android:textColor="@color/black"
-        android:textSize="24sp"/>
-
     <EditText
-        android:layout_width="275dp"
+        android:id="@+id/editText"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="179dp"
-        android:gravity="center"
-        android:hint="Nom d'utilisateur"
-        android:inputType="text" />
+        android:layout_marginTop="177dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Nom d'utilisateur" />
 
     <EditText
-        android:layout_width="275dp"
+        android:id="@+id/editText2"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
+        android:layout_below="@+id/editText"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
         android:hint="Mot de passe"
-        android:inputType="text" />
+        android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/connexion1"
-        android:layout_width="275dp"
-        android:layout_height="63dp"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/button"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText2"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="157dp"
         android:gravity="center"
-        android:text="Me connecter" />
-
+        android:text="Je veux me connecter" />
 
     <Button
-        android:id="@+id/connexion2"
-        android:layout_width="275dp"
-        android:layout_height="63dp"
+        android:id="@+id/button2"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:gravity="center"
-        android:text="Je n'ai pas encore de compte, je veux m'inscrire" />
+        android:layout_marginBottom="105dp"
+        android:text="Je veux créer un compte" />
 
 </RelativeLayout>
