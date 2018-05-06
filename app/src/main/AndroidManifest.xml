@@ -29,6 +29,10 @@
 
         </activity>
 
+        <activity android:name=".Activites.CreationSondageActivity">
+
+        </activity>
+
     </application>
 
 </manifest>
