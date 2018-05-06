@@ -21,6 +21,10 @@
 
         </activity>
 
+        <activity android:name=".Activites.GestionAmisActivity">
+
+        </activity>
+
     </application>
 
 </manifest>
