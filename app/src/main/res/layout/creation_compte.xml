@@ -47,7 +47,7 @@
         android:inputType="text" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/creation_compte1"
         android:layout_width="275dp"
         android:layout_height="63dp"
         android:layout_alignParentBottom="true"
