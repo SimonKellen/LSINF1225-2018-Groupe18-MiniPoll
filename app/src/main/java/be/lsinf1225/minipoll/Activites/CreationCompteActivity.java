@@ -1,6 +1,5 @@
 package be.lsinf1225.minipoll.Activites;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,42 +8,30 @@ import android.widget.Button;
 
 import be.lsinf1225.minipoll.R;
 
-public class ConnexionActivity extends AppCompatActivity
-{
+public class CreationCompteActivity extends AppCompatActivity {
+
     private Button button1;
-    private Button button2;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.connexion);
+        setContentView(R.layout.creation_compte);
 
-        button1 = (Button) findViewById(R.id.connexion1);
+        button1 = (Button) findViewById(R.id.creation_compte1);
         button1.setOnClickListener(new View.OnClickListener()
         {
 
             @Override
             public void onClick(View v)
             {
-                openMenuActivity();
+                openCreationProfilActivity();
             }
         });
 
-        button2 = (Button) findViewById(R.id.connexion2);
-        button2.setOnClickListener(new View.OnClickListener()
-        {
-
-            @Override
-            public void onClick(View v)
-            {
-                openCreationCompteActivity();
-            }
-        });
     }
 
-    public void openMenuActivity(){
-        Intent intent = new Intent(this, MenuPrincipalActivity.class);
+    public void openCreationProfilActivity(){
+        Intent intent = new Intent(this, CreationProfilActivity.class);
         startActivity(intent);
     }
 
