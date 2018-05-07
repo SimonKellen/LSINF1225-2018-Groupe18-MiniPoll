@@ -11,9 +11,7 @@ public class Utilisateur {
 
     // Variables
 
-    public static int idUtilisateur = 1;
-    public int id;
-    public static ArrayList listeUtilisateurs;
+
     public String motDePasse;
     public String nom;
     public String prenom;
@@ -27,7 +25,6 @@ public class Utilisateur {
     // Constructeur
 
     public Utilisateur(String motDePasse, String nom, String prenom, String identifiant, String photo){
-        listeUtilisateurs.add(this);
         this.motDePasse = motDePasse;
         this.nom = nom;
         this.prenom = prenom;
@@ -37,8 +34,6 @@ public class Utilisateur {
         this.amis = null;
         this.demandeAmis = null;
         this.poll = null;
-        this.id = idUtilisateur;
-        idUtilisateur++;
     }
 
     //Demande d'ami (TODO) (lien avec la bdd)
@@ -48,9 +43,6 @@ public class Utilisateur {
     //}
 
 
-    public int getId() {
-        return id;
-    }
 
     public String getIdentifiant() {
         return identifiant;

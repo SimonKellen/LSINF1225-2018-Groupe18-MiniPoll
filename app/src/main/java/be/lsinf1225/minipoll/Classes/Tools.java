@@ -12,8 +12,6 @@ import java.util.List;
  */
 
 public class Tools {
+
 }
 
-public class MySQLiteHelper extends SQLiteOpenHelper{
-    
-}
