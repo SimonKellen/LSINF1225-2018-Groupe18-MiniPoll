@@ -58,17 +58,17 @@
         android:textColor="@color/colorPrimary" />
 
     <Button
-        android:id="@+id/connection2"
+        android:id="@+id/creation_profil1"
         android:layout_width="118dp"
         android:layout_height="37dp"
-        android:layout_above="@+id/connection3"
+        android:layout_above="@+id/creation_profil2"
         android:layout_alignStart="@+id/textView6"
         android:gravity="center"
         android:text="Charger"
         android:textSize="9dp" />
 
     <Button
-        android:id="@+id/connection3"
+        android:id="@+id/creation_profil2"
         android:layout_width="118dp"
         android:layout_height="37dp"
         android:layout_alignBottom="@+id/imageView"
@@ -78,7 +78,7 @@
         android:textSize="9dp" />
 
     <Button
-        android:id="@+id/connection4"
+        android:id="@+id/creation_profil3"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

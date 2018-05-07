@@ -35,9 +35,4 @@ public class CreationCompteActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openCreationCompteActivity(){
-        Intent intent = new Intent(this, CreationCompteActivity.class);
-        startActivity(intent);
-    }
-
 }
