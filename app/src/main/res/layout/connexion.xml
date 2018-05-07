@@ -28,7 +28,7 @@
         android:layout_marginTop="177dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Nom d'utilisateur" />
+        android:hint="Nom d'utilisateur" />
 
     <EditText
         android:id="@+id/editText2"

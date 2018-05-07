@@ -53,10 +53,6 @@
 
         </activity>
 
-        <activity android:name=".Activites.CreationProfilActivity">
-
-        </activity>
-
     </application>
 
 </manifest>
