@@ -41,7 +41,7 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/connexion1"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText2"
@@ -50,7 +50,7 @@
         android:text="Je veux me connecter" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/connexion2"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
