@@ -49,6 +49,10 @@
 
         </activity>
 
+        <activity android:name=".Activites.ProfilActivity">
+
+        </activity>
+
     </application>
 
 </manifest>

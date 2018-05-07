@@ -8,19 +8,17 @@ import android.widget.Button;
 
 import be.lsinf1225.minipoll.R;
 
-<<<<<<< HEAD
+
 public class MenuPrincipalActivity extends AppCompatActivity
 {
-=======
 
-public class MenuPrincipalActivity extends AppCompatActivity {
->>>>>>> 2549c3d6ede3bbff272bd1e369eaf7b1f79a528e
 
     private Button button1;
     private Button button2;
     private Button button3;
     private Button button4;
     private Button button5;
+    private Button button6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -82,6 +80,17 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                 openMenuQuestionnaireActivity();
             }
         });
+
+        button6 = (Button) findViewById(R.id.menu_principal5);
+        button6.setOnClickListener(new View.OnClickListener()
+        {
+
+            @Override
+            public void onClick(View v)
+            {
+                openProfilActivity();
+            }
+        });
     }
 
     public void openAmiActivity(){
@@ -106,6 +115,11 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 
     public void openMenuQuestionnaireActivity(){
         Intent intent = new Intent(this, MenuQuestionnaireActivity.class);
+        startActivity(intent);
+    }
+
+    public void openProfilActivity(){
+        Intent intent = new Intent(this, ProfilActivity.class);
         startActivity(intent);
     }
 }
