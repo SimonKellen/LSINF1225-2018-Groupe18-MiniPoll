@@ -59,7 +59,7 @@ public class MenuPrincipalActivity extends AppCompatActivity
             }
         });
 
-        button4 = (Button) findViewById(R.id.menu_principal2);
+        button4 = (Button) findViewById(R.id.menu_principal3);
         button4.setOnClickListener(new View.OnClickListener()
         {
 
@@ -70,7 +70,7 @@ public class MenuPrincipalActivity extends AppCompatActivity
             }
         });
 
-        button5 = (Button) findViewById(R.id.menu_principal3);
+        button5 = (Button) findViewById(R.id.menu_principal2);
         button5.setOnClickListener(new View.OnClickListener()
         {
 
