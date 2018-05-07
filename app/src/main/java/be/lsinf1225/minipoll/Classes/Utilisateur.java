@@ -9,7 +9,7 @@ import be.lsinf1225.minipoll.Classes.Tools;
 
 public class Utilisateur {
 
-    // Variables
+    // Variablees
 
 
     public String motDePasse;
