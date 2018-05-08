@@ -2,18 +2,22 @@ package be.lsinf1225.minipoll.Classes;
 
 import android.app.Application;
 
-public class MiniPollApp {
+import static java.security.AccessController.getContext;
 
-    public class MiniPollApp extends Application
+
+public class MiniPollApp extends Application
+{
+
+    private static MiniPollApp context;
+
+
+    public static MiniPollApp  getContext()
     {
+        return context;
+    }
 
-        private static MiniPollApp context;
-
-
-        public static  getContext()
-        {
-            return context;
-        }
-
+    public void onCreate() {
+        super.onCreate();
+        context = (MiniPollApp) getApplicationContext();
     }
 }
