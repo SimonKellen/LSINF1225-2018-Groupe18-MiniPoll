@@ -19,41 +19,23 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activites.MenuPrincipalActivity">
+        <activity android:name=".Activites.MenuPrincipalActivity"/>
 
-        </activity>
+        <activity android:name=".Activites.GestionAmisActivity"/>
 
-        <activity android:name=".Activites.GestionAmisActivity">
+        <activity android:name=".Activites.CreationCompteActivity"/>
 
-        </activity>
+        <activity android:name=".Activites.CreationSondageActivity"/>
 
-        <activity android:name=".Activites.CreationCompteActivity">
+        <activity android:name=".Activites.MenuAccordActivity"/>
 
-        </activity>
+        <activity android:name=".Activites.MenuChoixActivity"/>
 
-        <activity android:name=".Activites.CreationSondageActivity">
+        <activity android:name=".Activites.MenuQuestionnaireActivity"/>
 
-        </activity>
+        <activity android:name=".Activites.CreationProfilActivity"/>
 
-        <activity android:name=".Activites.MenuAccordActivity">
-
-        </activity>
-
-        <activity android:name=".Activites.MenuChoixActivity">
-
-        </activity>
-
-        <activity android:name=".Activites.MenuQuestionnaireActivity">
-
-        </activity>
-
-        <activity android:name=".Activites.CreationProfilActivity">
-
-        </activity>
-
-        <activity android:name=".Activites.ProfilActivity">
-
-        </activity>
+        <activity android:name=".Activites.ProfilActivity"/>
 
     </application>
 
