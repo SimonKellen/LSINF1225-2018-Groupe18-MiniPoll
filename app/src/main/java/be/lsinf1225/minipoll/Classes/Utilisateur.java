@@ -183,7 +183,6 @@ public class Utilisateur {
 
         // Requête de selection (SELECT)
         Cursor cursor = db.query("Utilisateur", colonnes, null, null, null, null, null);
-
         // Placement du curseur sur la première ligne.
         cursor.moveToFirst();
 
@@ -215,5 +214,35 @@ public class Utilisateur {
 
         return null;
     }
+
+    /**
+     *
+     * @return liste des amis d un utilisateur
+     */
+    public SparseArray<Utilisateur> getListeAmis(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des utilisateurs etant amis avec l utilisateur dont l id vaut 9 par exemple
+        cursor.moveToFirst();
+        SparseArray<Utilisateur> users = new SparseArray<>();
+        while (!cursor.isAfterLast()){
+            int idu = cursor.getInt(0);
+            String prenom = cursor.getString(1);
+            String nom = cursor.getString(2);
+            String password = cursor.getString(3);
+            String photo = cursor.getString(5);
+            String email = cursor.getString(6);
+            String identifiant = cursor.getString(7);
+            Utilisateur user = Utilisateur.userSparseArray.get(idu);
+            if(user==null){
+                user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail);
+            }
+            users.put(idu,user);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        db.close();
+        return users;
+    }
+
 }
 
