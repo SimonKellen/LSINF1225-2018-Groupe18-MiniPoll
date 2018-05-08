@@ -30,7 +30,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     /**
      * Nom du fichier de la base de données.
      */
-    private static final String DATABASE_NAME = "musicplayer_database.sqlite";
+    private static final String DATABASE_NAME = "minipoll_database.sqlite";
 
     /**
      * Version de la base de données (à incrémenter en cas de modification de celle-ci afin que la
