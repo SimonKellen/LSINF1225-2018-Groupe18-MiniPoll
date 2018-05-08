@@ -32,7 +32,7 @@ public class ConnexionActivity extends AppCompatActivity
 
         button1 = (Button) findViewById(R.id.connexion1);
         button2 = (Button) findViewById(R.id.connexion2);
-        boolean exist = Utilisateur.isUtilisateur(); //En attente de la fonction
+
 
         button1.setOnClickListener(new View.OnClickListener()
         {
@@ -61,22 +61,30 @@ public class ConnexionActivity extends AppCompatActivity
     public void connexionCheck()
     {
         String identifiant = edit1.getText().toString();
-        Utilisateur personne = Utilisateur.isUtilisateur(identifiant));
-        if(personne != null)
+        String motdepasse = edit2.getText().toString();
+        if((identifiant.length() == 0) || (motdepasse.length() == 0))
         {
-            if(personne.login(edit1.getText().toString()))
-            {
-                Intent intent = new Intent(this, MenuPrincipalActivity.class);
-                startActivity(intent);
-            }
-            else
-            {
-                MiniPollApp.notifyShort(R.string.incorrect_password);
-            }
+            MiniPollApp.notifyShort(R.string.incomplete_field);
         }
         else
         {
-            MiniPollApp.notifyShort(R.string.incorrect_login);
+            Utilisateur personne = Utilisateur.isUtilisateur(identifiant);
+            if (personne != null)
+            {
+                if (personne.login(motdepasse))
+                {
+                    Intent intent = new Intent(this, MenuPrincipalActivity.class);
+                    startActivity(intent);
+                }
+                else
+                {
+                    MiniPollApp.notifyShort(R.string.incorrect_password);
+                }
+            }
+            else
+            {
+                MiniPollApp.notifyShort(R.string.incorrect_login);
+            }
         }
 
     }

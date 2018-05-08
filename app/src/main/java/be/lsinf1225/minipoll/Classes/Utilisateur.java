@@ -174,7 +174,7 @@ public class Utilisateur {
      * <<<<<<< HEAD
      * Verifie si l utilisateur existe.
      */
-    public Utilisateur isUtilisateur(String identifiant) {
+    public static Utilisateur isUtilisateur(String identifiant) {
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
 

@@ -18,6 +18,7 @@ public class CreationCompteActivity extends AppCompatActivity {
     private EditText edit2;
     private EditText edit3;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +46,12 @@ public class CreationCompteActivity extends AppCompatActivity {
         String username = edit1.getText().toString();
         String password = edit2.getText().toString();
         String confPassword = edit3.getText().toString();
+
         if((username.length() == 0) || (password.length() == 0) || (confPassword.length() == 0))
         {
             MiniPollApp.notifyShort(R.string.incomplete_field);
         }
-        else if(Utilisateur.isUtilisateur != null)
+        else if(Utilisateur.isUtilisateur(username) != null)
         {
             MiniPollApp.notifyShort(R.string.unavailable_id);
         }
@@ -59,8 +61,13 @@ public class CreationCompteActivity extends AppCompatActivity {
         }
         else
         {
-            //AJOUT DANS LA BASE DE DONNEES
+
             Intent intent = new Intent(this, CreationProfilActivity.class);
+            Bundle b = new Bundle();
+            b.putString("username",username);
+            intent.putExtras(b);
+            b.putString("password",password);
+            intent.putExtras(b);
             startActivity(intent);
         }
 
