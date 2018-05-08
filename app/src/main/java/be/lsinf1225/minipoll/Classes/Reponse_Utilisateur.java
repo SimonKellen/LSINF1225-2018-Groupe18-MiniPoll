@@ -1,5 +1,7 @@
 package be.lsinf1225.minipoll.Classes;
 
+import android.util.SparseArray;
+
 /**
  * Created by Simon Kellen on 03-05-18.
  */
@@ -8,20 +10,24 @@ public class Reponse_Utilisateur {
 
     //Variables
 
-    public static int idReponse = 1;
-    public int id;
-    public Utilisateur participants;
-    public Poll poll;
-    public int[][] tableauRep;
+    private final int id;
+    private Utilisateur participants;
+    private Poll poll;
+    private int[][] tableauRep;
+
+    /**
+     * Contient les instances déjà existantes des reponse utilisateur  afin d'éviter de créer deux instances identiques.
+     */
+    public static SparseArray<Reponse_Utilisateur> ruSparseArray = new SparseArray<>();
 
     //Constructeur
 
-    public Reponse_Utilisateur(Utilisateur participants, Poll poll, int[][] tableauRep){
+    public Reponse_Utilisateur(int id,Utilisateur participants, Poll poll, int[][] tableauRep){
         this.participants = participants;
+        this.id=id;
         this.poll = poll;
         this.tableauRep = tableauRep;
-        this.id = idReponse;
-        idReponse++;
+        ruSparseArray.put(id,this);
     }
 
     //Méthodes
@@ -37,10 +43,6 @@ public class Reponse_Utilisateur {
 
     public int getId() {
         return id;
-    }
-
-    public static int getIdReponse() {
-        return idReponse;
     }
 
     public int[][] getTableauRep() {
