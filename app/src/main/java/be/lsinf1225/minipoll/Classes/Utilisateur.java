@@ -76,7 +76,7 @@ public class Utilisateur {
         return identifiant;
     }
 
-    public ArrayList getAmis() {
+    public SparseArray<Utilisateur> getAmis() {
         return amis;
     }
 
@@ -100,23 +100,23 @@ public class Utilisateur {
         return bestFriend;
     }
 
-    public ArrayList getPoll() {
+    public SparseArray<Poll> getPoll() {
         return poll;
     }
 
-    public ArrayList getDemandeAmis() {
+    public SparseArray<Utilisateur> getDemandeAmis() {
         return demandeAmis;
     }
 
-    public void setPoll(ArrayList poll) {
+    public void setPoll(SparseArray<Poll> poll) {
         this.poll = poll;
     }
 
-    public void setAmis(ArrayList amis) {
+    public void setAmis(SparseArray<Utilisateur> amis) {
         this.amis = amis;
     }
 
-    public void setDemandeAmis(ArrayList demandeAmis) {
+    public void setDemandeAmis(SparseArray<Utilisateur> demandeAmis) {
         this.demandeAmis = demandeAmis;
     }
 
