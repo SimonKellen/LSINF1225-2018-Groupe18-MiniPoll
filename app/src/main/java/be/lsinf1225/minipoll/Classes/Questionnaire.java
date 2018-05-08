@@ -1,5 +1,7 @@
 package be.lsinf1225.minipoll.Classes;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.SparseArray;
 
 import java.util.ArrayList;
@@ -61,5 +63,63 @@ public class Questionnaire extends Poll {
     public SparseArray<Reponse_Utilisateur> getListeRep() {
         return listeRep;
     }
+
+    /**
+     *
+     * @return liste des participants a un questionnaire
+     */
+    public SparseArray<Utilisateur> getListeParticipants(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des utilisateurs participants au poll dont idp est 4 par exemple
+        cursor.moveToFirst();
+        SparseArray<Utilisateur> part = new SparseArray<>();
+        while (!cursor.isAfterLast()){
+            int idu = cursor.getInt(0);
+            String prenom = cursor.getString(1);
+            String nom = cursor.getString(2);
+            String password = cursor.getString(3);
+            String photo = cursor.getString(5);
+            String mail = cursor.getString(6);
+            String identifiant = cursor.getString(7);
+            Utilisateur user = Utilisateur.userSparseArray.get(idu);
+            if(user==null){
+                user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail);
+            }
+            part.put(idu,user);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        db.close();
+        this.participants=part;
+        return part;
+    }
+
+    /**
+     *
+     * @return liste des amis d un utilisateur
+     */
+    //public SparseArray<Utilisateur> getListQuestion(){
+      //  SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        //Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des questions appartenant a un poll dont l'idp est 4 par exemple
+        //cursor.moveToFirst();
+        //SparseArray<Question> ques = new SparseArray<>();
+        //while (!cursor.isAfterLast()){
+          //  int idq = cursor.getInt(0);
+           // int numordre = cursor.getInt(1);
+            //String format= cursor.getString(2);
+            //String enonce = cursor.getString(3);
+            //int nombreDeProp = cursor.getInt(5);
+            //Question q = Question.quesSparseArray.get(idq);
+            //if(q==null){
+              //  q=new Question(idq,null,-2);
+            //}
+            //users.put(idu,user);
+            //cursor.moveToNext();
+        //}
+        //cursor.close();
+        //db.close();
+        //this.amis=users;
+        //return users;
+    //}
 }
 

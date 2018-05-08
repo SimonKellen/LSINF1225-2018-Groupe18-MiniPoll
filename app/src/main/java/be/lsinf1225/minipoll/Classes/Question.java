@@ -1,5 +1,7 @@
 package be.lsinf1225.minipoll.Classes;
 
+import android.util.SparseArray;
+
 /**
  * Created by Simon Kellen on 03-05-18.
  */
@@ -8,18 +10,22 @@ public class Question {
 
     //Variables
 
-    public static int idQuestion=1;
-    public int id;
-    public String[] reponse;
-    public int bonne_rep; //Prends la valeur (-1) si un sondage n'a pas de bonne réponse (ex. sondage pour accord)
+    private final int id;
+    private String[] reponse;
+    private int bonne_rep; //Prends la valeur (-1) si un sondage n'a pas de bonne réponse (ex. sondage pour accord)
+
+    /**
+     * Contient les instances déjà existantes des sondages pour choix afin d'éviter de créer deux instances identiques.
+     */
+    public static SparseArray<Question> quesSparseArray = new SparseArray<>();
 
     //Constructeur
 
-    public Question(String[] reponse, int bonne_rep){
+    public Question(int id,String[] reponse, int bonne_rep){
         this.reponse = reponse;
         this.bonne_rep = bonne_rep;
-        this.id=idQuestion;
-        idQuestion++;
+        this.id=id;
+        quesSparseArray.put(id,this);
     }
 
     //Méthodes

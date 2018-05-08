@@ -233,7 +233,7 @@ public class Utilisateur {
             String nom = cursor.getString(2);
             String password = cursor.getString(3);
             String photo = cursor.getString(5);
-            String email = cursor.getString(6);
+            String mail = cursor.getString(6);
             String identifiant = cursor.getString(7);
             Utilisateur user = Utilisateur.userSparseArray.get(idu);
             if(user==null){
@@ -263,7 +263,7 @@ public class Utilisateur {
             String nom = cursor.getString(2);
             String password = cursor.getString(3);
             String photo = cursor.getString(5);
-            String email = cursor.getString(6);
+            String mail = cursor.getString(6);
             String identifiant = cursor.getString(7);
             Utilisateur user = Utilisateur.userSparseArray.get(idu);
             if(user==null){
@@ -278,6 +278,10 @@ public class Utilisateur {
         return users;
     }
 
+    /**
+     *
+     * @return liste des poll cree par un utilisateur
+     */
     public SparseArray<Poll> getListePoll(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des Poll cree par l utilisateur dont l id vaut 9 par exemple
@@ -318,6 +322,7 @@ public class Utilisateur {
         this.poll=polls;
         return polls;
     }
+
 
 
 
