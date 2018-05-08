@@ -71,6 +71,7 @@ public class Utilisateur {
     public static void logout() {
         Utilisateur.connectedUser = null;
     }
+
     /**
      * Connecte l'utilisateur courant.
      *
@@ -169,6 +170,51 @@ public class Utilisateur {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    /**
+     * Verifie si l utilisateur existe.
+     */
+    public Utilisateur isUtilisateur(String identifiant){
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+
+        // Colonne à récupérer
+        String[] colonnes = {"ID_User", "Password", "Nom", "Prenom", "Identifiant", "Pic", "BestFriend", "Mail"};
+
+        // Requête de selection (SELECT)
+        Cursor cursor = db.query("Utilisateur", colonnes, null, null, null, null, null);
+
+        // Placement du curseur sur la première ligne.
+        cursor.moveToFirst();
+
+        // Tant qu'il y a des lignes.
+        while (!cursor.isAfterLast()) {
+            // Récupération des informations de l'utilisateur pour chaque ligne.
+            String ident = cursor.getString(4);
+
+            if (ident == identifiant) {
+                int idu = cursor.getInt(0);
+                String motDePasse = cursor.getString(1);
+                String name = cursor.getString(2);
+                String pren = cursor.getString(3);
+                String pho = cursor.getString(5);
+                String email = cursor.getString(6);
+                cursor.close();
+                db.close();
+                Utilisateur user = new Utilisateur(idu, motDePasse, name, pren, ident, pho, email);
+                return user;
+            }
+
+            // Passe à la ligne suivante.
+            cursor.moveToNext();
+        }
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        return null;
     }
 
 
