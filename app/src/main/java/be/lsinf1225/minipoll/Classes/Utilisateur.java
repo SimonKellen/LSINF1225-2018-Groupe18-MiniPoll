@@ -176,7 +176,15 @@ public class Utilisateur {
      * @return
      */
     public static SparseArray<Utilisateur> getListeAmis(){
-
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        String[] colonnes;
+        Cursor cursor = db.rawQuery("select ");
+        cursor.moveToFirst();
+        SparseArray<Utilisateur> users = new SparseArray<>();
+        while(!cursor.isAfterLast()){
+            int uId = cursor.getInt();
+            String
+        }
     }
 
 
