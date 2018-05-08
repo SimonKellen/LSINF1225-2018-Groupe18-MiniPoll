@@ -24,7 +24,7 @@ public class Utilisateur {
 
     // Constructeur
 
-    private Utilisateur(int id, String motDePasse, String nom, String prenom, String identifiant, String photo, String mail){
+    private Utilisateur(int id, String motDePasse, String nom, String prenom, String identifiant, String photo, String mail) {
         this.id = id;
         this.motDePasse = motDePasse;
         this.nom = nom;
@@ -42,7 +42,7 @@ public class Utilisateur {
     //Demande d'ami TODO (lien avec la bdd)
 
     //public void demande_ami(Utilisateur utilisateur){
-        //utilisateur.ajout_Ami(this);
+    //utilisateur.ajout_Ami(this);
     //}
 
 
@@ -71,11 +71,11 @@ public class Utilisateur {
     public static void logout() {
         Utilisateur.connectedUser = null;
     }
+
     /**
      * Connecte l'utilisateur courant.
      *
      * @param passwordToTry le mot de passe entré.
-     *
      * @return Vrai (true) si l'utilisateur à l'autorisation de se connecter, false sinon.
      */
     public boolean login(String passwordToTry) {
@@ -149,14 +149,13 @@ public class Utilisateur {
         }
     }
 
-    public void modifierMotDePasse(String nouveauMotDePasse, String nouveauMotDePasse1, String ancienMotDePasse){
+    public void modifierMotDePasse(String nouveauMotDePasse, String nouveauMotDePasse1, String ancienMotDePasse) {
         String ancienMotDePasse1 = "db.getancienmotdepasse";
-                if((ancienMotDePasse == ancienMotDePasse1) && (nouveauMotDePasse == nouveauMotDePasse1)){
-                    this.motDePasse = nouveauMotDePasse;
-                }
-                else{
-                    //"toast mauvais mot de passe"
-                }
+        if ((ancienMotDePasse == ancienMotDePasse1) && (nouveauMotDePasse == nouveauMotDePasse1)) {
+            this.motDePasse = nouveauMotDePasse;
+        } else {
+            //"toast mauvais mot de passe"
+        }
     }
 
     public void setNom(String nom) {
@@ -172,20 +171,78 @@ public class Utilisateur {
     }
 
     /**
-     * recupere dans la base de donnee la liste des amis de l'utilisateur
-     * @return
+     * <<<<<<< HEAD
+     * Verifie si l utilisateur existe.
      */
-    public static SparseArray<Utilisateur> getListeAmis(){
+    public Utilisateur isUtilisateur(String identifiant) {
+        // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        String[] colonnes;
-        Cursor cursor = db.rawQuery("select ");
+
+        // Colonne à récupérer
+        String[] colonnes = {"ID_User", "Password", "Nom", "Prenom", "Identifiant", "Pic", "BestFriend", "Mail"};
+
+        // Requête de selection (SELECT)
+        Cursor cursor = db.query("Utilisateur", colonnes, null, null, null, null, null);
+        // Placement du curseur sur la première ligne.
         cursor.moveToFirst();
-        SparseArray<Utilisateur> users = new SparseArray<>();
-        while(!cursor.isAfterLast()){
-            int uId = cursor.getInt();
-            String
+
+        // Tant qu'il y a des lignes.
+        while (!cursor.isAfterLast()) {
+            // Récupération des informations de l'utilisateur pour chaque ligne.
+            String ident = cursor.getString(4);
+
+            if (ident == identifiant) {
+                int idu = cursor.getInt(0);
+                String motDePasse = cursor.getString(1);
+                String name = cursor.getString(2);
+                String pren = cursor.getString(3);
+                String pho = cursor.getString(5);
+                String email = cursor.getString(6);
+                cursor.close();
+                db.close();
+                Utilisateur user = new Utilisateur(idu, motDePasse, name, pren, ident, pho, email);
+                return user;
+            }
+
+            // Passe à la ligne suivante.
+            cursor.moveToNext();
         }
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        return null;
     }
 
+    /**
+     *
+     * @return liste des amis d un utilisateur
+     */
+    public SparseArray<Utilisateur> getListeAmis(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des utilisateurs etant amis avec l utilisateur dont l id vaut 9 par exemple
+        cursor.moveToFirst();
+        SparseArray<Utilisateur> users = new SparseArray<>();
+        while (!cursor.isAfterLast()){
+            int idu = cursor.getInt(0);
+            String prenom = cursor.getString(1);
+            String nom = cursor.getString(2);
+            String password = cursor.getString(3);
+            String photo = cursor.getString(5);
+            String email = cursor.getString(6);
+            String identifiant = cursor.getString(7);
+            Utilisateur user = Utilisateur.userSparseArray.get(idu);
+            if(user==null){
+                user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail);
+            }
+            users.put(idu,user);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        db.close();
+        return users;
+    }
 
 }
+
