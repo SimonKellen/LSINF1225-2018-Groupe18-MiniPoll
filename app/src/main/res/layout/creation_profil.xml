@@ -1,100 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/relativeLayout4">
 
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="314dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="28dp"
         android:gravity="center"
         android:text="C'est bientôt fini, il ne nous manque plus que quelques informations."
+        android:textColor="@color/black"
         android:textSize="24dp"
-        android:textColor="@color/black"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/EditText1"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="12dp"
         android:hint="Prénom"
-        android:inputType="text" />
+        android:inputType="text"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <EditText
         android:id="@+id/EditText2"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/EditText1"
-        android:layout_centerHorizontal="true"
         android:hint="Nom de famille"
-        android:inputType="text" />
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@+id/EditText1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <EditText
         android:id="@+id/EditText3"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/EditText2"
-        android:layout_centerHorizontal="true"
         android:hint="Adresse email"
-        android:inputType="text" />
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@+id/EditText2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="118dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/imageView"
         android:layout_marginEnd="55dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="Photo (facultatif)"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/EditText3" />
 
     <Button
         android:id="@+id/creation_profil1"
         android:layout_width="118dp"
         android:layout_height="37dp"
-        android:layout_above="@+id/creation_profil2"
-        android:layout_alignStart="@+id/textView6"
+        android:layout_marginEnd="55dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="Charger"
-        android:textSize="9dp" />
+        android:textSize="9dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <Button
         android:id="@+id/creation_profil2"
         android:layout_width="118dp"
         android:layout_height="37dp"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_alignStart="@+id/textView6"
+        android:layout_marginEnd="55dp"
         android:gravity="center"
         android:text="Supprimer"
-        android:textSize="9dp" />
+        android:textSize="9dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/creation_profil1" />
 
     <Button
         android:id="@+id/creation_profil3"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="44dp"
+        android:layout_marginTop="28dp"
         android:gravity="center"
-        android:text="Continuer" />
+        android:text="Continuer"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="129dp"
         android:layout_height="101dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/EditText1"
-        android:layout_marginBottom="115dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditText3"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
