@@ -71,6 +71,21 @@ public class Utilisateur {
     public static void logout() {
         Utilisateur.connectedUser = null;
     }
+    /**
+     * Connecte l'utilisateur courant.
+     *
+     * @param passwordToTry le mot de passe entré.
+     *
+     * @return Vrai (true) si l'utilisateur à l'autorisation de se connecter, false sinon.
+     */
+    public boolean login(String passwordToTry) {
+        if (this.motDePasse.equals(passwordToTry)) {
+            // Si le mot de passe est correct, modification de l'utilisateur connecté.
+            Utilisateur.connectedUser = this;
+            return true;
+        }
+        return false;
+    }
 
     public String getIdentifiant() {
         return identifiant;
