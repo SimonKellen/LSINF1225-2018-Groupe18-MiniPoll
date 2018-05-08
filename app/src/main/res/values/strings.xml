@@ -6,7 +6,9 @@
     <string name="button_choose_item">Choose new item</string>
     <string name="label_current_selection">Current selection: </string>
     <string name="label_default_selection">None</string>
-    <string name="incorrect_password">Mot de Passe Incorrect</string>
+    <string name="incorrect_password">Mot de passe incorrect</string>
+    <string name="incorrect_login">Identifiant inexistant</string>
+
 </resources>
 
 
