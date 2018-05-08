@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Utilisateur {
 
-    // Variablees
+    // Variables
 
 
     public String motDePasse;
