@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Utilisateur {
 
-    // Variablees
+    // Variables
 
     private final int id;
     private String motDePasse;
@@ -70,6 +70,21 @@ public class Utilisateur {
      */
     public static void logout() {
         Utilisateur.connectedUser = null;
+    }
+    /**
+     * Connecte l'utilisateur courant.
+     *
+     * @param passwordToTry le mot de passe entré.
+     *
+     * @return Vrai (true) si l'utilisateur à l'autorisation de se connecter, false sinon.
+     */
+    public boolean login(String passwordToTry) {
+        if (this.motDePasse.equals(passwordToTry)) {
+            // Si le mot de passe est correct, modification de l'utilisateur connecté.
+            Utilisateur.connectedUser = this;
+            return true;
+        }
+        return false;
     }
 
     public String getIdentifiant() {
@@ -154,6 +169,22 @@ public class Utilisateur {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    /**
+     * recupere dans la base de donnee la liste des amis de l'utilisateur
+     * @return
+     */
+    public static SparseArray<Utilisateur> getListeAmis(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        String[] colonnes;
+        Cursor cursor = db.rawQuery("select ");
+        cursor.moveToFirst();
+        SparseArray<Utilisateur> users = new SparseArray<>();
+        while(!cursor.isAfterLast()){
+            int uId = cursor.getInt();
+            String
+        }
     }
 
 
