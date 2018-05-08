@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.1.1 on mar. mai 8 12:20:14 2018
+-- File generated with SQLiteStudio v3.1.1 on mar. mai 8 15:12:10 2018
 --
 -- Text encoding used: System
 --
@@ -20,7 +20,7 @@ CREATE TABLE QuestionReponse (ID_Question int NOT NULL REFERENCES Questions (ID_
 
 -- Table: Questions
 DROP TABLE IF EXISTS Questions;
-CREATE TABLE Questions (ID_Question int PRIMARY KEY NOT NULL UNIQUE, Numero_Ordre int, Format_Reponse char NOT NULL CHECK (Format_Reponse IN ('P', 'T')), Enonce varchar (45) NOT NULL, ID_Poll int NOT NULL REFERENCES Poll (ID_Poll), Nbr_Choix int);
+CREATE TABLE Questions (ID_Question int PRIMARY KEY NOT NULL UNIQUE, Numero_Ordre int, Format_Reponse char NOT NULL CHECK (Format_Reponse IN ('P', 'T')), Enonce varchar (45) NOT NULL, ID_Poll int NOT NULL REFERENCES Poll (ID_Poll), Nombres_de_Propositions int);
 
 -- Table: Reponses
 DROP TABLE IF EXISTS Reponses;
@@ -36,7 +36,7 @@ CREATE TABLE UtilisateurRéponse (Id_User int NOT NULL REFERENCES Utilisateurs (I
 
 -- Table: Utilisateurs
 DROP TABLE IF EXISTS Utilisateurs;
-CREATE TABLE Utilisateurs (ID_User IDU NOT NULL PRIMARY KEY UNIQUE, Prenom varchar (45) NOT NULL, Nom varchar (45) NOT NULL, Password text NOT NULL, BestFriend IDU, Pic BLOB, Mail text UNIQUE NOT NULL);
+CREATE TABLE Utilisateurs (ID_User IDU NOT NULL PRIMARY KEY UNIQUE, Prenom varchar (45) NOT NULL, Nom varchar (45) NOT NULL, Password text NOT NULL, BestFriend IDU, Pic photo, Mail text UNIQUE NOT NULL, identifiant String);
 
 -- Index: Idx UserReponse
 DROP INDEX IF EXISTS "Idx UserReponse";

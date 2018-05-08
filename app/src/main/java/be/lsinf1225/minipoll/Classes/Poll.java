@@ -1,10 +1,9 @@
 package be.lsinf1225.minipoll.Classes;
 
-import be.lsinf1225.minipoll.Classes.Utilisateur;
+//import be.lsinf1225.minipoll.Classes.Utilisateur;
 
-/**
- * Created by marti on 02-05-18.
- */
+//Created by marti on 02-05-18.
+
 
 public abstract class Poll {
 

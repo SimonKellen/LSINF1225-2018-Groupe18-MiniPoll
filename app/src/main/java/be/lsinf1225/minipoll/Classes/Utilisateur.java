@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Utilisateur {
 
-    // Variablees
+    // Variables
 
     private final int id;
     private String motDePasse;
@@ -24,7 +24,7 @@ public class Utilisateur {
 
     // Constructeur
 
-    private Utilisateur(int id, String motDePasse, String nom, String prenom, String identifiant, String photo, String mail){
+    private Utilisateur(int id, String motDePasse, String nom, String prenom, String identifiant, String photo, String mail) {
         this.id = id;
         this.motDePasse = motDePasse;
         this.nom = nom;
@@ -39,10 +39,10 @@ public class Utilisateur {
         Utilisateur.userSparseArray.put(id, this);
     }
 
-    //Demande d'ami (TODO) (lien avec la bdd)
+    //Demande d'ami TODO (lien avec la bdd)
 
     //public void demande_ami(Utilisateur utilisateur){
-        //utilisateur.ajout_Ami(this);
+    //utilisateur.ajout_Ami(this);
     //}
 
 
@@ -76,7 +76,6 @@ public class Utilisateur {
      * Connecte l'utilisateur courant.
      *
      * @param passwordToTry le mot de passe entré.
-     *
      * @return Vrai (true) si l'utilisateur à l'autorisation de se connecter, false sinon.
      */
     public boolean login(String passwordToTry) {
@@ -150,14 +149,13 @@ public class Utilisateur {
         }
     }
 
-    public void modifierMotDePasse(String nouveauMotDePasse, String nouveauMotDePasse1, String ancienMotDePasse){
+    public void modifierMotDePasse(String nouveauMotDePasse, String nouveauMotDePasse1, String ancienMotDePasse) {
         String ancienMotDePasse1 = "db.getancienmotdepasse";
-                if((ancienMotDePasse == ancienMotDePasse1) && (nouveauMotDePasse == nouveauMotDePasse1)){
-                    this.motDePasse = nouveauMotDePasse;
-                }
-                else{
-                    //"toast mauvais mot de passe"
-                }
+        if ((ancienMotDePasse == ancienMotDePasse1) && (nouveauMotDePasse == nouveauMotDePasse1)) {
+            this.motDePasse = nouveauMotDePasse;
+        } else {
+            //"toast mauvais mot de passe"
+        }
     }
 
     public void setNom(String nom) {
@@ -173,9 +171,10 @@ public class Utilisateur {
     }
 
     /**
+     * <<<<<<< HEAD
      * Verifie si l utilisateur existe.
      */
-    public Utilisateur isUtilisateur(String identifiant){
+    public Utilisateur isUtilisateur(String identifiant) {
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
 
@@ -216,6 +215,5 @@ public class Utilisateur {
 
         return null;
     }
-
-
 }
+
