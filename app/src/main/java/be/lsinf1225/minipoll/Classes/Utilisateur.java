@@ -171,5 +171,13 @@ public class Utilisateur {
         this.photo = photo;
     }
 
+    /**
+     * recupere dans la base de donnee la liste des amis de l'utilisateur
+     * @return
+     */
+    public static SparseArray<Utilisateur> getListeAmis(){
+
+    }
+
 
 }
