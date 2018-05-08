@@ -1,5 +1,7 @@
 package be.lsinf1225.minipoll.Classes;
 
+import android.util.SparseArray;
+
 import java.util.ArrayList;
 
 /**
@@ -10,20 +12,27 @@ public class Sondage_Pour_Accord extends Poll {
 
     //variables
 
-    public ArrayList<Utilisateur> participants;
-    public ArrayList<Reponse_Utilisateur> listeRep;
-    public Question question;
-    public int nombreRep; //a verifier si c est bien ca pcq je suis pas sur d avoir compris
+    private ArrayList<Utilisateur> participants;
+    private ArrayList<Reponse_Utilisateur> listeRep;
+    private Question question;
+    private int nombreRep; //a verifier si c est bien ca pcq je suis pas sur d avoir compris
+
+    /**
+     * Contient les instances déjà existantes des sondages pour accord afin d'éviter de créer deux instances identiques.
+     */
+    public static SparseArray<Sondage_Pour_Accord> spaSparseArray = new SparseArray<>();
 
     //constructeur
 
-    public Sondage_Pour_Accord(Utilisateur createur,String titre, ArrayList<Utilisateur> participants, Question question, int nombreRep){
+    public Sondage_Pour_Accord(int id,Utilisateur createur,String titre, ArrayList<Utilisateur> participants, Question question, int nombreRep){
+        super.id=id;
         super.createur=createur;
         super.titre=titre;
         this.participants=participants;
         this.listeRep=null;
         this.question=question;
         this.nombreRep=nombreRep;
+        spaSparseArray.put(id,this);
     }
 
     //getteur et setteur

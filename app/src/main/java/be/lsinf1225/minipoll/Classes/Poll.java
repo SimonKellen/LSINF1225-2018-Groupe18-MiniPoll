@@ -8,12 +8,12 @@ package be.lsinf1225.minipoll.Classes;
 public abstract class Poll {
 
     //variables
-
-    public Utilisateur createur;
-    public String titre;
+    //protected pour que les sous classes y ai acces
+    protected int id;
+    protected Utilisateur createur;
+    protected String titre;
 
     //getteur et setteur
-
 
     public Utilisateur getCreateur() {
         return this.createur;
@@ -29,5 +29,9 @@ public abstract class Poll {
 
     public void setTitre(String titre) {
         this.titre = titre;
+    }
+
+    public int getId() {
+        return id;
     }
 }

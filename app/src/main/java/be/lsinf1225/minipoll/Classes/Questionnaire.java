@@ -1,5 +1,7 @@
 package be.lsinf1225.minipoll.Classes;
 
+import android.util.SparseArray;
+
 import java.util.ArrayList;
 
 /**
@@ -10,64 +12,54 @@ public class Questionnaire extends Poll {
 
     //variables
 
-    ArrayList<Utilisateur> participants;
-    ArrayList<Question> questions;
-    ArrayList<Reponse_Utilisateur> listeRep;
+    private SparseArray<Utilisateur> participants;
+    private SparseArray<Question> questions;
+    private SparseArray<Reponse_Utilisateur> listeRep;
+
+    /**
+     * Contient les instances déjà existantes des sondages pour choix afin d'éviter de créer deux instances identiques.
+     */
+    public static SparseArray<Questionnaire> quesSparseArray = new SparseArray<>();
+
 
     //constructeur
 
-    public Questionnaire(Utilisateur createur,String titre,ArrayList<Utilisateur> participants,ArrayList<Question> questions){
-        super.createur=createur;
-        super.titre=titre;
-        this.participants=participants;
-        this.questions=questions;
-        this.listeRep=null;
+    public Questionnaire(int idp, Utilisateur createur, String titre, SparseArray<Utilisateur> participants, SparseArray<Question> questions) {
+        super.id=idp;
+        super.createur = createur;
+        super.titre = titre;
+        this.participants = participants;
+        this.questions = questions;
+        this.listeRep = null;
+        quesSparseArray.put(idp,this);
     }
 
     //getteur et setteur
 
 
-    public void setParticipants(ArrayList<Utilisateur> participants) {
+    public void setParticipants(SparseArray<Utilisateur> participants) {
         this.participants = participants;
     }
 
-    public void setListeRep(ArrayList<Reponse_Utilisateur> listeRep) {
+    public void setListeRep(SparseArray<Reponse_Utilisateur> listeRep) {
         this.listeRep = listeRep;
     }
 
-    public ArrayList<Question> getQuestions() {
+    public SparseArray<Question> getQuestions() {
         return questions;
     }
 
-    @Override
-    public void setCreateur(Utilisateur createur) {
-        super.setCreateur(createur);
-    }
-
-    public void setQuestions(ArrayList<Question> questions) {
+    public void setQuestions(SparseArray<Question> questions) {
         this.questions = questions;
     }
 
-    @Override
-    public void setTitre(String titre) {
-        super.setTitre(titre);
-    }
 
-    public ArrayList<Utilisateur> getParticipants() {
+    public SparseArray<Utilisateur> getParticipants() {
         return participants;
     }
 
-    public ArrayList<Reponse_Utilisateur> getListeRep() {
+    public SparseArray<Reponse_Utilisateur> getListeRep() {
         return listeRep;
     }
-
-    @Override
-    public Utilisateur getCreateur() {
-        return super.getCreateur();
-    }
-
-    @Override
-    public String getTitre() {
-        return super.getTitre();
-    }
 }
+

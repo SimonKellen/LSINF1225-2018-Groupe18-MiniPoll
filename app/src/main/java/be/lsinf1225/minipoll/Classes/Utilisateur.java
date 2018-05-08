@@ -24,7 +24,7 @@ public class Utilisateur {
 
     // Constructeur
 
-    private Utilisateur(int id, String motDePasse, String nom, String prenom, String identifiant, String photo, String mail) {
+    public Utilisateur(int id, String motDePasse, String nom, String prenom, String identifiant, String photo, String mail) {
         this.id = id;
         this.motDePasse = motDePasse;
         this.nom = nom;
@@ -50,7 +50,7 @@ public class Utilisateur {
      * Contient les instances déjà existantes des utilisateurs afin d'éviter de créer deux instances
      * du même utilisateur.
      */
-    private static SparseArray<Utilisateur> userSparseArray = new SparseArray<>();
+    public static SparseArray<Utilisateur> userSparseArray = new SparseArray<>();
 
     /**
      * Utilisateur actuellement connecté à l'application. Correspond à null si aucun utilisateur
@@ -193,14 +193,17 @@ public class Utilisateur {
 
             if (ident == identifiant) {
                 int idu = cursor.getInt(0);
-                String motDePasse = cursor.getString(1);
-                String name = cursor.getString(2);
-                String pren = cursor.getString(3);
-                String pho = cursor.getString(5);
-                String email = cursor.getString(6);
-                cursor.close();
-                db.close();
-                Utilisateur user = new Utilisateur(idu, motDePasse, name, pren, ident, pho, email);
+                Utilisateur user = Utilisateur.userSparseArray.get(idu);
+                if(user==null){
+                    String motDePasse = cursor.getString(1);
+                    String name = cursor.getString(2);
+                    String pren = cursor.getString(3);
+                    String pho = cursor.getString(5);
+                    String email = cursor.getString(6);
+                    cursor.close();
+                    db.close();
+                    user = new Utilisateur(idu, motDePasse, name, pren, ident, pho, email);
+                }
                 return user;
             }
 
@@ -241,8 +244,84 @@ public class Utilisateur {
         }
         cursor.close();
         db.close();
+        this.amis=users;
         return users;
     }
+
+    /**
+     *
+     * @return liste des utilisateurs lui ayant envoye une demande d ami
+     */
+    public SparseArray<Utilisateur> getDemandeAmisdb(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des utilisateurs ayant envoye une demande d ami a l utilisateur dont l id est 9 par exemple
+        cursor.moveToFirst();
+        SparseArray<Utilisateur> users = new SparseArray<>();
+        while (!cursor.isAfterLast()){
+            int idu = cursor.getInt(0);
+            String prenom = cursor.getString(1);
+            String nom = cursor.getString(2);
+            String password = cursor.getString(3);
+            String photo = cursor.getString(5);
+            String email = cursor.getString(6);
+            String identifiant = cursor.getString(7);
+            Utilisateur user = Utilisateur.userSparseArray.get(idu);
+            if(user==null){
+                user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail);
+            }
+            users.put(idu,user);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        db.close();
+        this.amis=users;
+        return users;
+    }
+
+    public SparseArray<Poll> getListePoll(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des Poll cree par l utilisateur dont l id vaut 9 par exemple
+        cursor.moveToFirst();
+        SparseArray<Poll> polls = new SparseArray<>();
+        while (!cursor.isAfterLast()){
+            int idp = cursor.getInt(0);
+            String etat = cursor.getString(2);
+            String titre = cursor.getString(3);
+            String type = cursor.getString(4);
+            if(type=="A"){
+                //alors c est un sondage pour choix (2 propositions)
+                Sondage_Pour_Choix spc = Sondage_Pour_Choix.spcSparseArray.get(idp);
+                if(spc==null){
+                    spc = new Sondage_Pour_Choix(idp, titre, this, null, null);
+                }
+                polls.put(idp,spc);
+            }
+            if(type=="S"){
+                //alors c est un sondage pour accord
+                Sondage_Pour_Accord spa = Sondage_Pour_Accord.spaSparseArray.get(idp);
+                if(spa==null){
+                    spa=new Sondage_Pour_Accord(idp,this, titre, null, null, -1);
+                }
+                polls.put(idp,spa);
+            }
+            else{
+                //alors c est un questionnaire
+                Questionnaire ques = Questionnaire.quesSparseArray.get(idp);
+                if(ques==null){
+                    ques=new Questionnaire(idp, this,titre, null, null);
+                }
+                polls.put(idp,ques);
+            }
+        }
+        cursor.close();
+        db.close();
+        this.poll=polls;
+        return polls;
+    }
+
+
+
+
 
 }
 
