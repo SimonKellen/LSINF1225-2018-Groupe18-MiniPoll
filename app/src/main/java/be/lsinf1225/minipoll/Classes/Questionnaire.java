@@ -96,16 +96,45 @@ public class Questionnaire extends Poll {
 
     /**
      *
-     * @return liste des amis d un utilisateur
+     * @return liste des questions d un questionnaire
      */
-    //public SparseArray<Utilisateur> getListQuestion(){
-      //  SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        //Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des questions appartenant a un poll dont l'idp est 4 par exemple
-        //cursor.moveToFirst();
-        //SparseArray<Question> ques = new SparseArray<>();
-        //while (!cursor.isAfterLast()){
-          //  int idq = cursor.getInt(0);
-           // int numordre = cursor.getInt(1);
+    public SparseArray<Question> getListQuestion(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des questions appartenant a un poll dont l'idp est 4 par exemple
+        cursor.moveToFirst();
+        SparseArray<Question> ques = new SparseArray<>();
+        while (!cursor.isAfterLast()){
+            int idq = cursor.getInt(0);
+            int numordre = cursor.getInt(1);
+            String format= cursor.getString(2);
+            String enonce = cursor.getString(3);
+            int nombreDeProp = cursor.getInt(5);
+            Question q = Question.quesSparseArray.get(idq);
+            if(q==null){
+                q=new Question(idq,null,-2);
+            }
+            ques.put(idq,q);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        db.close();
+        this.questions=ques;
+        return ques;
+    }
+
+    /**
+     *
+     * @return liste des reponses a un questionnaire
+     */
+    public SparseArray<Reponse_Utilisateur> getListRepUti(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toutes les réponses (et donc leur valeur associées) de chaque utilisateur a chaque question du questionnaire dont l'id est 4 par exemple
+        cursor.moveToFirst();
+        SparseArray<Reponse_Utilisateur> ru = new SparseArray<>();
+        while (!cursor.isAfterLast()){
+            // TODO a creer en fonction de ce que renvoit la commande sql que simon fait
+            //int idq = cursor.getInt(0);
+            //int numordre = cursor.getInt(1);
             //String format= cursor.getString(2);
             //String enonce = cursor.getString(3);
             //int nombreDeProp = cursor.getInt(5);
@@ -113,13 +142,19 @@ public class Questionnaire extends Poll {
             //if(q==null){
               //  q=new Question(idq,null,-2);
             //}
-            //users.put(idu,user);
-            //cursor.moveToNext();
-        //}
-        //cursor.close();
-        //db.close();
-        //this.amis=users;
-        //return users;
-    //}
+            //ques.put(idq,q);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        db.close();
+        this.listeRep=ru;
+        return ru;
+    }
+
+
+
+
+
+
 }
 
