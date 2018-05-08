@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import be.lsinf1225.minipoll.Classes.MiniPollApp;
+import be.lsinf1225.minipoll.Classes.Utilisateur;
 import be.lsinf1225.minipoll.R;
 
 public class CreationCompteActivity extends AppCompatActivity {
@@ -38,9 +40,30 @@ public class CreationCompteActivity extends AppCompatActivity {
 
     }
 
-    public void openCreationProfilActivity(){
-        Intent intent = new Intent(this, CreationProfilActivity.class);
-        startActivity(intent);
+    public void openCreationProfilActivity()
+    {
+        String username = edit1.getText().toString();
+        String password = edit2.getText().toString();
+        String confPassword = edit3.getText().toString();
+        if((username.length() == 0) || (password.length() == 0) || (confPassword.length() == 0))
+        {
+            MiniPollApp.notifyShort(R.string.incomplete_field);
+        }
+        else if(Utilisateur.isUtilisateur != null)
+        {
+            MiniPollApp.notifyShort(R.string.unavailable_id);
+        }
+        else if(!(password.equals(confPassword)))
+        {
+            MiniPollApp.notifyShort(R.string.diff_password);
+        }
+        else
+        {
+            //AJOUT DANS LA BASE DE DONNEES
+            Intent intent = new Intent(this, CreationProfilActivity.class);
+            startActivity(intent);
+        }
+
     }
 
 }
