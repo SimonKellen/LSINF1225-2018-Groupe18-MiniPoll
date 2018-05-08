@@ -1,29 +1,31 @@
 package be.lsinf1225.minipoll.Classes;
 
-import java.util.ArrayList;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.SparseArray;
 
-/**
- * Created by Simon Kellen on 30-04-18. J'avoue c mwa ki lé fé
- */
+import java.util.ArrayList;
 
 public class Utilisateur {
 
     // Variables
 
-
-    public String motDePasse;
-    public String nom;
-    public String prenom;
-    public String identifiant;
-    public String photo;
-    public Utilisateur bestFriend;
-    public ArrayList amis;
-    public ArrayList demandeAmis;
-    public ArrayList poll;
+    private final int id;
+    private String motDePasse;
+    private String nom;
+    private String prenom;
+    private String identifiant;
+    private String photo;
+    private Utilisateur bestFriend;
+    private SparseArray<Utilisateur> amis;
+    private SparseArray<Utilisateur> demandeAmis;
+    private SparseArray<Poll> poll;
+    private String mail;
 
     // Constructeur
 
-    public Utilisateur(String motDePasse, String nom, String prenom, String identifiant, String photo){
+    private Utilisateur(int id, String motDePasse, String nom, String prenom, String identifiant, String photo, String mail){
+        this.id = id;
         this.motDePasse = motDePasse;
         this.nom = nom;
         this.prenom = prenom;
@@ -33,6 +35,8 @@ public class Utilisateur {
         this.amis = null;
         this.demandeAmis = null;
         this.poll = null;
+        this.mail = mail;
+        Utilisateur.userSparseArray.put(id, this);
     }
 
     //Demande d'ami (TODO) (lien avec la bdd)
@@ -42,6 +46,31 @@ public class Utilisateur {
     //}
 
 
+    /**
+     * Contient les instances déjà existantes des utilisateurs afin d'éviter de créer deux instances
+     * du même utilisateur.
+     */
+    private static SparseArray<Utilisateur> userSparseArray = new SparseArray<>();
+
+    /**
+     * Utilisateur actuellement connecté à l'application. Correspond à null si aucun utilisateur
+     * n'est connecté.
+     */
+    private static Utilisateur connectedUser = null;
+
+    /**
+     * Fournit l'utilisateur actuellement connecté.
+     */
+    public static Utilisateur getConnectedUser() {
+        return Utilisateur.connectedUser;
+    }
+
+    /**
+     * Déconnecte l'utilisateur actuellement connecté à l'application.
+     */
+    public static void logout() {
+        Utilisateur.connectedUser = null;
+    }
 
     public String getIdentifiant() {
         return identifiant;
