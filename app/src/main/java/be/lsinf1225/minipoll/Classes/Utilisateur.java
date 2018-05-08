@@ -39,7 +39,7 @@ public class Utilisateur {
         Utilisateur.userSparseArray.put(id, this);
     }
 
-    //Demande d'ami (TODO) (lien avec la bdd)
+    //Demande d'ami TODO (lien avec la bdd)
 
     //public void demande_ami(Utilisateur utilisateur){
         //utilisateur.ajout_Ami(this);
