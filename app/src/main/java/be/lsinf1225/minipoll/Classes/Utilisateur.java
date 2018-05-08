@@ -1,7 +1,6 @@
 package be.lsinf1225.minipoll.Classes;
 
 import java.util.ArrayList;
-import be.lsinf1225.minipoll.Classes.Tools;
 
 /**
  * Created by Simon Kellen on 30-04-18. J'avoue c mwa ki lé fé
