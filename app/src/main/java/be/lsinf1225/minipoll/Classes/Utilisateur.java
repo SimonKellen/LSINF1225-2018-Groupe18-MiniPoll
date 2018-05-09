@@ -3,6 +3,7 @@ package be.lsinf1225.minipoll.Classes;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.SparseArray;
+import android.content.ContentValues;
 
 import java.util.ArrayList;
 
@@ -41,9 +42,39 @@ public class Utilisateur {
 
     //Demande d'ami TODO (lien avec la bdd)
 
-    //public void demande_ami(Utilisateur utilisateur){
-    //utilisateur.ajout_Ami(this);
-    //}
+    public void demande_ami(Utilisateur utilisateur){
+        this.demandeAmis.put(utilisateur.id, utilisateur);
+
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("ID_User1", this.identifiant);
+        values.put("ID_User2", utilisateur.identifiant);
+        values.put("Etat", "E");
+        // Inserting Row
+        db.insert("Ami", null, values);
+        db.close(); // Closing database connection
+    }
+
+    public void accepter_demande_ami(Utilisateur demandeAmis){
+        this.amis.put(demandeAmis.id, demandeAmis);
+        demandeAmis.amis.put(this.id, this);
+
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        //TODO
+        db.close(); // Closing database connection
+    }
+
+    public void refuser_demande_ami(Utilisateur demandeAmis){
+        this.amis.remove(demandeAmis.id);
+        demandeAmis.amis.remove(this.id);
+
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        //TODO
+        db.close(); // Closing database connection
+    }
 
 
     /**
@@ -127,8 +158,8 @@ public class Utilisateur {
         this.poll = poll;
     }
 
-    public void setAmis(SparseArray<Utilisateur> amis) {
-        this.amis = amis;
+    public void setAmis(Utilisateur ami) {
+        this.amis.put(ami.id, ami);
     }
 
     public void setDemandeAmis(SparseArray<Utilisateur> demandeAmis) {
