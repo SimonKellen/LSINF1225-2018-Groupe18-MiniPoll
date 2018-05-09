@@ -33,6 +33,7 @@ public class ConnexionActivity extends AppCompatActivity
         button1 = (Button) findViewById(R.id.connexion1);
         button2 = (Button) findViewById(R.id.connexion2);
 
+        //ArrayList<Utilisateur> users = Utilisateur.getUtilisateurs();
 
         button1.setOnClickListener(new View.OnClickListener()
         {
@@ -68,11 +69,14 @@ public class ConnexionActivity extends AppCompatActivity
         }
         else
         {
+            MiniPollApp.notifyShort(R.string.test);
+
             Utilisateur personne = Utilisateur.isUtilisateur(identifiant);
             if (personne != null)
             {
                 if (personne.login(motdepasse))
                 {
+
                     Intent intent = new Intent(this, MenuPrincipalActivity.class);
                     startActivity(intent);
                 }
