@@ -37,6 +37,10 @@
 
         <activity android:name=".Activites.ProfilActivity"/>
 
+        <activity android:name=".Activites.AjoutAmiActivity"/>
+
+        <activity android:name=".Activites.ListeAmisActivity"/>
+
     </application>
 
 </manifest>
