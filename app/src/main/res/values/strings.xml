@@ -6,11 +6,13 @@
     <string name="button_choose_item">Choose new item</string>
     <string name="label_current_selection">Current selection: </string>
     <string name="label_default_selection">None</string>
-    <string name="incorrect_password">Mot de passe incorrect.</string>
-    <string name="incorrect_login">Identifiant inexistant.</string>
-    <string name="incomplete_field">Veuillez complèter tous les champs.</string>
-    <string name="diff_password">Les mots de passe ne correspondent pas.</string>
-    <string name="unavailable_id">Cet identifiant n'est pas disponible.</string>
+    <string name="incorrect_password">Mot de passe incorrect</string>
+    <string name="incorrect_login">Identifiant inexistant</string>
+    <string name="incomplete_field">Veuillez complèter tous les champs</string>
+    <string name="diff_password">Les mots de passe ne correspondent pas</string>
+    <string name="unavailable_id">Cet identifiant n\'est pas disponible</string>
+    <string name="test">TEST TEST 1 2 1 2</string>
+
 
 
 
