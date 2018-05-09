@@ -68,7 +68,7 @@ public class Utilisateur {
         db.close();
     }
 
-    public void addLineInDb(Utilisateur utilisateur){
+    public void UtilisateurInDb(Utilisateur utilisateur){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put("ID_User",utilisateur.getId());
@@ -82,6 +82,8 @@ public class Utilisateur {
         db.insert("Utilisateurs",null,values);
         db.close();
     }
+
+
 
     //la fonction peut aussi être appelée pour supprimer un amis
     public void refuser_demande_ami(Utilisateur demandeAmis){
@@ -150,7 +152,7 @@ public class Utilisateur {
     public SparseArray<Utilisateur> getAmis() {
         return amis;
     }
-    
+
 
     public String getMotDePasse() {
         return motDePasse;

@@ -1,5 +1,6 @@
 package be.lsinf1225.minipoll.Classes;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.SparseArray;
@@ -26,17 +27,33 @@ public class Questionnaire extends Poll {
 
     //constructeur
 
-    public Questionnaire(int idp, Utilisateur createur, String titre, SparseArray<Utilisateur> participants, SparseArray<Question> questions) {
+    public Questionnaire(int idp, Utilisateur createur, String titre, SparseArray<Utilisateur> participants, SparseArray<Question> questions, String etat) {
         super.id=idp;
         super.createur = createur;
         super.titre = titre;
+        super.etat=etat;
+        super.type="Q";
         this.participants = participants;
         this.questions = questions;
         this.listeRep = null;
         quesSparseArray.put(idp,this);
     }
 
-    //getteur et setteur
+    //Les methodes
+
+    public void addupInDb(Questionnaire questionnaire){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        int size=questionnaire.getParticipants().size();
+        for(int i=0;i<size;i++){
+            Utilisateur user = questionnaire.getParticipants().valueAt(i);
+            ContentValues values = new ContentValues();
+            values.put("ID_User",user.getId());
+            values.put("ID_Poll",questionnaire.getId());
+            values.put("A_repondu","F");
+            db.insert("UtilisateurPoll",null,values);
+        }
+        db.close();
+    }
 
 
     public void setParticipants(SparseArray<Utilisateur> participants) {

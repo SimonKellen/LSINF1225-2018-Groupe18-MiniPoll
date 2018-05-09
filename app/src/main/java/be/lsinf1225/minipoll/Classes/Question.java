@@ -1,5 +1,6 @@
 package be.lsinf1225.minipoll.Classes;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.SparseArray;
@@ -30,6 +31,45 @@ public class Question {
         quesSparseArray.put(id,this);
     }
 
+    public int[] addReponseInDb(Question question){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        int size=question.getReponse().length;
+        int index=question.getLowestReponsesIdAvailable();
+        int returnvalue[]= new int[size];
+        String tab[] = question.getReponse();
+        for(int i=0;i<size;i++){
+            returnvalue[i]=index+i;
+            ContentValues values = new ContentValues();
+            values.put("ID_Reponse",index+i);
+            values.put("Valeur",tab[i]);
+            db.insert("Reponses",null,values);
+        }
+        db.close();
+        return returnvalue;
+    }
+
+    public void addqrInDb(Question question){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        int index[] = addReponseInDb(question);
+        int size=index.length;
+        for(int i=0;i<size;i++){
+            ContentValues values = new ContentValues();
+            values.put("ID_Question",question.getId());
+            values.put("ID_Reponse",index[i]);
+            if(question.bonne_rep==-1){
+                values.put("Bonne_reponse","NULL");
+            }
+            if(question.bonne_rep==i){
+                values.put("Bonne_reponse","V");
+            }
+            else{
+                values.put("Bonne_reponse","F");
+            }
+            db.insert("QuestionReponse",null,values);
+        }
+        db.close();
+    }
+
     //Méthodes
 
     public int getLowestQuestionIdAvailable(){
@@ -43,6 +83,24 @@ public class Question {
         }
         cursor.close();
         return uIdMAX+1;
+    }
+
+    public int getLowestReponsesIdAvailable(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(ID_Reponse) FROM Reponses ",null );
+        cursor.moveToFirst();
+        int uIdMAX=0;
+        while (!cursor.isAfterLast()) {
+            uIdMAX = cursor.getInt(0);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return uIdMAX+1;
+    }
+
+
+    public int getId() {
+        return id;
     }
 
     public int getBonne_rep() {

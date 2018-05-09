@@ -1,5 +1,6 @@
 package be.lsinf1225.minipoll.Classes;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.SparseArray;
@@ -85,6 +86,20 @@ public class Sondage_Pour_Accord extends Poll {
 
     public void setParticipants(SparseArray<Utilisateur> participants) {
         this.participants = participants;
+    }
+
+    public void addupInDb(Sondage_Pour_Accord spa){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        int size=spa.getParticipants().size();
+        for(int i=0;i<size;i++){
+            Utilisateur user = spa.getParticipants().valueAt(i);
+            ContentValues values = new ContentValues();
+            values.put("ID_User",user.getId());
+            values.put("ID_Poll",spa.getId());
+            values.put("A_repondu","F");
+            db.insert("UtilisateurPoll",null,values);
+        }
+        db.close();
     }
 
     public void setQuestion(Question question) {

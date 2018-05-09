@@ -41,7 +41,7 @@ public abstract class Poll {
         return id;
     }
 
-    public void addLineInDb(Poll poll){
+    public void addPollInDb(Poll poll){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put("ID_Poll",poll.getId());

@@ -2,6 +2,7 @@ package be.lsinf1225.minipoll.Classes;
 
 //import Poll;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.SparseArray;
@@ -61,6 +62,17 @@ public class Sondage_Pour_Choix extends Poll {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    public void addupInDb(Sondage_Pour_Choix spc){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+            Utilisateur user = spc.getParticipants();
+            ContentValues values = new ContentValues();
+            values.put("ID_User",user.getId());
+            values.put("ID_Poll",spc.getId());
+            values.put("A_repondu","F");
+            db.insert("UtilisateurPoll",null,values);
+        db.close();
     }
 
     /**
