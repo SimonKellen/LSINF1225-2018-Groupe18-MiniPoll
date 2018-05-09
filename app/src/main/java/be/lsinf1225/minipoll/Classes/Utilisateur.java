@@ -43,13 +43,13 @@ public class Utilisateur {
     //Demande d'ami TODO (lien avec la bdd)
 
     public void demande_ami(Utilisateur utilisateur){
-        this.demandeAmis.put(utilisateur.id, utilisateur);
+        this.getDemandeAmis().put(utilisateur.id, utilisateur);
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         ContentValues values = new ContentValues();
-        values.put("ID_User1", this.identifiant);
-        values.put("ID_User2", utilisateur.identifiant);
+        values.put("ID_User1", this.getIdentifiant());
+        values.put("ID_User2", utilisateur.getIdentifiant());
         values.put("Etat", "E");
         // Inserting Row
         db.insert("Ami", null, values);
@@ -57,22 +57,25 @@ public class Utilisateur {
     }
 
     public void accepter_demande_ami(Utilisateur demandeAmis){
-        this.amis.put(demandeAmis.id, demandeAmis);
-        demandeAmis.amis.put(this.id, this);
+        this.getAmis().put(demandeAmis.id, demandeAmis);
+        demandeAmis.getAmis().put(this.id, this);
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        //TODO
-        db.close(); // Closing database connection
+        ContentValues values = new ContentValues();
+        values.put("Etat", "A");
+        // updating row
+        db.update("Ami", values, "ID_User1 = '" + demandeAmis.getIdentifiant() + "' AND ID_User2 = '" + this.getIdentifiant() + "'", null);
+        db.close();
     }
 
     public void refuser_demande_ami(Utilisateur demandeAmis){
-        this.amis.remove(demandeAmis.id);
-        demandeAmis.amis.remove(this.id);
+        this.getAmis().remove(demandeAmis.id);
+        demandeAmis.getAmis().remove(this.id);
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        //TODO
+        db.delete("Amis", "ID_User1 = '" + demandeAmis.getIdentifiant() + "' AND ID_User2 = '" + this.getIdentifiant() + "'",null);
         db.close(); // Closing database connection
     }
 
