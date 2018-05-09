@@ -1,82 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/relativeLayout6">
 
 
     <TextView
+        android:id="@+id/textView18"
         android:layout_width="275dp"
         android:layout_height="74dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="28dp"
         android:gravity="center"
         android:text="Que voulez-vous faire aujourd'hui ?"
         android:textColor="@color/black"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <Button
         android:id="@+id/menu_principal1"
         android:layout_width="275dp"
-        android:layout_height="63dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="104dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
         android:gravity="center"
-        android:text="Trouver un accord entre amis" />
+        android:text="Trouver un accord entre amis"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <Button
         android:id="@+id/menu_principal2"
         android:layout_width="275dp"
-        android:layout_height="63dp"
-        android:layout_below="@+id/menu_principal1"
-        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Répondre à un questionnaire" />
+        android:text="Répondre à un questionnaire"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_principal1" />
 
     <Button
         android:id="@+id/menu_principal3"
         android:layout_width="275dp"
-        android:layout_height="63dp"
-        android:layout_below="@+id/menu_principal2"
-        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Aider un ami à faire un choix" />
+        android:text="Aider un ami à faire un choix"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_principal2" />
 
 
     <Button
         android:id="@+id/menu_principal4"
         android:layout_width="275dp"
-        android:layout_height="63dp"
-        android:layout_below="@+id/menu_principal3"
-        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Créer un sondage" />
+        android:text="Créer un sondage"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_principal3" />
 
 
     <Button
         android:id="@+id/menu_principal5"
         android:layout_width="275dp"
-        android:layout_height="63dp"
-        android:layout_below="@+id/menu_principal4"
-        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Gérer mon profil" />
+        android:text="Gérer mon profil"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_principal4" />
 
 
     <Button
         android:id="@+id/menu_principal6"
         android:layout_width="275dp"
-        android:layout_height="63dp"
-        android:layout_below="@+id/menu_principal5"
-        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Gérer ma liste d'amis" />
+        android:text="Gérer ma liste d'amis"
+        android:visibility="visible"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_principal5" />
 
 
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
