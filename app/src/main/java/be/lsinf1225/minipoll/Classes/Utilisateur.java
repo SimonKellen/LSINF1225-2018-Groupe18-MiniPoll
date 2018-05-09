@@ -3,6 +3,7 @@ package be.lsinf1225.minipoll.Classes;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.SparseArray;
+import android.content.ContentValues;
 
 import java.util.ArrayList;
 
@@ -41,9 +42,39 @@ public class Utilisateur {
 
     //Demande d'ami TODO (lien avec la bdd)
 
-    //public void demande_ami(Utilisateur utilisateur){
-    //utilisateur.ajout_Ami(this);
-    //}
+    public void demande_ami(Utilisateur utilisateur){
+        this.demandeAmis.put(utilisateur.id, utilisateur);
+
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("ID_User1", this.identifiant);
+        values.put("ID_User2", utilisateur.identifiant);
+        values.put("Etat", "E");
+        // Inserting Row
+        db.insert("Ami", null, values);
+        db.close(); // Closing database connection
+    }
+
+    public void accepter_demande_ami(Utilisateur demandeAmis){
+        this.amis.put(demandeAmis.id, demandeAmis);
+        demandeAmis.amis.put(this.id, this);
+
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        //TODO
+        db.close(); // Closing database connection
+    }
+
+    public void refuser_demande_ami(Utilisateur demandeAmis){
+        this.amis.remove(demandeAmis.id);
+        demandeAmis.amis.remove(this.id);
+
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        //TODO
+        db.close(); // Closing database connection
+    }
 
 
     /**
@@ -127,8 +158,8 @@ public class Utilisateur {
         this.poll = poll;
     }
 
-    public void setAmis(SparseArray<Utilisateur> amis) {
-        this.amis = amis;
+    public void setAmis(Utilisateur ami) {
+        this.amis.put(ami.id, ami);
     }
 
     public void setDemandeAmis(SparseArray<Utilisateur> demandeAmis) {
@@ -182,7 +213,7 @@ public class Utilisateur {
         String[] colonnes = {"ID_User", "Password", "Nom", "Prenom", "Identifiant", "Pic", "BestFriend", "Mail"};
 
         // Requête de selection (SELECT)
-        Cursor cursor = db.query("Utilisateur", colonnes, null, null, null, null, null);
+        Cursor cursor = db.query("Utilisateurs", colonnes, null, null, null, null, null);
         // Placement du curseur sur la première ligne.
         cursor.moveToFirst();
 
@@ -191,7 +222,7 @@ public class Utilisateur {
             // Récupération des informations de l'utilisateur pour chaque ligne.
             String ident = cursor.getString(4);
 
-            if (ident == identifiant) {
+            if (ident.equals(identifiant)) {
                 int idu = cursor.getInt(0);
                 Utilisateur user = Utilisateur.userSparseArray.get(idu);
                 if(user==null){
@@ -323,10 +354,53 @@ public class Utilisateur {
         return polls;
     }
 
+    public static ArrayList<Utilisateur> getUtilisateurs()
+    {
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
 
+        // Colonnes à récupérer
+        String[] colonnes = {"ID_User", "Password", "Nom", "Prenom", "Identifiant", "Pic", "BestFriend", "Mail"};
 
+        // Requête de selection (SELECT)
+        Cursor cursor = db.query("Utilisateurs", colonnes, null, null, null, null, null);
 
+        // Placement du curseur sur la première ligne.
+        cursor.moveToFirst();
 
+        // Initialisation la liste des utilisateurs.
+        ArrayList<Utilisateur> users = new ArrayList<>();
 
+        // Tant qu'il y a des lignes.
+        while (!cursor.isAfterLast()) {
+            // Récupération des informations de l'utilisateur pour chaque ligne.
+            int uId = cursor.getInt(0);
+            String motDePasse = cursor.getString(1);
+            String name = cursor.getString(2);
+            String pren = cursor.getString(3);
+            String identifiant = cursor.getString(4);
+            String pho = cursor.getString(5);
+            String email = cursor.getString(6);
+
+            // Vérification pour savoir s'il y a déjà une instance de cet utilisateur.
+            Utilisateur user = Utilisateur.userSparseArray.get(uId);
+            if (user == null) {
+                // Si pas encore d'instance, création d'une nouvelle instance.
+                user = new Utilisateur(uId,motDePasse,name,pren,identifiant,pho,email);
+            }
+
+            // Ajout de l'utilisateur à la liste.
+            users.add(user);
+
+            // Passe à la ligne suivante.
+            cursor.moveToNext();
+        }
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        return users;
+    }
 }
 

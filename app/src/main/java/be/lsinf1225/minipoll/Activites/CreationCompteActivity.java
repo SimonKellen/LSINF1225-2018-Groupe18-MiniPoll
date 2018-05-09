@@ -65,7 +65,6 @@ public class CreationCompteActivity extends AppCompatActivity {
             Intent intent = new Intent(this, CreationProfilActivity.class);
             Bundle b = new Bundle();
             b.putString("username",username);
-            intent.putExtras(b);
             b.putString("password",password);
             intent.putExtras(b);
             startActivity(intent);
