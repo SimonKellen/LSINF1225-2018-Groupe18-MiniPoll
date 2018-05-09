@@ -44,6 +44,7 @@ public class CreationProfilActivity extends AppCompatActivity {
     }
 
     public void openMenuActivity(){
+
         Intent intent = new Intent(this, MenuPrincipalActivity.class);
         startActivity(intent);
     }

@@ -213,7 +213,7 @@ public class Utilisateur {
         String[] colonnes = {"ID_User", "Password", "Nom", "Prenom", "Identifiant", "Pic", "BestFriend", "Mail"};
 
         // Requête de selection (SELECT)
-        Cursor cursor = db.query("Utilisateur", colonnes, null, null, null, null, null);
+        Cursor cursor = db.query("Utilisateurs", colonnes, null, null, null, null, null);
         // Placement du curseur sur la première ligne.
         cursor.moveToFirst();
 
@@ -363,7 +363,7 @@ public class Utilisateur {
         String[] colonnes = {"ID_User", "Password", "Nom", "Prenom", "Identifiant", "Pic", "BestFriend", "Mail"};
 
         // Requête de selection (SELECT)
-        Cursor cursor = db.query("Utilisateur", colonnes, null, null, null, null, null);
+        Cursor cursor = db.query("Utilisateurs", colonnes, null, null, null, null, null);
 
         // Placement du curseur sur la première ligne.
         cursor.moveToFirst();
