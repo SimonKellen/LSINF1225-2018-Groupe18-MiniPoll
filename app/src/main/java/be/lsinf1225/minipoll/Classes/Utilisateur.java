@@ -40,7 +40,6 @@ public class Utilisateur {
         Utilisateur.userSparseArray.put(id, this);
     }
 
-    //Demande d'ami TODO (lien avec la bdd)
 
     public void demande_ami(Utilisateur utilisateur){
         this.getDemandeAmis().put(utilisateur.id, utilisateur);
@@ -69,15 +68,33 @@ public class Utilisateur {
         db.close();
     }
 
+    public void addLineInDb(Utilisateur utilisateur){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("ID_User",utilisateur.getId());
+        values.put("Prenom",utilisateur.getPrenom());
+        values.put("Nom",utilisateur.getNom());
+        values.put("Password",utilisateur.getMotDePasse());
+        values.put("BestFriend",utilisateur.getBestFriend().getId());
+        values.put("Pic",utilisateur.getPhoto());
+        values.put("Mail",utilisateur.getMail());
+        values.put("Identifiant",utilisateur.getIdentifiant());
+        db.insert("Utilisateurs",null,values);
+        db.close();
+    }
+
+    //la fonction peut aussi être appelée pour supprimer un amis
     public void refuser_demande_ami(Utilisateur demandeAmis){
         this.getAmis().remove(demandeAmis.id);
         demandeAmis.getAmis().remove(this.id);
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        db.delete("Amis", "ID_User1 = '" + demandeAmis.getIdentifiant() + "' AND ID_User2 = '" + this.getIdentifiant() + "'",null);
+        db.delete("Amis", "ID_User1 = '" + demandeAmis.getIdentifiant() + "' AND ID_User2 = '" + this.getIdentifiant() + "'",null);//TODO: c'est pas getID que tu voulais appeler? et faut aussi faire le cas inverse au cas où l'amitier aurait été définie dans l'autre sens comme ça on peut utiliser la fonction aussi pour supprimer un ami
         db.close(); // Closing database connection
     }
+
+
 
 
     /**
@@ -125,9 +142,15 @@ public class Utilisateur {
         return identifiant;
     }
 
+    public int getId() {
+        return id;
+    }
+
+
     public SparseArray<Utilisateur> getAmis() {
         return amis;
     }
+    
 
     public String getMotDePasse() {
         return motDePasse;
@@ -161,6 +184,14 @@ public class Utilisateur {
         this.poll = poll;
     }
 
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
     public void setAmis(Utilisateur ami) {
         this.amis.put(ami.id, ami);
     }
@@ -184,7 +215,7 @@ public class Utilisateur {
     }
 
     public void modifierMotDePasse(String nouveauMotDePasse, String nouveauMotDePasse1, String ancienMotDePasse) {
-        String ancienMotDePasse1 = "db.getancienmotdepasse";
+        String ancienMotDePasse1 = "db.getancienmotdepasse";//TODO: genre ça marche ça?(question de Martin)
         if ((ancienMotDePasse == ancienMotDePasse1) && (nouveauMotDePasse == nouveauMotDePasse1)) {
             this.motDePasse = nouveauMotDePasse;
         } else {
@@ -405,5 +436,18 @@ public class Utilisateur {
 
         return users;
     }
+    public int getLowestUserIdAvailable(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(ID_User) FROM Utilisateurs ",null );
+        cursor.moveToFirst();
+        int uIdMAX=0;
+        while (!cursor.isAfterLast()) {
+            uIdMAX = cursor.getInt(0);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return uIdMAX+1;
+    }
+
 }
 

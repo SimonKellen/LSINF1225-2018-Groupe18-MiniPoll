@@ -1,5 +1,7 @@
 package be.lsinf1225.minipoll.Classes;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.SparseArray;
 
 /**
@@ -32,6 +34,18 @@ public class Reponse_Utilisateur {
 
     //Méthodes
 
+    public int getLowestRUIdAvailable(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT count(ID_User) FROM UtilisateurPoll where A_repondu='V' ",null );
+        cursor.moveToFirst();
+        int uIdMAX=0;
+        while (!cursor.isAfterLast()) {
+            uIdMAX = cursor.getInt(0);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return uIdMAX+1;
+    }
 
     public void setParticipants(Utilisateur participants) {
         this.participants = participants;

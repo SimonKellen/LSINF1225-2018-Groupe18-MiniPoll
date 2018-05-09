@@ -1,5 +1,7 @@
 package be.lsinf1225.minipoll.Classes;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.SparseArray;
 
 /**
@@ -30,6 +32,18 @@ public class Question {
 
     //Méthodes
 
+    public int getLowestQuestionIdAvailable(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(ID_Question) FROM Questions ",null );
+        cursor.moveToFirst();
+        int uIdMAX=0;
+        while (!cursor.isAfterLast()) {
+            uIdMAX = cursor.getInt(0);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return uIdMAX+1;
+    }
 
     public int getBonne_rep() {
         return bonne_rep;
