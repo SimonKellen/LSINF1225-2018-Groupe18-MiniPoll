@@ -27,8 +27,9 @@ public class Sondage_Pour_Choix extends Poll {
 
     //Constructeur
 
-    public Sondage_Pour_Choix(int id, String titre, Utilisateur createur, Utilisateur participants, Question question) {
+    public Sondage_Pour_Choix(int id, String titre, Utilisateur createur, Utilisateur participants, Question question,String etat) {
         super.id = id;
+        super.etat = etat;
         super.titre = titre;
         super.createur = createur;
         this.participants = participants;
@@ -87,7 +88,8 @@ public class Sondage_Pour_Choix extends Poll {
      */
     public Utilisateur getParticipantdb() {
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Prenom\", \"Nom\", \"Password\", \"BestFriend\", \"Pic\", \"Mail\" FROM Utilisateurs UT INNER JOIN UtilisateurPoll PO on UT.ID_User = PO.ID_User WHERE PO.ID_Poll = 4", null);//TODO Martin remplacer le 4 (Simon: commande pour recuperer toute la ligne de l utilisateur participant au poll dont idp est 4 par exemple(idem que pour questionnaire))
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Prenom\", \"Nom\", \"Password\", \"Pic\", \"Mail\", \"Identifiant\" FROM Utilisateurs UT INNER JOIN UtilisateurPoll PO on UT.ID_User = PO.ID_User WHERE PO.ID_Poll =" + arg, null);
         cursor.moveToFirst();
         Utilisateur part = null;
         while (!cursor.isAfterLast()) {
@@ -115,7 +117,8 @@ public class Sondage_Pour_Choix extends Poll {
      */
     public Question getQuestiondb() {
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT \"ID_Question\", \"Numero_Ordre\", \"Format_Reponse\", \"Enonce\", \"ID_Poll\", \"Nbr_Choix\" from Questions Q INNER JOIN Poll P on Q.ID_Poll = P.ID_Poll WHERE (P.Type = \"S\") AND P.ID_Poll = 3", null);//TODO Martin remplacer le 4 (Simon: commande pour recuperer toute la ligne de la question d un sondage pour choix dont l id est 4 par exemple)
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT \"ID_Question\", \"Numero_Ordre\", \"Format_Reponse\", \"Enonce\", \"ID_Poll\", \"Nbr_Choix\" from Questions Q INNER JOIN Poll P on Q.ID_Poll = P.ID_Poll WHERE (P.Type = \"S\") AND P.ID_Poll =" + arg, null);
         cursor.moveToFirst();
         Question q = null;
         while (!cursor.isAfterLast()) {
@@ -143,7 +146,8 @@ public class Sondage_Pour_Choix extends Poll {
      */
     public Reponse_Utilisateur getRepUti(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT URep.ID_User, URep.ID_Reponse, URep.Score FROM UtilisateurRéponse URep, Poll, Questions, QuestionReponse WHERE Poll.Type = 'S' AND Poll.ID_Poll = 2 AND Poll.ID_Poll = Questions.ID_Poll AND Questions.ID_Question = QuestionReponse.ID_Question AND QuestionReponse.ID_Reponse = URep.ID_Reponse",null );//TODO Martin remplacer le 2 (Simon: commande pour recuperer la réponse (et donc la valeur associée) de chaque utilisateur a chaque question du sondage pour choix dont l'id est 4 par exemple)
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT URep.ID_User, URep.ID_Reponse, URep.Score FROM UtilisateurRéponse URep, Poll, Questions, QuestionReponse WHERE Poll.Type = 'S' AND Poll.ID_Poll =" + arg + " AND Poll.ID_Poll = Questions.ID_Poll AND Questions.ID_Question = QuestionReponse.ID_Question AND QuestionReponse.ID_Reponse = URep.ID_Reponse",null );
         cursor.moveToFirst();
         Reponse_Utilisateur ru=null;
         while (!cursor.isAfterLast()){

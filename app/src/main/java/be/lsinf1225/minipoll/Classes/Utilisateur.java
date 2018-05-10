@@ -126,7 +126,7 @@ public class Utilisateur {
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        db.delete("Amis", "ID_User1 = '" + demandeAmis.getIdentifiant() + "' AND ID_User2 = '" + this.getIdentifiant() + "'",null);//TODO: c'est pas getID que tu voulais appeler?
+        db.delete("Amis", "ID_User1 = '" + demandeAmis.getId() + "' AND ID_User2 = '" + this.getId() + "'",null);
         db.close(); // Closing database connection
     }
 
@@ -412,7 +412,7 @@ public class Utilisateur {
         cursor.moveToFirst();
         String ancienMotDePasse1 = cursor.getString(0);
         cursor.close();
-        if ((ancienMotDePasse == ancienMotDePasse1) && (nouveauMotDePasse == nouveauMotDePasse1)) {
+        if ((ancienMotDePasse.equals(ancienMotDePasse1)) && (nouveauMotDePasse.equals(nouveauMotDePasse1))) {
             this.motDePasse = nouveauMotDePasse;
             ContentValues values = new ContentValues();
             values.put("Password", nouveauMotDePasse);
@@ -479,7 +479,8 @@ public class Utilisateur {
      */
     public SparseArray<Utilisateur> getListeAmis(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User in (SELECT ID_User1 FROM Ami WHERE ID_User2 = 9 and Etat = 'A') UNION SELECT * FROM Utilisateurs WHERE ID_User in (SELECT ID_User2 FROM Ami WHERE ID_User1 = 9 and Etat = 'A')",null );//TODO Martin remplacer le 9 (Simon: commande pour recuperer toute la ligne des utilisateurs etant amis avec l utilisateur dont l id vaut 9 par exemple)
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User in (SELECT ID_User1 FROM Ami WHERE ID_User2 =" + arg + " and Etat = 'A') UNION SELECT * FROM Utilisateurs WHERE ID_User in (SELECT ID_User2 FROM Ami WHERE ID_User1 =" + arg + " and Etat = 'A')",null );
         cursor.moveToFirst();
         SparseArray<Utilisateur> users = new SparseArray<>();
         while (!cursor.isAfterLast()){
@@ -509,21 +510,18 @@ public class Utilisateur {
      */
     public SparseArray<Utilisateur> getDemandeAmisdb(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-<<<<<<< HEAD
-        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des utilisateurs ayant envoye une demande d ami a l utilisateur dont l id est 9 par exemple(voir quand l'id est 9 dans la deuxième collone et avoir la mention 'E' comme état
-=======
-        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Nom\", \"Prenom\", \"Mail\", \"Pic\", \"Password\", \"BestFriend\" FROM Utilisateurs U INNER JOIN Ami A ON U.ID_User = A.ID_User1 WHERE Etat = 'E' AND A.ID_User2 = 2",null );//TODO Martin remplacer le 2, on est bien d'accord que quand on envoie une demande d'ami, il crée une ligne avec comme ID_User1 celui qui a envoyé la demande, ID_User2 celui qui reçoit la demande ?(Simon: commande pour recuperer toute la ligne des utilisateurs ayant envoye une demande d ami a l utilisateur dont l id est 9 par exemple)
->>>>>>> 4c154464a8a6ccaf6b69e0744ea74b23263a5a95
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Nom\", \"Prenom\", \"Mail\", \"Pic\", \"Password\", \"Identifiant\" FROM Utilisateurs U INNER JOIN Ami A ON U.ID_User = A.ID_User1 WHERE Etat = 'E' AND A.ID_User2 ="+arg,null );
         cursor.moveToFirst();
         SparseArray<Utilisateur> users = new SparseArray<>();
         while (!cursor.isAfterLast()){
             int idu = cursor.getInt(0);
-            String prenom = cursor.getString(1);
-            String nom = cursor.getString(2);
-            String password = cursor.getString(3);
-            String photo = cursor.getString(5);
-            String mail = cursor.getString(6);
-            String identifiant = cursor.getString(7);
+            String prenom = cursor.getString(2);
+            String nom = cursor.getString(1);
+            String password = cursor.getString(5);
+            String photo = cursor.getString(4);
+            String mail = cursor.getString(3);
+            String identifiant = cursor.getString(6);
             Utilisateur user = Utilisateur.userSparseArray.get(idu);
             if(user==null){
                 user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail);
@@ -543,7 +541,8 @@ public class Utilisateur {
      */
     public SparseArray<Poll> getListePoll(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT \"ID_Poll\", \"ID_User\", \"Etat\", \"Titre\", \"Type\" FROM Poll P INNER JOIN Utilisateurs U on P.ID_User = U.ID_User WHERE U.ID_User = 4",null );//TODO Martin Remplacer le 4(Simon: commande pour recuperer toute la ligne des Poll cree par l utilisateur dont l id vaut 9 par exemple)
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT \"ID_Poll\", \"ID_User\", \"Etat\", \"Titre\", \"Type\" FROM Poll P INNER JOIN Utilisateurs U on P.ID_User = U.ID_User WHERE U.ID_User =" + arg,null );
         cursor.moveToFirst();
         SparseArray<Poll> polls = new SparseArray<>();
         while (!cursor.isAfterLast()){
@@ -551,19 +550,19 @@ public class Utilisateur {
             String etat = cursor.getString(2);
             String titre = cursor.getString(3);
             String type = cursor.getString(4);
-            if(type=="A"){
+            if(type.equals("A")){
                 //alors c est un sondage pour choix (2 propositions)
                 Sondage_Pour_Choix spc = Sondage_Pour_Choix.spcSparseArray.get(idp);
                 if(spc==null){
-                    spc = new Sondage_Pour_Choix(idp, titre, this, null, null);
+                    spc = new Sondage_Pour_Choix(idp, titre, this, null, null,etat);
                 }
                 polls.put(idp,spc);
             }
-            if(type=="S"){
+            if(type.equals("S")){
                 //alors c est un sondage pour accord
                 Sondage_Pour_Accord spa = Sondage_Pour_Accord.spaSparseArray.get(idp);
                 if(spa==null){
-                    spa=new Sondage_Pour_Accord(idp,this, titre, null, null, -1);
+                    spa=new Sondage_Pour_Accord(idp,this, titre, null, null, -1,etat);
                 }
                 polls.put(idp,spa);
             }
@@ -571,7 +570,7 @@ public class Utilisateur {
                 //alors c est un questionnaire
                 Questionnaire ques = Questionnaire.quesSparseArray.get(idp);
                 if(ques==null){
-                    ques=new Questionnaire(idp, this ,titre, null, null,etat="o");
+                    ques=new Questionnaire(idp, this ,titre, null, null,etat);
                 }
                 polls.put(idp,ques);
             }

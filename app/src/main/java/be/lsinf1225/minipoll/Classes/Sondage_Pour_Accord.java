@@ -27,8 +27,9 @@ public class Sondage_Pour_Accord extends Poll {
 
     //constructeur
 
-    public Sondage_Pour_Accord(int id,Utilisateur createur,String titre, SparseArray<Utilisateur> participants, Question question, int nombreRep){
+    public Sondage_Pour_Accord(int id,Utilisateur createur,String titre, SparseArray<Utilisateur> participants, Question question, int nombreRep,String etat){
         super.id=id;
+        super.etat=etat;
         super.createur=createur;
         super.titre=titre;
         this.participants=participants;
@@ -100,17 +101,17 @@ public class Sondage_Pour_Accord extends Poll {
      */
     public SparseArray<Utilisateur> getListeParticipants(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Prenom\", \"Nom\", \"Password\", \"BestFriend\", \"Pic\", \"Mail\" FROM Utilisateurs UT INNER JOIN UtilisateurPoll PO on UT.ID_User = PO.ID_User WHERE PO.ID_Poll = 4",null );//TODO Martin remplacer le 4 (Simon: commande pour recuperer toute la ligne des utilisateurs participants au poll dont idp est 4 par exemple(idem que pour questionnaire))
-        cursor.moveToFirst();
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Prenom\", \"Nom\", \"Password\", \"Pic\", \"Mail\", \"Identifiant\" FROM Utilisateurs UT INNER JOIN UtilisateurPoll PO on UT.ID_User = PO.ID_User WHERE PO.ID_Poll =" + arg,null );
         SparseArray<Utilisateur> part = new SparseArray<>();
         while (!cursor.isAfterLast()){
             int idu = cursor.getInt(0);
             String prenom = cursor.getString(1);
             String nom = cursor.getString(2);
             String password = cursor.getString(3);
-            String photo = cursor.getString(5);
-            String mail = cursor.getString(6);
-            String identifiant = cursor.getString(7);
+            String photo = cursor.getString(4);
+            String mail = cursor.getString(5);
+            String identifiant = cursor.getString(6);
             Utilisateur user = Utilisateur.userSparseArray.get(idu);
             if(user==null){
                 user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail);
@@ -130,7 +131,8 @@ public class Sondage_Pour_Accord extends Poll {
      */
     public Question getQuestiondb(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT \"ID_Question\", \"Numero_Ordre\", \"Format_Reponse\", \"Enonce\", \"ID_Poll\", \"Nbr_Choix\" from Questions Q INNER JOIN Poll P on Q.ID_Poll = P.ID_Poll WHERE (P.Type = \"A\") AND P.ID_Poll = 3",null );//TODO Martin remplacer le 4, ne renvoie rien si le poll dont l'id_poll est 4 n'est pas un sondage pour accord, normal ? (Simon: commande pour recuperer toute la ligne de la question d un sondage pour accord dont l id est 4 par exemple)
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT \"ID_Question\", \"Numero_Ordre\", \"Format_Reponse\", \"Enonce\", \"ID_Poll\", \"Nbr_Choix\" from Questions Q INNER JOIN Poll P on Q.ID_Poll = P.ID_Poll WHERE (P.Type = \"A\") AND P.ID_Poll =" + arg,null );
         cursor.moveToFirst();
         Question q=null;
         while (!cursor.isAfterLast()){
@@ -159,7 +161,8 @@ public class Sondage_Pour_Accord extends Poll {
      */
     public SparseArray<Reponse_Utilisateur> getListRepUti(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT URep.ID_User, URep.ID_Reponse, URep.Score FROM UtilisateurRéponse URep, Poll, Questions, QuestionReponse WHERE Poll.Type = 'A' AND Poll.ID_Poll = 3 AND Poll.ID_Poll = Questions.ID_Poll AND Questions.ID_Question = QuestionReponse.ID_Question AND QuestionReponse.ID_Reponse = URep.ID_Reponse",null );//TODO Martin changer le 3 (Simon: commande pour recuperer toutes les réponses (et donc leur valeur associées) de chaque utilisateur a chaque question du sondage pour accord dont l'id est 4 par exemple
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT URep.ID_User, URep.ID_Reponse, URep.Score FROM UtilisateurRéponse URep, Poll, Questions, QuestionReponse WHERE Poll.Type = 'A' AND Poll.ID_Poll =" + arg + " AND Poll.ID_Poll = Questions.ID_Poll AND Questions.ID_Question = QuestionReponse.ID_Question AND QuestionReponse.ID_Reponse = URep.ID_Reponse",null );
         cursor.moveToFirst();
         SparseArray<Reponse_Utilisateur> ru = new SparseArray<>();
         while (!cursor.isAfterLast()){
