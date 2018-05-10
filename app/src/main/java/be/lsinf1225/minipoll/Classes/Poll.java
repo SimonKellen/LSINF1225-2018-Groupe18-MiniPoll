@@ -75,6 +75,26 @@ public abstract class Poll {
         db.close();
     }
 
+    /*
+    empêche les utilisateurs d'envoyer d'autres votes
+     */
+    public void stopPoll(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Etat", "F");
+        db.update("Poll", values, "ID_Poll = '" + this.getId(), null);
+        db.close();
+    }
+    /*
+    supprime un poll
+     */
+    public void deletePoll(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        String idp = Integer.toString(this.getId());
+        db.delete("Poll", "Id_Poll=" + idp , null);
+    }
+    
+
 
     /*
     ajoute une question dans la bdd
