@@ -34,6 +34,9 @@ public class Reponse_Utilisateur {
 
     //Méthodes
 
+    /*
+    retourne le plus petit Id libre dans la bdd pour créer un nouvelle reponseUtilisateur
+     */
     public int getLowestRUIdAvailable(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT count(ID_User) FROM UtilisateurPoll where A_repondu='V' ",null );
@@ -47,6 +50,9 @@ public class Reponse_Utilisateur {
         return uIdMAX+1;
     }
 
+    /*
+      fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    */
     public void setParticipants(Utilisateur participants) {
         this.participants = participants;
     }

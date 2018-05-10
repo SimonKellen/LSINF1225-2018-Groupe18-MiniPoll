@@ -19,8 +19,11 @@ public abstract class Poll {
     protected String etat;
     protected String type;
 
-    //getteur et setteur
+    //Methodes
 
+    /*
+      fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    */
     public Utilisateur getCreateur() {
         return this.createur;
     }
@@ -41,6 +44,25 @@ public abstract class Poll {
         return id;
     }
 
+    public String getEtat() {
+        return etat;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /*
+    ajoute un poll dans la base de données
+     */
     public void addPollInDb(Poll poll){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         ContentValues values = new ContentValues();
@@ -53,6 +75,10 @@ public abstract class Poll {
         db.close();
     }
 
+
+    /*
+    ajoute une question dans la bdd
+     */
     public void addQuestionsInDb(Poll poll,int nombredeProp[],String format[],Question questions[]){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         int size = questions.length;
@@ -70,22 +96,11 @@ public abstract class Poll {
         db.close();
     }
 
-    public String getEtat() {
-        return etat;
-    }
 
-    public String getType() {
-        return type;
-    }
 
-    public void setEtat(String etat) {
-        this.etat = etat;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
+    /*
+    retourne le plus petit Id libre dans la bdd pour créer un nouveau poll
+     */
     public int getLowestPollIdAvailable(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT MAX(ID_Poll) FROM Poll ",null );

@@ -40,26 +40,9 @@ public class Sondage_Pour_Accord extends Poll {
 
     //getteur et setteur
 
-    @Override
-    public void setTitre(String titre) {
-        super.setTitre(titre);
-    }
-
-    @Override
-    public void setCreateur(Utilisateur createur) {
-        super.setCreateur(createur);
-    }
-
-    @Override
-    public String getTitre() {
-        return super.getTitre();
-    }
-
-    @Override
-    public Utilisateur getCreateur() {
-        return super.getCreateur();
-    }
-
+    /*
+      fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    */
     public SparseArray<Reponse_Utilisateur> getListeRep() {
         return listeRep;
     }
@@ -88,6 +71,13 @@ public class Sondage_Pour_Accord extends Poll {
         this.participants = participants;
     }
 
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    /*
+    ajoute une ligne dans la table utilisateur reponse lorsque celui ci à été invité à participer à un poll
+     */
     public void addupInDb(Sondage_Pour_Accord spa){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         int size=spa.getParticipants().size();
@@ -102,13 +92,11 @@ public class Sondage_Pour_Accord extends Poll {
         db.close();
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
+
 
     /**
      *
-     * @return liste des participants a un sondage pour accord
+     * @return liste des participants a un sondage pour accord en allant la chercher dans la bdd
      */
     public SparseArray<Utilisateur> getListeParticipants(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -167,7 +155,7 @@ public class Sondage_Pour_Accord extends Poll {
 
     /**
      *
-     * @return liste des reponses a un sondage pour accord
+     * @return liste des reponses a un sondage pour accord depuis la bdd
      */
     public SparseArray<Reponse_Utilisateur> getListRepUti(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();

@@ -39,7 +39,9 @@ public class Sondage_Pour_Choix extends Poll {
 
     //Méthodes
 
-
+    /*
+      fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    */
     public Question getQuestion() {
         return question;
     }
@@ -64,6 +66,11 @@ public class Sondage_Pour_Choix extends Poll {
         this.question = question;
     }
 
+
+
+    /*
+    ajoute une ligne dans la table utilisateur reponse lorsque celui ci à été invité à participer à un poll
+     */
     public void addupInDb(Sondage_Pour_Choix spc){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
             Utilisateur user = spc.getParticipants();
@@ -76,7 +83,7 @@ public class Sondage_Pour_Choix extends Poll {
     }
 
     /**
-     * @return participant a un sondage pour choix
+     * @return participant a un sondage pour choix en allant les chercher dans la bdd
      */
     public Utilisateur getParticipantdb() {
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();

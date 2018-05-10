@@ -41,6 +41,9 @@ public class Questionnaire extends Poll {
 
     //Les methodes
 
+    /*
+    ajoute une ligne dans la table utilisateur reponse lorsque celui ci à été invité à participer à un poll
+     */
     public void addupInDb(Questionnaire questionnaire){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         int size=questionnaire.getParticipants().size();
@@ -55,6 +58,9 @@ public class Questionnaire extends Poll {
         db.close();
     }
 
+    /*
+      fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    */
 
     public void setParticipants(SparseArray<Utilisateur> participants) {
         this.participants = participants;
@@ -83,7 +89,7 @@ public class Questionnaire extends Poll {
 
     /**
      *
-     * @return liste des participants a un questionnaire
+     * @return liste des participants a un questionnaire depuis la bdd
      */
     public SparseArray<Utilisateur> getListeParticipants(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -113,7 +119,7 @@ public class Questionnaire extends Poll {
 
     /**
      *
-     * @return liste des questions d un questionnaire
+     * @return liste des questions d un questionnaire depuis la bdd
      */
     public SparseArray<Question> getListQuestion(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -141,7 +147,7 @@ public class Questionnaire extends Poll {
 
     /**
      *
-     * @return liste des reponses a un questionnaire
+     * @return liste des reponses a un questionnaire depuis la bdd
      */
     public SparseArray<Reponse_Utilisateur> getListRepUti(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
