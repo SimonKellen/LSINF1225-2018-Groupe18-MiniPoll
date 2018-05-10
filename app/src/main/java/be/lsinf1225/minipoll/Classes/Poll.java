@@ -93,7 +93,7 @@ public abstract class Poll {
         String idp = Integer.toString(this.getId());
         db.delete("Poll", "Id_Poll=" + idp , null);
     }
-    
+
 
 
     /*
