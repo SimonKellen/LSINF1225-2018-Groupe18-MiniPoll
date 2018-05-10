@@ -42,7 +42,7 @@ public class ProfilActivity extends AppCompatActivity {
         imButton2 = (ImageButton) findViewById(R.id.imageButton2);
         imButton3 = (ImageButton) findViewById(R.id.imageButton3);
         imButton4 = (ImageButton) findViewById(R.id.imageButton4);
-
+        
         Bitmap bitmap;
         Uri data = Uri.parse(Utilisateur.connectedUser.getPhoto());
         try {

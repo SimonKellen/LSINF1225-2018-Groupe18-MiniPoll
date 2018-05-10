@@ -79,17 +79,17 @@ public class Utilisateur {
     /*
     ajoute l'utilisateur en argument dans la base de donnée(vérifier auparavent si il existait déjà)
      */
-    public static void addUtilisateurInDb(Utilisateur utilisateur){
+    public void addUtilisateurInDb(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         ContentValues values = new ContentValues();
-        values.put("ID_User",utilisateur.getId());
-        values.put("Prenom",utilisateur.getPrenom());
-        values.put("Nom",utilisateur.getNom());
-        values.put("Password",utilisateur.getMotDePasse());
-        values.put("BestFriend",utilisateur.getBestFriend().getId());
-        values.put("Pic",utilisateur.getPhoto());
-        values.put("Mail",utilisateur.getMail());
-        values.put("Identifiant",utilisateur.getIdentifiant());
+        values.put("ID_User",this.getId());
+        values.put("Prenom",this.getPrenom());
+        values.put("Nom",this.getNom());
+        values.put("Password",this.getMotDePasse());
+        //values.put("BestFriend",this.getBestFriend().getId());
+        values.put("Pic",this.getPhoto());
+        values.put("Mail",this.getMail());
+        values.put("Identifiant",this.getIdentifiant());
         db.insert("Utilisateurs",null,values);
         db.close();
     }
@@ -183,7 +183,7 @@ public class Utilisateur {
     fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
      */
     public int getId() {
-        return id;
+        return this.id;
     }
 
 
@@ -554,18 +554,18 @@ public class Utilisateur {
      *
      * @return liste des utilisateurs lui ayant envoye une demande d ami
      */
-    public SparseArray<Utilisateur> getDemandeAmisdb(){
+    /**public SparseArray<Utilisateur> getDemandeAmisdb(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-<<<<<<< HEAD
+
 
         Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des utilisateurs ayant envoye une demande d ami a l utilisateur dont l id est 9 par exemple(voir quand l'id est 9 dans la deuxième collone et avoir la mention 'E' comme état
 
         Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Nom\", \"Prenom\", \"Mail\", \"Pic\", \"Password\", \"BestFriend\" FROM Utilisateurs U INNER JOIN Ami A ON U.ID_User = A.ID_User1 WHERE Etat = 'E' AND A.ID_User2 = 2",null );//TODO Martin remplacer le 2, on est bien d'accord que quand on envoie une demande d'ami, il crée une ligne avec comme ID_User1 celui qui a envoyé la demande, ID_User2 celui qui reçoit la demande ?(Simon: commande pour recuperer toute la ligne des utilisateurs ayant envoye une demande d ami a l utilisateur dont l id est 9 par exemple)
 
-=======
+
         String arg = Integer.toString(this.getId());
         Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Nom\", \"Prenom\", \"Mail\", \"Pic\", \"Password\", \"Identifiant\" FROM Utilisateurs U INNER JOIN Ami A ON U.ID_User = A.ID_User1 WHERE Etat = 'E' AND A.ID_User2 ="+arg,null );
->>>>>>> e5182a97b5e0060283ca6b9225ef5c72077d1deb
+
         cursor.moveToFirst();
         SparseArray<Utilisateur> users = new SparseArray<>();
         while (!cursor.isAfterLast()){
@@ -587,7 +587,7 @@ public class Utilisateur {
         db.close();
         this.amis=users;
         return users;
-    }
+    }*/
 
     /**
      *
