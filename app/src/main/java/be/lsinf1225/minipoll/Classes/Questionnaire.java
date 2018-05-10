@@ -44,7 +44,7 @@ public class Questionnaire extends Poll {
     /*
     ajoute une ligne dans la table utilisateur reponse lorsque celui ci à été invité à participer à un poll
      */
-    public void addupInDb(Questionnaire questionnaire){
+    public static void addupInDb(Questionnaire questionnaire){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         int size=questionnaire.getParticipants().size();
         for(int i=0;i<size;i++){

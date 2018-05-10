@@ -37,7 +37,7 @@ public class Reponse_Utilisateur {
     /*
     retourne le plus petit Id libre dans la bdd pour créer un nouvelle reponseUtilisateur
      */
-    public int getLowestRUIdAvailable(){
+    public static int getLowestRUIdAvailable(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT count(ID_User) FROM UtilisateurPoll where A_repondu='V' ",null );
         cursor.moveToFirst();
@@ -80,5 +80,6 @@ public class Reponse_Utilisateur {
     public void setTableauRep(int[][] tableauRep) {
         this.tableauRep = tableauRep;
     }
+
 
 }

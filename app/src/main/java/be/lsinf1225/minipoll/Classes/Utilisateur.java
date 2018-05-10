@@ -97,7 +97,7 @@ public class Utilisateur {
     /*
     ajoute un utilisateur-reponse dans la base de donnée
      */
-    public void addurInDb(Utilisateur utilisateur,Question question,int choosenIndex, int givenvalue){
+    public static void addurInDb(Utilisateur utilisateur,Question question,int choosenIndex, int givenvalue){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put("ID_User",utilisateur.getId());
@@ -586,7 +586,7 @@ public class Utilisateur {
     /*
     retourne le plus petit Id libre dans la bdd pour créer un nouveel utilisateur
      */
-    public int getLowestUserIdAvailable(){
+    public static int getLowestUserIdAvailable(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT MAX(ID_User) FROM Utilisateurs ",null );
         cursor.moveToFirst();
@@ -603,7 +603,7 @@ public class Utilisateur {
     /*
     verifie que le format fournit pour l'adresse mail est valide
      */
-    public boolean verifFormatMail(String mail){
+    public static boolean verifFormatMail(String mail){
         int size=mail.length();
         boolean found1=false;
         boolean found2=false;
