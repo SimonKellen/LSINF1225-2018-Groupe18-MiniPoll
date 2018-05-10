@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.1.1 on jeu. mai 10 13:38:23 2018
+-- File generated with SQLiteStudio v3.1.1 on jeu. mai 10 16:48:08 2018
 --
 -- Text encoding used: System
 --
@@ -8,7 +8,7 @@ BEGIN TRANSACTION;
 
 -- Table: Ami
 DROP TABLE IF EXISTS Ami;
-CREATE TABLE Ami (ID_User1 int NOT NULL REFERENCES Utilisateurs (ID_User), ID_User2 int NOT NULL REFERENCES Utilisateurs (ID_User), Etat char NOT NULL CHECK (Etat IN ('R', 'A', 'E')));
+CREATE TABLE Ami (ID_User1 int NOT NULL REFERENCES Utilisateurs (ID_User), ID_User2 int NOT NULL REFERENCES Utilisateurs (ID_User), Etat STRING NOT NULL CHECK (Etat IN ("R", "A", "E")));
 
 -- Table: Poll
 DROP TABLE IF EXISTS Poll;
@@ -20,7 +20,7 @@ CREATE TABLE QuestionReponse (ID_Question int NOT NULL REFERENCES Questions (ID_
 
 -- Table: Questions
 DROP TABLE IF EXISTS Questions;
-CREATE TABLE Questions (ID_Question int PRIMARY KEY NOT NULL UNIQUE, Numero_Ordre int, Format_Reponse char NOT NULL CHECK (Format_Reponse IN ('P', 'T')), Enonce varchar (45) NOT NULL, ID_Poll int NOT NULL REFERENCES Poll (ID_Poll), Nombres_de_Propositions int);
+CREATE TABLE Questions (ID_Question int PRIMARY KEY NOT NULL UNIQUE, Numero_Ordre int, Format_Reponse STRING NOT NULL CHECK (Format_Reponse IN ("P", "T")), Enonce varchar (45) NOT NULL, ID_Poll int NOT NULL REFERENCES Poll (ID_Poll), Nombres_de_Propositions int);
 
 -- Table: Reponses
 DROP TABLE IF EXISTS Reponses;

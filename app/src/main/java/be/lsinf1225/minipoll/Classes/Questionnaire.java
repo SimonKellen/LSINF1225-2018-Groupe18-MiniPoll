@@ -93,7 +93,8 @@ public class Questionnaire extends Poll {
      */
     public SparseArray<Utilisateur> getListeParticipants(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Prenom\", \"Nom\", \"Password\", \"BestFriend\", \"Pic\", \"Mail\" FROM Utilisateurs UT INNER JOIN UtilisateurPoll PO on UT.ID_User = PO.ID_User WHERE PO.ID_Poll = 4",null );//TODO Martin remplacer le 4
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Prenom\", \"Nom\", \"Password\", \"Pic\", \"Mail\", \"Identifiant\" FROM Utilisateurs UT INNER JOIN UtilisateurPoll PO on UT.ID_User = PO.ID_User WHERE PO.ID_Poll =" + arg ,null );
         cursor.moveToFirst();
         SparseArray<Utilisateur> part = new SparseArray<>();
         while (!cursor.isAfterLast()){
@@ -101,9 +102,9 @@ public class Questionnaire extends Poll {
             String prenom = cursor.getString(1);
             String nom = cursor.getString(2);
             String password = cursor.getString(3);
-            String photo = cursor.getString(5);
-            String mail = cursor.getString(6);
-            String identifiant = cursor.getString(7);
+            String photo = cursor.getString(4);
+            String mail = cursor.getString(5);
+            String identifiant = cursor.getString(6);
             Utilisateur user = Utilisateur.userSparseArray.get(idu);
             if(user==null){
                 user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail);
@@ -123,7 +124,8 @@ public class Questionnaire extends Poll {
      */
     public SparseArray<Question> getListQuestion(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT \"ID_Question\", \"Numero_Ordre\", \"Format_Reponse\", \"Enonce\", \"Nbr_Choix\" from Questions WHERE ID_Poll = 4;",null );//TODO Martin remplacer le 4
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT \"ID_Question\", \"Numero_Ordre\", \"Format_Reponse\", \"Enonce\", \"Nbr_Choix\" from Questions WHERE ID_Poll =" + arg ,null );
         cursor.moveToFirst();
         SparseArray<Question> ques = new SparseArray<>();
         while (!cursor.isAfterLast()){
@@ -151,7 +153,8 @@ public class Questionnaire extends Poll {
      */
     public SparseArray<Reponse_Utilisateur> getListRepUti(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT UR.Id_User, UR.ID_Reponse, UR.Score  FROM UtilisateurRéponse UR, QuestionReponse QR, Questions QU, Poll PO WHERE UR.ID_Reponse = QR.ID_Reponse AND QR.ID_Question = QU.ID_Question AND QU.ID_Poll = PO.ID_Poll AND PO.ID_Poll = 5 and PO.Type = 'Q'",null );//TODO Martin remplacer le 5 (Simon: commande pour recuperer toutes les réponses (et donc leur valeur associées) de chaque utilisateur a chaque question du questionnaire dont l'id est 4 par exemple)
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT UR.Id_User, UR.ID_Reponse, UR.Score  FROM UtilisateurRéponse UR, QuestionReponse QR, Questions QU, Poll PO WHERE UR.ID_Reponse = QR.ID_Reponse AND QR.ID_Question = QU.ID_Question AND QU.ID_Poll = PO.ID_Poll AND PO.ID_Poll =" + arg + " and PO.Type = 'Q'",null );
         cursor.moveToFirst();
         SparseArray<Reponse_Utilisateur> ru = new SparseArray<>();
         while (!cursor.isAfterLast()){
