@@ -33,7 +33,7 @@ public class ConnexionActivity extends AppCompatActivity
         button1 = (Button) findViewById(R.id.connexion1);
         button2 = (Button) findViewById(R.id.connexion2);
 
-        Utilisateur.userSparseArray = Utilisateur.getUtilisateurs();
+        ArrayList<Utilisateur> Users = Utilisateur.getUtilisateurs();
 
         button1.setOnClickListener(new View.OnClickListener()
         {

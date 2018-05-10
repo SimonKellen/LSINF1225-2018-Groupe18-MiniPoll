@@ -79,7 +79,7 @@ public class Utilisateur {
     /*
     ajoute l'utilisateur en argument dans la base de donnée(vérifier auparavent si il existait déjà)
      */
-    public void addUtilisateurInDb(Utilisateur utilisateur){
+    public static void addUtilisateurInDb(Utilisateur utilisateur){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put("ID_User",utilisateur.getId());
@@ -142,7 +142,7 @@ public class Utilisateur {
      * Utilisateur actuellement connecté à l'application. Correspond à null si aucun utilisateur
      * n'est connecté.
      */
-    private static Utilisateur connectedUser = null;
+    public static Utilisateur connectedUser = null;
 
     /**
      * Fournit l'utilisateur actuellement connecté.
