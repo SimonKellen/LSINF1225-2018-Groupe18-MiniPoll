@@ -10,22 +10,19 @@ import be.lsinf1225.minipoll.Classes.MiniPollApp;
 import be.lsinf1225.minipoll.Classes.Utilisateur;
 import be.lsinf1225.minipoll.R;
 
-public class ModifMdpActivity extends AppCompatActivity {
-
+public class ModifIdActivity extends AppCompatActivity {
 
     private EditText edit1;
     private EditText edit2;
-    private EditText edit3;
     private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.modif_mdp);
+        setContentView(R.layout.liste_d_amis);
 
         edit1 = (EditText) findViewById(R.id.editText1);
         edit2 = (EditText) findViewById(R.id.editText2);
-        edit3 = (EditText) findViewById(R.id.editText3);
 
         button = (Button) findViewById(R.id.button1);
 
@@ -33,35 +30,34 @@ public class ModifMdpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                mdpCheck();
+                idChange();
             }
         });
 
 
     }
 
-    public void mdpCheck()
+    public void idChange()
     {
-        String currentMdp = edit1.getText().toString();
-        String newMdp = edit2.getText().toString();
-        String confNewMdp = edit3.getText().toString();
-        if((currentMdp.length()==0) || (newMdp.length()==0) || (confNewMdp.length()==0))
+        String newId = edit1.getText().toString();
+        String mdp = edit2.getText().toString();
+
+        if((newId.length()==0) || (mdp.length()==0))
         {
             MiniPollApp.notifyShort(R.string.incomplete_field);
         }
-        else if(!currentMdp.equals(Utilisateur.connectedUser.getMotDePasse()))
+        else if(Utilisateur.isUtilisateur(newId) != null)
         {
-            MiniPollApp.notifyShort(R.string.incorrect_current_password);
+            MiniPollApp.notifyShort(R.string.unavailable_id);
         }
-        else if(!newMdp.equals(confNewMdp))
+        else if(!newId.equals(Utilisateur.connectedUser.getIdentifiant()))
         {
-            MiniPollApp.notifyShort(R.string.diff_password_new);
+            MiniPollApp.notifyShort(R.string.diff_password);
         }
         else
         {
-            Utilisateur.connectedUser.setMotDePasse(newMdp);
-            finishActivity(2);
+            Utilisateur.connectedUser.setIdentifiant(newId);
+            finishActivity(1);
         }
     }
 }
-

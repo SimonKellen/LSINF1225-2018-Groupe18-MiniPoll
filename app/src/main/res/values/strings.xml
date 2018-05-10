@@ -17,7 +17,7 @@
     <string name="dialog_id">Modification de l\'identifiant</string>
     <string name="modif">Modification enregistrée</string>
     <string name="incorrect_current_password">Le mot de passe actuel ne corrrespond pas</string>
-
+    <string name="diff_password_new">Les nouveaux mots de passe ne correspondent pas</string>
 
 
 

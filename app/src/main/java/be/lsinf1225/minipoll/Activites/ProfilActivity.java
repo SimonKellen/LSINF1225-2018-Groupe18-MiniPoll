@@ -25,9 +25,9 @@ public class ProfilActivity extends AppCompatActivity {
     public static final int CHANGE_MDP_REQUEST = 2;
     private ImageView picture;
     private TextView edit1;
-    private TextView edit2;
-    private TextView edit3;
-    private TextView edit4;
+    private EditText edit2;
+    private EditText edit3;
+    private EditText edit4;
     private ImageButton imButton2;
     private ImageButton imButton3;
     private ImageButton imButton4;
@@ -43,14 +43,15 @@ public class ProfilActivity extends AppCompatActivity {
 
         picture = (ImageView) findViewById(R.id.imageView);
         edit1 = (TextView) findViewById(R.id.textView9);
-        edit2 = (TextView) findViewById(R.id.textView10);
-        edit3 = (TextView) findViewById(R.id.textView11);
-        edit4 = (TextView) findViewById(R.id.textView12);
+        edit2 = (EditText) findViewById(R.id.textView10);
+        edit3 = (EditText) findViewById(R.id.textView11);
+        edit4 = (EditText) findViewById(R.id.textView12);
         imButton5 = (ImageButton) findViewById(R.id.imageButton5);
         imButton2 = (ImageButton) findViewById(R.id.imageButton2);
         imButton3 = (ImageButton) findViewById(R.id.imageButton3);
         imButton4 = (ImageButton) findViewById(R.id.imageButton4);
         button1 = (Button) findViewById(R.id.button1);
+        button2 = (Button) findViewById(R.id.button2);
 
         if(Utilisateur.connectedUser.getPhoto().equals(R.string.default_picture))
         {
@@ -145,12 +146,13 @@ public class ProfilActivity extends AppCompatActivity {
     }
     public void startModifId()
     {
-
+        Intent intent = new Intent(this,ModifIdActivity.class);
+        startActivityForResult(intent,1);
     }
     public void changeMdp()
     {
         Intent intent = new Intent(this,ModifMdpActivity.class);
-        startActivityForResult(intent,0);
+        startActivityForResult(intent,2);
     }
 
     @Override

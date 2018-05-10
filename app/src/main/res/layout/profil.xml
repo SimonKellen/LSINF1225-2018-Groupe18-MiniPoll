@@ -47,13 +47,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <TextView
+    <EditText
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="2dp"
         android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,13 +61,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-    <TextView
+    <EditText
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="2dp"
         android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,13 +75,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-    <TextView
+    <EditText
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="2dp"
         android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
