@@ -12,6 +12,7 @@
     <string name="diff_password">Les mots de passe ne correspondent pas</string>
     <string name="unavailable_id">Cet identifiant n\'est pas disponible</string>
     <string name="test">TEST TEST 1 2 1 2</string>
+    <string name="wrong_mail_format">Veuillez entrer une adresse mail valide</string>
 
 
 

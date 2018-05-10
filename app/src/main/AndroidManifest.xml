@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="be.lsinf1225.minipoll">
 
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name="be.lsinf1225.minipoll.Classes.MiniPollApp">
+
 
         <activity android:name=".Activites.ConnexionActivity">
             <intent-filter>
@@ -42,5 +48,6 @@
         <activity android:name=".Activites.ListeAmisActivity"/>
 
     </application>
+
 
 </manifest>

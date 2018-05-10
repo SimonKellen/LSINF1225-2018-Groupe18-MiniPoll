@@ -136,7 +136,6 @@ public class Utilisateur {
      * du même utilisateur.
      */
     public static SparseArray<Utilisateur> userSparseArray = new SparseArray<>();
-    public static int userCount;
 
     /**
      * Utilisateur actuellement connecté à l'application. Correspond à null si aucun utilisateur
@@ -615,7 +614,6 @@ public class Utilisateur {
             if (user == null) {
                 // Si pas encore d'instance, création d'une nouvelle instance.
                 user = new Utilisateur(uId,motDePasse,name,pren,identifiant,pho,email);
-                userCount++;
             }
 
             // Ajout de l'utilisateur à la liste.
