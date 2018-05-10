@@ -1,5 +1,6 @@
 package be.lsinf1225.minipoll.Classes;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.SparseArray;
@@ -39,26 +40,9 @@ public class Sondage_Pour_Accord extends Poll {
 
     //getteur et setteur
 
-    @Override
-    public void setTitre(String titre) {
-        super.setTitre(titre);
-    }
-
-    @Override
-    public void setCreateur(Utilisateur createur) {
-        super.setCreateur(createur);
-    }
-
-    @Override
-    public String getTitre() {
-        return super.getTitre();
-    }
-
-    @Override
-    public Utilisateur getCreateur() {
-        return super.getCreateur();
-    }
-
+    /*
+      fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    */
     public SparseArray<Reponse_Utilisateur> getListeRep() {
         return listeRep;
     }
@@ -91,9 +75,28 @@ public class Sondage_Pour_Accord extends Poll {
         this.question = question;
     }
 
+    /*
+    ajoute une ligne dans la table utilisateur reponse lorsque celui ci à été invité à participer à un poll
+     */
+    public void addupInDb(Sondage_Pour_Accord spa){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        int size=spa.getParticipants().size();
+        for(int i=0;i<size;i++){
+            Utilisateur user = spa.getParticipants().valueAt(i);
+            ContentValues values = new ContentValues();
+            values.put("ID_User",user.getId());
+            values.put("ID_Poll",spa.getId());
+            values.put("A_repondu","F");
+            db.insert("UtilisateurPoll",null,values);
+        }
+        db.close();
+    }
+
+
+
     /**
      *
-     * @return liste des participants a un sondage pour accord
+     * @return liste des participants a un sondage pour accord en allant la chercher dans la bdd
      */
     public SparseArray<Utilisateur> getListeParticipants(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -152,7 +155,7 @@ public class Sondage_Pour_Accord extends Poll {
 
     /**
      *
-     * @return liste des reponses a un sondage pour accord
+     * @return liste des reponses a un sondage pour accord depuis la bdd
      */
     public SparseArray<Reponse_Utilisateur> getListRepUti(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();

@@ -2,6 +2,7 @@ package be.lsinf1225.minipoll.Classes;
 
 //import Poll;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.SparseArray;
@@ -38,7 +39,9 @@ public class Sondage_Pour_Choix extends Poll {
 
     //Méthodes
 
-
+    /*
+      fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    */
     public Question getQuestion() {
         return question;
     }
@@ -63,8 +66,24 @@ public class Sondage_Pour_Choix extends Poll {
         this.question = question;
     }
 
+
+
+    /*
+    ajoute une ligne dans la table utilisateur reponse lorsque celui ci à été invité à participer à un poll
+     */
+    public void addupInDb(Sondage_Pour_Choix spc){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+            Utilisateur user = spc.getParticipants();
+            ContentValues values = new ContentValues();
+            values.put("ID_User",user.getId());
+            values.put("ID_Poll",spc.getId());
+            values.put("A_repondu","F");
+            db.insert("UtilisateurPoll",null,values);
+        db.close();
+    }
+
     /**
-     * @return participant a un sondage pour choix
+     * @return participant a un sondage pour choix en allant les chercher dans la bdd
      */
     public Utilisateur getParticipantdb() {
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();

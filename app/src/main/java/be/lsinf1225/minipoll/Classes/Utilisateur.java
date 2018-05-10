@@ -40,24 +40,31 @@ public class Utilisateur {
         Utilisateur.userSparseArray.put(id, this);
     }
 
-    //Demande d'ami TODO (lien avec la bdd)
+    //les Méthodes
 
+    /*
+    Lorsque l'utilisateur envoit une demande d'ami à un autre utilisateur(Vérifier auparavant qu'il existe avec isUtilisateur)
+    Met à jour la bdd une fois l'opération effectuée
+     */
     public void demande_ami(Utilisateur utilisateur){
-        this.getDemandeAmis().put(utilisateur.id, utilisateur);
+        utilisateur.getDemandeAmis().put(this.getId(), this);
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         ContentValues values = new ContentValues();
-        values.put("ID_User1", this.getIdentifiant());
-        values.put("ID_User2", utilisateur.getIdentifiant());
+        values.put("ID_User1", this.getId());
+        values.put("ID_User2", utilisateur.getId());
         values.put("Etat", "E");
         // Inserting Row
         db.insert("Ami", null, values);
         db.close(); // Closing database connection
     }
 
+    /*
+    Lorsque l'on veut accepter des demandes d'amis on en choisit une pour l'accepter, la base de données est mise à jour
+     */
     public void accepter_demande_ami(Utilisateur demandeAmis){
-        this.getAmis().put(demandeAmis.id, demandeAmis);
+        this.getAmis().put(demandeAmis.getId(), demandeAmis);
         demandeAmis.getAmis().put(this.id, this);
 
         // Récupération du  SQLiteHelper et de la base de données.
@@ -65,17 +72,61 @@ public class Utilisateur {
         ContentValues values = new ContentValues();
         values.put("Etat", "A");
         // updating row
-        db.update("Ami", values, "ID_User1 = '" + demandeAmis.getIdentifiant() + "' AND ID_User2 = '" + this.getIdentifiant() + "'", null);
+        db.update("Ami", values, "ID_User1 = '" + demandeAmis.getId() + "' AND ID_User2 = '" + this.getId() + "'", null);
         db.close();
     }
 
+    /*
+    ajoute l'utilisateur en argument dans la base de donnée(vérifier auparavent si il existait déjà)
+     */
+    public void addUtilisateurInDb(Utilisateur utilisateur){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("ID_User",utilisateur.getId());
+        values.put("Prenom",utilisateur.getPrenom());
+        values.put("Nom",utilisateur.getNom());
+        values.put("Password",utilisateur.getMotDePasse());
+        values.put("BestFriend",utilisateur.getBestFriend().getId());
+        values.put("Pic",utilisateur.getPhoto());
+        values.put("Mail",utilisateur.getMail());
+        values.put("Identifiant",utilisateur.getIdentifiant());
+        db.insert("Utilisateurs",null,values);
+        db.close();
+    }
+
+    /*
+    ajoute un utilisateur-reponse dans la base de donnée
+     */
+    public void addurInDb(Utilisateur utilisateur,Question question,int choosenIndex, int givenvalue){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("ID_User",utilisateur.getId());
+        int rep[]=question.getIdreponse();
+        for(int i=0;i<rep.length;i++){
+            values.put("ID_Reponse",rep[i]);
+            if(i==choosenIndex){
+                values.put("Score",givenvalue);
+            }
+            else{
+                values.put("Score",0);
+            }
+            db.insert("UtilisateurRéponse",null,values);
+        }
+        db.close();
+    }
+
+
+
+    /*
+    refuse la demande d'amitier d'un utilisateur, supprime la relation dans la bdd et retire l'utilisateur de la liste des demandes d'ami
+     */
     public void refuser_demande_ami(Utilisateur demandeAmis){
         this.getAmis().remove(demandeAmis.id);
         demandeAmis.getAmis().remove(this.id);
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        db.delete("Amis", "ID_User1 = '" + demandeAmis.getIdentifiant() + "' AND ID_User2 = '" + this.getIdentifiant() + "'",null);
+        db.delete("Amis", "ID_User1 = '" + demandeAmis.getIdentifiant() + "' AND ID_User2 = '" + this.getIdentifiant() + "'",null);//TODO: c'est pas getID que tu voulais appeler?
         db.close(); // Closing database connection
     }
 
@@ -122,88 +173,210 @@ public class Utilisateur {
         return false;
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public String getIdentifiant() {
         return identifiant;
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
+    public int getId() {
+        return id;
+    }
+
+
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public SparseArray<Utilisateur> getAmis() {
         return amis;
     }
 
+
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public String getMotDePasse() {
         return motDePasse;
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public String getNom() {
         return nom;
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public String getPrenom() {
         return prenom;
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public String getPhoto() {
         return photo;
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public Utilisateur getBestFriend() {
         return bestFriend;
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public SparseArray<Poll> getPoll() {
         return poll;
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public SparseArray<Utilisateur> getDemandeAmis() {
         return demandeAmis;
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public void setPoll(SparseArray<Poll> poll) {
         this.poll = poll;
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
+    public String getMail() {
+        return mail;
+    }
+
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public void setAmis(Utilisateur ami) {
         this.amis.put(ami.id, ami);
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public void setDemandeAmis(SparseArray<Utilisateur> demandeAmis) {
         this.demandeAmis = demandeAmis;
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public void setBestFriend(Utilisateur bestFriend) {
         this.bestFriend = bestFriend;
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public void setIdentifiant(String identifiant) {
         this.identifiant = identifiant;
     }
 
+    /*
+    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+     */
     public void setMotDePasse(String motDePasse) {
         if (this.motDePasse == null) {
             this.motDePasse = motDePasse;
         }
     }
 
-    public void modifierMotDePasse(String nouveauMotDePasse, String nouveauMotDePasse1, String ancienMotDePasse) {
-        String ancienMotDePasse1 = "db.getancienmotdepasse";
-        if ((ancienMotDePasse == ancienMotDePasse1) && (nouveauMotDePasse == nouveauMotDePasse1)) {
-            this.motDePasse = nouveauMotDePasse;
-        } else {
-            //"toast mauvais mot de passe"
+    /*
+    modifie la bdd ainsi que l'objet et retourne true si la modification a pu être faite
+    Si false est retourne alors l'identifiant existe deja pour un autre utilisateur ou alors le mot de passe est faux
+     */
+    public boolean modifierIdentifiant(String nouveauIdentifiant, String motDePasse){
+        if(this.motDePasse.equals(motDePasse)){
+            Utilisateur user=Utilisateur.isUtilisateur(nouveauIdentifiant);
+            if(user==null){
+                this.identifiant=nouveauIdentifiant;
+                SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("Identifiant", "nouveauIdentifiant");
+                // updating row
+                db.update("Utilisateur", values, "ID_User1 = '" + this.getId(), null);
+                db.close();
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
         }
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    /*
+    modifie le mot de passe de l'utilisateur en vérifiant si tout s'est bien passé ou pas
+    Si false est retourné alors soit l'ancien mot de passe était faux soit le nouveau a mal été entré
+    Il faudra afficher un toast dans ce cas
+    Retourne true si ça c'est bien passé
+    L'objet et la bdd sont mise à jour
+     */
+    public boolean modifierMotDePasse(String nouveauMotDePasse, String nouveauMotDePasse1, String ancienMotDePasse) {
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        String arg=Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT Password FROM Utilisateurs WHERE ID_User=" + arg,null);
+        cursor.moveToFirst();
+        String ancienMotDePasse1 = cursor.getString(0);
+        cursor.close();
+        if ((ancienMotDePasse == ancienMotDePasse1) && (nouveauMotDePasse == nouveauMotDePasse1)) {
+            this.motDePasse = nouveauMotDePasse;
+            ContentValues values = new ContentValues();
+            values.put("Password", nouveauMotDePasse);
+            db.update("Utilisateur", values, "ID_User1 = '" + this.getId(), null);
+            db.close();
+            return true;
+        } else {
+            db.close();
+            return false;
+        }
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
 
     /**
      * <<<<<<< HEAD
@@ -249,13 +422,12 @@ public class Utilisateur {
         // Fermeture du curseur et de la base de données.
         cursor.close();
         db.close();
-
         return null;
     }
 
     /**
      *
-     * @return liste des amis d un utilisateur
+     * @return liste des amis d un utilisateur en allant les chercher dans la bdd
      */
     public SparseArray<Utilisateur> getListeAmis(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -289,7 +461,7 @@ public class Utilisateur {
      */
     public SparseArray<Utilisateur> getDemandeAmisdb(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des utilisateurs ayant envoye une demande d ami a l utilisateur dont l id est 9 par exemple
+        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des utilisateurs ayant envoye une demande d ami a l utilisateur dont l id est 9 par exemple(voir quand l'id est 9 dans la deuxième collone et avoir la mention 'E' comme état
         cursor.moveToFirst();
         SparseArray<Utilisateur> users = new SparseArray<>();
         while (!cursor.isAfterLast()){
@@ -347,7 +519,7 @@ public class Utilisateur {
                 //alors c est un questionnaire
                 Questionnaire ques = Questionnaire.quesSparseArray.get(idp);
                 if(ques==null){
-                    ques=new Questionnaire(idp, this,titre, null, null);
+                    ques=new Questionnaire(idp, this ,titre, null, null,etat="o");
                 }
                 polls.put(idp,ques);
             }
@@ -358,6 +530,9 @@ public class Utilisateur {
         return polls;
     }
 
+    /*
+    recuperer dans la base de donnnées tout les utilisateurs et les stockes dans une arraylist
+     */
     public static ArrayList<Utilisateur> getUtilisateurs()
     {
         // Récupération du  SQLiteHelper et de la base de données.
@@ -407,5 +582,54 @@ public class Utilisateur {
 
         return users;
     }
+
+    /*
+    retourne le plus petit Id libre dans la bdd pour créer un nouveel utilisateur
+     */
+    public int getLowestUserIdAvailable(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(ID_User) FROM Utilisateurs ",null );
+        cursor.moveToFirst();
+        int uIdMAX=0;
+        while (!cursor.isAfterLast()) {
+            uIdMAX = cursor.getInt(0);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        db.close();
+        return uIdMAX+1;
+    }
+
+    /*
+    verifie que le format fournit pour l'adresse mail est valide
+     */
+    public boolean verifFormatMail(String mail){
+        int size=mail.length();
+        boolean found1=false;
+        boolean found2=false;
+        for(int i=0;i<size;i++){
+            if(mail.charAt(i)=='@'){
+                if(found1){
+                    return false;
+                }
+                else{
+                    found1=true;
+                    i++;
+                }
+            }
+            if(mail.charAt(i)=='.'){
+                if (found1 && found2){
+                    return false;
+                }
+                if(found1){
+                    found2=true;
+                    i++;
+                }
+            }
+
+        }
+        return(found1 && found2);
+    }
+
 }
 
