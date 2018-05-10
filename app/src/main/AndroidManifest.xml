@@ -47,6 +47,9 @@
 
         <activity android:name=".Activites.ListeAmisActivity"/>
 
+        <activity android:name=".Activites.ModifMdpActivity"/>
+
+
     </application>
 
 

@@ -69,7 +69,6 @@ public class ConnexionActivity extends AppCompatActivity
         }
         else
         {
-            MiniPollApp.notifyShort(R.string.test);
 
             Utilisateur personne = Utilisateur.isUtilisateur(identifiant);
             if (personne != null)

@@ -14,6 +14,9 @@
     <string name="test">TEST TEST 1 2 1 2</string>
     <string name="wrong_mail_format">Veuillez entrer une adresse mail valide</string>
     <string name="default_picture">Image par defaut</string>
+    <string name="dialog_id">Modification de l\'identifiant</string>
+    <string name="modif">Modification enregistrée</string>
+    <string name="incorrect_current_password">Le mot de passe actuel ne corrrespond pas</string>
 
 
 
