@@ -112,7 +112,7 @@ public class Sondage_Pour_Accord extends Poll {
      */
     public SparseArray<Utilisateur> getListeParticipants(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des utilisateurs participants au poll dont idp est 4 par exemple(idem que pour questionnaire)
+        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Prenom\", \"Nom\", \"Password\", \"BestFriend\", \"Pic\", \"Mail\" FROM Utilisateurs UT INNER JOIN UtilisateurPoll PO on UT.ID_User = PO.ID_User WHERE PO.ID_Poll = 4",null );//TODO Martin remplacer le 4 (Simon: commande pour recuperer toute la ligne des utilisateurs participants au poll dont idp est 4 par exemple(idem que pour questionnaire))
         cursor.moveToFirst();
         SparseArray<Utilisateur> part = new SparseArray<>();
         while (!cursor.isAfterLast()){
@@ -142,7 +142,7 @@ public class Sondage_Pour_Accord extends Poll {
      */
     public Question getQuestiondb(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne de la question d un sondage pour accord dont l id est 4 par exemple
+        Cursor cursor = db.rawQuery("SELECT \"ID_Question\", \"Numero_Ordre\", \"Format_Reponse\", \"Enonce\", \"ID_Poll\", \"Nbr_Choix\" from Questions Q INNER JOIN Poll P on Q.ID_Poll = P.ID_Poll WHERE (P.Type = \"A\") AND P.ID_Poll = 3",null );//TODO Martin remplacer le 4, ne renvoie rien si le poll dont l'id_poll est 4 n'est pas un sondage pour accord, normal ? (Simon: commande pour recuperer toute la ligne de la question d un sondage pour accord dont l id est 4 par exemple)
         cursor.moveToFirst();
         Question q=null;
         while (!cursor.isAfterLast()){
@@ -171,7 +171,7 @@ public class Sondage_Pour_Accord extends Poll {
      */
     public SparseArray<Reponse_Utilisateur> getListRepUti(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toutes les réponses (et donc leur valeur associées) de chaque utilisateur a chaque question du sondage pour accord dont l'id est 4 par exemple
+        Cursor cursor = db.rawQuery("SELECT URep.ID_User, URep.ID_Reponse, URep.Score FROM UtilisateurRéponse URep, Poll, Questions, QuestionReponse WHERE Poll.Type = 'A' AND Poll.ID_Poll = 3 AND Poll.ID_Poll = Questions.ID_Poll AND Questions.ID_Question = QuestionReponse.ID_Question AND QuestionReponse.ID_Reponse = URep.ID_Reponse",null );//TODO Martin changer le 3 (Simon: commande pour recuperer toutes les réponses (et donc leur valeur associées) de chaque utilisateur a chaque question du sondage pour accord dont l'id est 4 par exemple
         cursor.moveToFirst();
         SparseArray<Reponse_Utilisateur> ru = new SparseArray<>();
         while (!cursor.isAfterLast()){
