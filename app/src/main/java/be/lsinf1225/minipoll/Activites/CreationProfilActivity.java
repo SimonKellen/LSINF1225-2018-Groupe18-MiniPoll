@@ -1,12 +1,15 @@
 package be.lsinf1225.minipoll.Activites;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import be.lsinf1225.minipoll.Classes.MySQLiteHelper;
 import be.lsinf1225.minipoll.R;
 
 public class CreationProfilActivity extends AppCompatActivity {
@@ -44,7 +47,14 @@ public class CreationProfilActivity extends AppCompatActivity {
     }
 
     public void openMenuActivity(){
-
+        U
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("ID_User", "countUser+1");
+        values.put
+        // updating row
+        db.update("Ami", values, null, null);
+        db.close();
         Intent intent = new Intent(this, MenuPrincipalActivity.class);
         startActivity(intent);
     }
