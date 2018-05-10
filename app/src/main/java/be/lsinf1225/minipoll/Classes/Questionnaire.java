@@ -93,7 +93,7 @@ public class Questionnaire extends Poll {
      */
     public SparseArray<Utilisateur> getListeParticipants(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des utilisateurs participants au poll dont idp est 4 par exemple
+        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Prenom\", \"Nom\", \"Password\", \"BestFriend\", \"Pic\", \"Mail\" FROM Utilisateurs UT INNER JOIN UtilisateurPoll PO on UT.ID_User = PO.ID_User WHERE PO.ID_Poll = 4",null );//TODO Martin remplacer le 4
         cursor.moveToFirst();
         SparseArray<Utilisateur> part = new SparseArray<>();
         while (!cursor.isAfterLast()){
@@ -123,7 +123,7 @@ public class Questionnaire extends Poll {
      */
     public SparseArray<Question> getListQuestion(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des questions appartenant a un poll dont l'idp est 4 par exemple
+        Cursor cursor = db.rawQuery("SELECT \"ID_Question\", \"Numero_Ordre\", \"Format_Reponse\", \"Enonce\", \"Nbr_Choix\" from Questions WHERE ID_Poll = 4;",null );//TODO Martin remplacer le 4
         cursor.moveToFirst();
         SparseArray<Question> ques = new SparseArray<>();
         while (!cursor.isAfterLast()){
@@ -151,7 +151,7 @@ public class Questionnaire extends Poll {
      */
     public SparseArray<Reponse_Utilisateur> getListRepUti(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toutes les réponses (et donc leur valeur associées) de chaque utilisateur a chaque question du questionnaire dont l'id est 4 par exemple
+        Cursor cursor = db.rawQuery("SELECT UR.Id_User, UR.ID_Reponse, UR.Score  FROM UtilisateurRéponse UR, QuestionReponse QR, Questions QU, Poll PO WHERE UR.ID_Reponse = QR.ID_Reponse AND QR.ID_Question = QU.ID_Question AND QU.ID_Poll = PO.ID_Poll AND PO.ID_Poll = 5 and PO.Type = 'Q'",null );//TODO Martin remplacer le 5 (Simon: commande pour recuperer toutes les réponses (et donc leur valeur associées) de chaque utilisateur a chaque question du questionnaire dont l'id est 4 par exemple)
         cursor.moveToFirst();
         SparseArray<Reponse_Utilisateur> ru = new SparseArray<>();
         while (!cursor.isAfterLast()){

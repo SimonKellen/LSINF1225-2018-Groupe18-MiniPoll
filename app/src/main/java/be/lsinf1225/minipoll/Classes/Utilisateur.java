@@ -479,7 +479,7 @@ public class Utilisateur {
      */
     public SparseArray<Utilisateur> getListeAmis(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des utilisateurs etant amis avec l utilisateur dont l id vaut 9 par exemple
+        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User in (SELECT ID_User1 FROM Ami WHERE ID_User2 = 9 and Etat = 'A') UNION SELECT * FROM Utilisateurs WHERE ID_User in (SELECT ID_User2 FROM Ami WHERE ID_User1 = 9 and Etat = 'A')",null );//TODO Martin remplacer le 9 (Simon: commande pour recuperer toute la ligne des utilisateurs etant amis avec l utilisateur dont l id vaut 9 par exemple)
         cursor.moveToFirst();
         SparseArray<Utilisateur> users = new SparseArray<>();
         while (!cursor.isAfterLast()){
@@ -509,7 +509,11 @@ public class Utilisateur {
      */
     public SparseArray<Utilisateur> getDemandeAmisdb(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+<<<<<<< HEAD
         Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des utilisateurs ayant envoye une demande d ami a l utilisateur dont l id est 9 par exemple(voir quand l'id est 9 dans la deuxième collone et avoir la mention 'E' comme état
+=======
+        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Nom\", \"Prenom\", \"Mail\", \"Pic\", \"Password\", \"BestFriend\" FROM Utilisateurs U INNER JOIN Ami A ON U.ID_User = A.ID_User1 WHERE Etat = 'E' AND A.ID_User2 = 2",null );//TODO Martin remplacer le 2, on est bien d'accord que quand on envoie une demande d'ami, il crée une ligne avec comme ID_User1 celui qui a envoyé la demande, ID_User2 celui qui reçoit la demande ?(Simon: commande pour recuperer toute la ligne des utilisateurs ayant envoye une demande d ami a l utilisateur dont l id est 9 par exemple)
+>>>>>>> 4c154464a8a6ccaf6b69e0744ea74b23263a5a95
         cursor.moveToFirst();
         SparseArray<Utilisateur> users = new SparseArray<>();
         while (!cursor.isAfterLast()){
@@ -539,7 +543,7 @@ public class Utilisateur {
      */
     public SparseArray<Poll> getListePoll(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des Poll cree par l utilisateur dont l id vaut 9 par exemple
+        Cursor cursor = db.rawQuery("SELECT \"ID_Poll\", \"ID_User\", \"Etat\", \"Titre\", \"Type\" FROM Poll P INNER JOIN Utilisateurs U on P.ID_User = U.ID_User WHERE U.ID_User = 4",null );//TODO Martin Remplacer le 4(Simon: commande pour recuperer toute la ligne des Poll cree par l utilisateur dont l id vaut 9 par exemple)
         cursor.moveToFirst();
         SparseArray<Poll> polls = new SparseArray<>();
         while (!cursor.isAfterLast()){
