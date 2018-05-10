@@ -269,7 +269,7 @@ public class Utilisateur {
         values.put("Mail", mail);
         String arg=Integer.toString(this.getId());
         // updating row
-        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.update("Utilisateurs", values, "ID_User = " + arg,null);
         db.close();
     }
 
@@ -283,7 +283,7 @@ public class Utilisateur {
         values.put("Nom", nom);
         String arg=Integer.toString(this.getId());
         // updating row
-        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.update("Utilisateurs", values, "ID_User = " + arg,null);
         db.close();
     }
 
@@ -297,7 +297,7 @@ public class Utilisateur {
         values.put("Prenom", prenom);
         String arg=Integer.toString(this.getId());
         // updating row
-        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.update("Utilisateurs", values, "ID_User = " + arg,null);
         db.close();
     }
 
@@ -311,7 +311,7 @@ public class Utilisateur {
         values.put("Pic", photo);
         String arg=Integer.toString(this.getId());
         // updating row
-        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.update("Utilisateurs", values, "ID_User = " + arg,null);
         db.close();
     }
 
@@ -339,7 +339,7 @@ public class Utilisateur {
         values.put("BestFriend", bestFriend.getId());
         String arg=Integer.toString(this.getId());
         // updating row
-        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.update("Utilisateurs", values, "ID_User = " + arg,null);
         db.close();
     }
 
@@ -353,7 +353,7 @@ public class Utilisateur {
         values.put("Identifiant", identifiant);
         String arg=Integer.toString(this.getId());
         // updating row
-        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.update("Utilisateurs", values, "ID_User = " + arg,null);
         db.close();
     }
 
@@ -369,7 +369,7 @@ public class Utilisateur {
         values.put("Password", motDePasse);
         String arg=Integer.toString(this.getId());
         // updating row
-        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.update("Utilisateurs", values, "ID_User = " + arg,null);
         db.close();
     }
 

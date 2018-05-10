@@ -1,5 +1,6 @@
 package be.lsinf1225.minipoll.Activites;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -59,9 +60,18 @@ public class ModifMdpActivity extends AppCompatActivity {
         }
         else
         {
-            Utilisateur.connectedUser.setMotDePasse(newMdp);
-            finishActivity(2);
+            Intent intent = new Intent(this,ProfilActivity.class);
+            startActivity(intent);
+            finish();
         }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(this,ProfilActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
 

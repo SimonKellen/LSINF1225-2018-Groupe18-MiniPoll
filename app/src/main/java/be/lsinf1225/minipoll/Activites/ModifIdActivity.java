@@ -1,5 +1,6 @@
 package be.lsinf1225.minipoll.Activites;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -50,14 +51,24 @@ public class ModifIdActivity extends AppCompatActivity {
         {
             MiniPollApp.notifyShort(R.string.unavailable_id);
         }
-        else if(!newId.equals(Utilisateur.connectedUser.getIdentifiant()))
+        else if(!mdp.equals(Utilisateur.connectedUser.getMotDePasse()))
         {
             MiniPollApp.notifyShort(R.string.incorrect_password);
         }
         else
         {
-            Utilisateur.connectedUser.setIdentifiant(newId);
-            finishActivity(1);
+            Intent intent = new Intent(this,ProfilActivity.class);
+            startActivity(intent);
+            finish();
         }
+    }
+
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(this,ProfilActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

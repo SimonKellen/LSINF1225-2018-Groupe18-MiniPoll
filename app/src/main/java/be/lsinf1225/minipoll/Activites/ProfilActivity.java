@@ -21,8 +21,6 @@ import be.lsinf1225.minipoll.Classes.Utilisateur;
 import be.lsinf1225.minipoll.R;
 
 public class ProfilActivity extends AppCompatActivity {
-    public static final int CHANGE_ID_REQUEST = 1;
-    public static final int CHANGE_MDP_REQUEST = 2;
     private ImageView picture;
     private TextView edit1;
     private EditText edit2;
@@ -147,21 +145,22 @@ public class ProfilActivity extends AppCompatActivity {
     public void startModifId()
     {
         Intent intent = new Intent(this,ModifIdActivity.class);
-        startActivityForResult(intent,1);
+        startActivity(intent);
+        finish();
     }
     public void changeMdp()
     {
-        Intent intent = new Intent(this,ModifMdpActivity.class);
-        startActivityForResult(intent,2);
+        Intent intent = new Intent(this, ModifMdpActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             Uri targetUri = data.getData();
             String newPhoto = (targetUri.toString());
             Utilisateur.connectedUser.setPhoto(newPhoto);
@@ -169,21 +168,13 @@ public class ProfilActivity extends AppCompatActivity {
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
                 picture.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e)
-            {
+            } catch (FileNotFoundException e) {
 
                 e.printStackTrace();
             }
         }
-        else if(resultCode == CHANGE_ID_REQUEST)
-        {
-            MiniPollApp.notifyShort(R.string.modif);
-        }
-        else if(resultCode == CHANGE_MDP_REQUEST)
-        {
-            MiniPollApp.notifyShort(R.string.modif);
-        }
-    }
 
+
+    }
 
 }
