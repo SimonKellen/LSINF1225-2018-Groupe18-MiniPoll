@@ -78,7 +78,7 @@ public class Sondage_Pour_Accord extends Poll {
     /*
     ajoute une ligne dans la table utilisateur reponse lorsque celui ci à été invité à participer à un poll
      */
-    public void addupInDb(Sondage_Pour_Accord spa){
+    public static void addupInDb(Sondage_Pour_Accord spa){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         int size=spa.getParticipants().size();
         for(int i=0;i<size;i++){

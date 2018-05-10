@@ -71,7 +71,7 @@ public class Sondage_Pour_Choix extends Poll {
     /*
     ajoute une ligne dans la table utilisateur reponse lorsque celui ci à été invité à participer à un poll
      */
-    public void addupInDb(Sondage_Pour_Choix spc){
+    public static void addupInDb(Sondage_Pour_Choix spc){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
             Utilisateur user = spc.getParticipants();
             ContentValues values = new ContentValues();

@@ -63,7 +63,7 @@ public abstract class Poll {
     /*
     ajoute un poll dans la base de données
      */
-    public void addPollInDb(Poll poll){
+    public static void addPollInDb(Poll poll){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put("ID_Poll",poll.getId());
@@ -79,7 +79,7 @@ public abstract class Poll {
     /*
     ajoute une question dans la bdd
      */
-    public void addQuestionsInDb(Poll poll,int nombredeProp[],String format[],Question questions[]){
+    public static void addQuestionsInDb(Poll poll,int nombredeProp[],String format[],Question questions[]){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         int size = questions.length;
 
@@ -101,7 +101,7 @@ public abstract class Poll {
     /*
     retourne le plus petit Id libre dans la bdd pour créer un nouveau poll
      */
-    public int getLowestPollIdAvailable(){
+    public static int getLowestPollIdAvailable(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT MAX(ID_Poll) FROM Poll ",null );
         cursor.moveToFirst();

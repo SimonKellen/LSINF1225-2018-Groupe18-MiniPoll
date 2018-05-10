@@ -79,7 +79,7 @@ public class Question {
     /*
     ajoute les reponses à une question dans la base de données
      */
-    public void addReponseInDb(Question question){
+    public static void addReponseInDb(Question question){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         int size=question.getReponse().length;
         int index=question.getLowestReponsesIdAvailable();
@@ -99,7 +99,7 @@ public class Question {
     /*
     ajoute une questionreponse dans la base de donnée
      */
-    public void addqrInDb(Question question) {
+    public static void addqrInDb(Question question) {
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         int index[] = question.idreponse;
         int size = index.length;
@@ -123,7 +123,7 @@ public class Question {
     /*
     recuperer le plus petit id question libre dans la bdd
      */
-    public int getLowestQuestionIdAvailable(){
+    public static int getLowestQuestionIdAvailable(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT MAX(ID_Question) FROM Questions ",null );
         cursor.moveToFirst();
@@ -151,6 +151,5 @@ public class Question {
         cursor.close();
         return uIdMAX+1;
     }
-    
 
 }
