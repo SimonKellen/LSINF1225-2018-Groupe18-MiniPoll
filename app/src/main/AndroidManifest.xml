@@ -49,6 +49,8 @@
 
         <activity android:name=".Activites.ModifMdpActivity"/>
 
+        <activity android:name=".Activites.ModifIdActivity"/>
+
 
     </application>
 

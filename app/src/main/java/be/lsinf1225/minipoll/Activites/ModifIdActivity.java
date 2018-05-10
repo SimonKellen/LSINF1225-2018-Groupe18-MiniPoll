@@ -19,7 +19,7 @@ public class ModifIdActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.liste_d_amis);
+        setContentView(R.layout.modif_id);
 
         edit1 = (EditText) findViewById(R.id.editText1);
         edit2 = (EditText) findViewById(R.id.editText2);
@@ -52,7 +52,7 @@ public class ModifIdActivity extends AppCompatActivity {
         }
         else if(!newId.equals(Utilisateur.connectedUser.getIdentifiant()))
         {
-            MiniPollApp.notifyShort(R.string.diff_password);
+            MiniPollApp.notifyShort(R.string.incorrect_password);
         }
         else
         {
