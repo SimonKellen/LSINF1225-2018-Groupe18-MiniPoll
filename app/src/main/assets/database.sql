@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.1.1 on mar. mai 8 15:12:10 2018
+-- File generated with SQLiteStudio v3.1.1 on jeu. mai 10 13:38:23 2018
 --
 -- Text encoding used: System
 --
@@ -12,11 +12,11 @@ CREATE TABLE Ami (ID_User1 int NOT NULL REFERENCES Utilisateurs (ID_User), ID_Us
 
 -- Table: Poll
 DROP TABLE IF EXISTS Poll;
-CREATE TABLE Poll (ID_Poll int PRIMARY KEY UNIQUE, ID_User int NOT NULL REFERENCES Utilisateurs (ID_User), Etat char NOT NULL CHECK (Etat IN ('F', 'O')), Titre varchar (45) NOT NULL, Type char NOT NULL CHECK (Type IN ('Q', 'S', 'A')));
+CREATE TABLE Poll (ID_Poll int PRIMARY KEY UNIQUE, ID_User int NOT NULL REFERENCES Utilisateurs (ID_User), Etat STRING NOT NULL CHECK (Etat IN ("F", "O")), Titre varchar (45) NOT NULL, Type STRING NOT NULL CHECK (Type IN ("Q", "S", "A")));
 
 -- Table: QuestionReponse
 DROP TABLE IF EXISTS QuestionReponse;
-CREATE TABLE QuestionReponse (ID_Question int NOT NULL REFERENCES Questions (ID_Question), ID_Reponse int PRIMARY KEY NOT NULL REFERENCES Reponses (ID_Reponse) UNIQUE, Bonne_Reponse char CHECK (Bonne_Reponse IN ('V', 'F')));
+CREATE TABLE QuestionReponse (ID_Question int NOT NULL REFERENCES Questions (ID_Question), ID_Reponse int PRIMARY KEY NOT NULL REFERENCES Reponses (ID_Reponse) UNIQUE, Bonne_Reponse STRING CHECK (Bonne_Reponse IN ("V", "F")));
 
 -- Table: Questions
 DROP TABLE IF EXISTS Questions;
@@ -28,7 +28,7 @@ CREATE TABLE Reponses (ID_Reponse int PRIMARY KEY NOT NULL UNIQUE, Valeur varcha
 
 -- Table: UtilisateurPoll
 DROP TABLE IF EXISTS UtilisateurPoll;
-CREATE TABLE UtilisateurPoll (ID_User int NOT NULL REFERENCES Utilisateurs (ID_User), ID_Poll int NOT NULL REFERENCES Poll (ID_Poll), A_repondu char CHECK (A_repondu IN ('V', 'F')));
+CREATE TABLE UtilisateurPoll (ID_User int NOT NULL REFERENCES Utilisateurs (ID_User), ID_Poll int NOT NULL REFERENCES Poll (ID_Poll), A_repondu STRING CHECK (A_repondu IN ("V", "F")));
 
 -- Table: UtilisateurRéponse
 DROP TABLE IF EXISTS UtilisateurRéponse;
@@ -36,7 +36,7 @@ CREATE TABLE UtilisateurRéponse (Id_User int NOT NULL REFERENCES Utilisateurs (I
 
 -- Table: Utilisateurs
 DROP TABLE IF EXISTS Utilisateurs;
-CREATE TABLE Utilisateurs (ID_User IDU NOT NULL PRIMARY KEY UNIQUE, Prenom varchar (45) NOT NULL, Nom varchar (45) NOT NULL, Password text NOT NULL, BestFriend IDU, Pic photo, Mail text UNIQUE NOT NULL, identifiant String);
+CREATE TABLE Utilisateurs (ID_User IDU NOT NULL PRIMARY KEY UNIQUE, Prenom varchar (45) NOT NULL, Nom varchar (45) NOT NULL, Password STRING NOT NULL, BestFriend IDU, Pic photo, Mail STRING UNIQUE NOT NULL, Identifiant STRING UNIQUE);
 
 -- Index: Idx UserReponse
 DROP INDEX IF EXISTS "Idx UserReponse";

@@ -260,31 +260,59 @@ public class Utilisateur {
     }
 
     /*
-    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    fonction uniquement à utiliser sur les objets pour les manipuler. Actualisé dans la bdd
      */
     public void setMail(String mail) {
         this.mail = mail;
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Mail", mail);
+        String arg=Integer.toString(this.getId());
+        // updating row
+        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.close();
     }
 
     /*
-    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    fonction uniquement à utiliser sur les objets pour les manipuler. Actualisé dans la bdd
      */
     public void setNom(String nom) {
         this.nom = nom;
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Nom", nom);
+        String arg=Integer.toString(this.getId());
+        // updating row
+        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.close();
     }
 
     /*
-    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    fonction uniquement à utiliser sur les objets pour les manipuler. actualisé dans la bdd
      */
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Prenom", prenom);
+        String arg=Integer.toString(this.getId());
+        // updating row
+        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.close();
     }
 
     /*
-    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    fonction uniquement à utiliser sur les objets pour les manipuler. actualisé dans la bdd
      */
     public void setPhoto(String photo) {
         this.photo = photo;
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Pic", photo);
+        String arg=Integer.toString(this.getId());
+        // updating row
+        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.close();
     }
 
     /*
@@ -302,26 +330,47 @@ public class Utilisateur {
     }
 
     /*
-    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    fonction uniquement à utiliser sur les objets pour les manipuler. actualisé dans la bdd
      */
     public void setBestFriend(Utilisateur bestFriend) {
         this.bestFriend = bestFriend;
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("BestFriend", bestFriend.getId());
+        String arg=Integer.toString(this.getId());
+        // updating row
+        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.close();
     }
 
     /*
-    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    fonction uniquement à utiliser sur les objets pour les manipuler. actualisé dans la bdd
      */
     public void setIdentifiant(String identifiant) {
         this.identifiant = identifiant;
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Identifiant", identifiant);
+        String arg=Integer.toString(this.getId());
+        // updating row
+        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.close();
     }
 
     /*
-    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
+    fonction uniquement à utiliser sur les objets pour les manipuler. Actualisé la bdd
      */
     public void setMotDePasse(String motDePasse) {
         if (this.motDePasse == null) {
             this.motDePasse = motDePasse;
         }
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Password", motDePasse);
+        String arg=Integer.toString(this.getId());
+        // updating row
+        db.update("Utilisateurs", values, "ID_User1 = '" + arg,null);
+        db.close();
     }
 
     /*
