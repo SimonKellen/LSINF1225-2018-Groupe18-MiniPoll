@@ -473,6 +473,52 @@ public class Utilisateur {
         return null;
     }
 
+    /*
+    verifie si l'utilisateur existe à partir de son identifiant
+     */
+    public static Utilisateur isUtilisateur(int idu) {
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+
+        // Colonne à récupérer
+        String[] colonnes = {"ID_User", "Password", "Nom", "Prenom", "Identifiant", "Pic", "BestFriend", "Mail"};
+
+        // Requête de selection (SELECT)
+        Cursor cursor = db.query("Utilisateurs", colonnes, null, null, null, null, null);
+        // Placement du curseur sur la première ligne.
+        cursor.moveToFirst();
+
+        // Tant qu'il y a des lignes.
+        while (!cursor.isAfterLast()) {
+            // Récupération des informations de l'utilisateur pour chaque ligne.
+            int ident = cursor.getInt(0);
+
+            if (ident==idu) {
+                Utilisateur user = Utilisateur.userSparseArray.get(idu);
+                if(user==null){
+                    String motDePasse = cursor.getString(1);
+                    String name = cursor.getString(2);
+                    String pren = cursor.getString(3);
+                    String pho = cursor.getString(5);
+                    String email = cursor.getString(6);
+                    String identifiant = cursor.getString(4);
+                    cursor.close();
+                    db.close();
+                    user = new Utilisateur(idu, motDePasse, name, pren, identifiant, pho, email);
+                }
+                return user;
+            }
+
+            // Passe à la ligne suivante.
+            cursor.moveToNext();
+        }
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+        return null;
+    }
+
     /**
      *
      * @return liste des amis d un utilisateur en allant les chercher dans la bdd
@@ -579,6 +625,22 @@ public class Utilisateur {
         db.close();
         this.poll=polls;
         return polls;
+    }
+
+    /*
+    recupère dans la bdd le meilleur ami d'un utilisateur, met à jour l'objet et le renvoit ici
+     */
+    public Utilisateur getBestFriendDb(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT BestFriend FROM Utilisateur WHERE ID_User=" + arg,null);
+        cursor.moveToFirst();
+        int idbf = cursor.getInt(0);
+        Utilisateur user=Utilisateur.isUtilisateur(idbf);
+        this.bestFriend=user;
+        cursor.close();
+        db.close();
+        return user;
     }
 
     /*
