@@ -97,12 +97,13 @@ public class Sondage_Pour_Choix extends Poll {
             String prenom = cursor.getString(1);
             String nom = cursor.getString(2);
             String password = cursor.getString(3);
-            String photo = cursor.getString(5);
-            String mail = cursor.getString(6);
-            String identifiant = cursor.getString(7);
+            String photo = cursor.getString(4);
+            String mail = cursor.getString(5);
+            String identifiant = cursor.getString(6);
+            int bestFriend = cursor.getInt(7);
             part = Utilisateur.userSparseArray.get(idu);
             if (part == null) {
-                part = new Utilisateur(idu, password, nom, prenom, identifiant, photo, mail);
+                part = new Utilisateur(idu, password, nom, prenom, identifiant, photo, mail,bestFriend);
             }
             cursor.moveToNext();
         }

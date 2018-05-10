@@ -94,7 +94,7 @@ public class Questionnaire extends Poll {
     public SparseArray<Utilisateur> getListeParticipants(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         String arg = Integer.toString(this.getId());
-        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Prenom\", \"Nom\", \"Password\", \"Pic\", \"Mail\", \"Identifiant\" FROM Utilisateurs UT INNER JOIN UtilisateurPoll PO on UT.ID_User = PO.ID_User WHERE PO.ID_Poll =" + arg ,null );
+        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Prenom\", \"Nom\", \"Password\", \"Pic\", \"Mail\", \"Identifiant\",\"BestFriend\" FROM Utilisateurs UT INNER JOIN UtilisateurPoll PO on UT.ID_User = PO.ID_User WHERE PO.ID_Poll =" + arg ,null );
         cursor.moveToFirst();
         SparseArray<Utilisateur> part = new SparseArray<>();
         while (!cursor.isAfterLast()){
@@ -105,9 +105,10 @@ public class Questionnaire extends Poll {
             String photo = cursor.getString(4);
             String mail = cursor.getString(5);
             String identifiant = cursor.getString(6);
+            int bestFriend = cursor.getInt(7);
             Utilisateur user = Utilisateur.userSparseArray.get(idu);
             if(user==null){
-                user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail);
+                user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail,bestFriend);
             }
             part.put(idu,user);
             cursor.moveToNext();

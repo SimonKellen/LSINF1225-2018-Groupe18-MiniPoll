@@ -51,7 +51,7 @@ public class CreationProfilActivity extends AppCompatActivity {
         edit3 = (EditText) findViewById(R.id.EditText3);
         text1 = (TextView) findViewById(R.id.textView7) ;
         profilPicture.setImageResource(R.drawable.ic_launcher_foreground);
-        text1.setText("Image par default");
+        text1.setText(R.string.default_picture);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +109,7 @@ public class CreationProfilActivity extends AppCompatActivity {
 
     public void setPhotoToDefault()
     {
-        text1.setText("Image par default");
+        text1.setText(R.string.default_picture);
         profilPicture.setImageResource(R.drawable.ic_launcher_foreground);
     }
 
@@ -130,7 +130,7 @@ public class CreationProfilActivity extends AppCompatActivity {
         }
         else
         {
-            Utilisateur.connectedUser = new Utilisateur(Utilisateur.userSparseArray.size(), password, nom, prenom, username, photo, mail);
+            Utilisateur.connectedUser = new Utilisateur(Utilisateur.userSparseArray.size(), password, nom, prenom, username, photo, mail,Utilisateur.userSparseArray.size());
             Utilisateur.connectedUser.addUtilisateurInDb();
 
             Intent intent = new Intent(this, MenuPrincipalActivity.class);

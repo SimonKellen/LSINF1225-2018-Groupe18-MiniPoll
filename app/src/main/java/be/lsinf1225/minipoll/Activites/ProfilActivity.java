@@ -33,30 +33,34 @@ public class ProfilActivity extends AppCompatActivity {
 
 
         picture = (ImageView) findViewById(R.id.imageView);
-        edit1 = (EditText) findViewById(R.id.editText1);
-        edit2 = (EditText) findViewById(R.id.editText2);
-        edit3 = (EditText) findViewById(R.id.editText3);
-        edit4 = (EditText) findViewById(R.id.editText4);
+        edit1 = (EditText) findViewById(R.id.textView9);
+        edit2 = (EditText) findViewById(R.id.textView10);
+        edit3 = (EditText) findViewById(R.id.textView11);
+        edit4 = (EditText) findViewById(R.id.textView12);
         imButton5 = (ImageButton) findViewById(R.id.imageButton5);
         imButton1 = (ImageButton) findViewById(R.id.imageButton1);
         imButton2 = (ImageButton) findViewById(R.id.imageButton2);
         imButton3 = (ImageButton) findViewById(R.id.imageButton3);
         imButton4 = (ImageButton) findViewById(R.id.imageButton4);
-        
-        Bitmap bitmap;
-        Uri data = Uri.parse(Utilisateur.connectedUser.getPhoto());
-        try {
-            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(data));
-            picture.setImageBitmap(bitmap);
-        } catch (FileNotFoundException e)
+        if(Utilisateur.connectedUser.getPhoto().equals(R.string.default_picture))
         {
+            picture.setImageResource(R.drawable.ic_launcher_foreground);
+        }
+        else {
+            Bitmap bitmap;
+            Uri data = Uri.parse(Utilisateur.connectedUser.getPhoto());
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(data));
+                picture.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
 
-            e.printStackTrace();
+                e.printStackTrace();
+            }
         }
         edit1.setText(Utilisateur.connectedUser.getIdentifiant());
-        edit1.setText(Utilisateur.connectedUser.getPrenom());
-        edit1.setText(Utilisateur.connectedUser.getNom());
-        edit1.setText(Utilisateur.connectedUser.getMail());
+        edit2.setText(Utilisateur.connectedUser.getPrenom());
+        edit3.setText(Utilisateur.connectedUser.getNom());
+        edit4.setText(Utilisateur.connectedUser.getMail());
 
 
     }

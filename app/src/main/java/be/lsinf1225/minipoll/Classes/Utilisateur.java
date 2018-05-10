@@ -17,7 +17,7 @@ public class Utilisateur {
     private String prenom;
     private String identifiant;
     private String photo;
-    private Utilisateur bestFriend;
+    private int bestFriend;
     private SparseArray<Utilisateur> amis;
     private SparseArray<Utilisateur> demandeAmis;
     private SparseArray<Poll> poll;
@@ -25,14 +25,14 @@ public class Utilisateur {
 
     // Constructeur
 
-    public Utilisateur(int id, String motDePasse, String nom, String prenom, String identifiant, String photo, String mail) {
+    public Utilisateur(int id, String motDePasse, String nom, String prenom, String identifiant, String photo, String mail, int bestFriend) {
         this.id = id;
         this.motDePasse = motDePasse;
         this.nom = nom;
         this.prenom = prenom;
         this.identifiant = identifiant;
         this.photo = photo;
-        this.bestFriend = null;
+        this.bestFriend = bestFriend;
         this.amis = null;
         this.demandeAmis = null;
         this.poll = null;
@@ -89,6 +89,7 @@ public class Utilisateur {
         //values.put("BestFriend",this.getBestFriend().getId());
         values.put("Pic",this.getPhoto());
         values.put("Mail",this.getMail());
+        String testMail = this.getMail();
         values.put("Identifiant",this.getIdentifiant());
         db.insert("Utilisateurs",null,values);
         db.close();
@@ -226,7 +227,7 @@ public class Utilisateur {
     /*
     fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
      */
-    public Utilisateur getBestFriend() {
+    public int getBestFriend() {
         return bestFriend;
     }
 
@@ -332,7 +333,7 @@ public class Utilisateur {
     fonction uniquement à utiliser sur les objets pour les manipuler. actualisé dans la bdd
      */
     public void setBestFriend(Utilisateur bestFriend) {
-        this.bestFriend = bestFriend;
+        this.bestFriend = bestFriend.getId();
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put("BestFriend", bestFriend.getId());
@@ -455,10 +456,11 @@ public class Utilisateur {
                     String name = cursor.getString(2);
                     String pren = cursor.getString(3);
                     String pho = cursor.getString(5);
-                    String email = cursor.getString(6);
+                    int bestFriend = cursor.getInt(6);
+                    String email = cursor.getString(7);
                     cursor.close();
                     db.close();
-                    user = new Utilisateur(idu, motDePasse, name, pren, ident, pho, email);
+                    user = new Utilisateur(idu, motDePasse, name, pren, ident, pho, email,bestFriend);
                 }
                 return user;
             }
@@ -500,11 +502,12 @@ public class Utilisateur {
                     String name = cursor.getString(2);
                     String pren = cursor.getString(3);
                     String pho = cursor.getString(5);
-                    String email = cursor.getString(6);
+                    String email = cursor.getString(7);
+                    int bestFriend = cursor.getInt(6);
                     String identifiant = cursor.getString(4);
                     cursor.close();
                     db.close();
-                    user = new Utilisateur(idu, motDePasse, name, pren, identifiant, pho, email);
+                    user = new Utilisateur(idu, motDePasse, name, pren, identifiant, pho, email,bestFriend);
                 }
                 return user;
             }
@@ -534,12 +537,13 @@ public class Utilisateur {
             String prenom = cursor.getString(1);
             String nom = cursor.getString(2);
             String password = cursor.getString(3);
+            int bestFriend = cursor.getInt(4);
             String photo = cursor.getString(5);
             String mail = cursor.getString(6);
             String identifiant = cursor.getString(7);
             Utilisateur user = Utilisateur.userSparseArray.get(idu);
             if(user==null){
-                user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail);
+                user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail,bestFriend);
             }
             users.put(idu,user);
             cursor.moveToNext();
@@ -645,7 +649,7 @@ public class Utilisateur {
         cursor.moveToFirst();
         int idbf = cursor.getInt(0);
         Utilisateur user=Utilisateur.isUtilisateur(idbf);
-        this.bestFriend=user;
+        this.bestFriend=user.getId();
         cursor.close();
         db.close();
         return user;
@@ -680,13 +684,14 @@ public class Utilisateur {
             String pren = cursor.getString(3);
             String identifiant = cursor.getString(4);
             String pho = cursor.getString(5);
-            String email = cursor.getString(6);
+            int bestFriend = cursor.getInt(6);
+            String email = cursor.getString(7);
 
             // Vérification pour savoir s'il y a déjà une instance de cet utilisateur.
             Utilisateur user = Utilisateur.userSparseArray.get(uId);
             if (user == null) {
                 // Si pas encore d'instance, création d'une nouvelle instance.
-                user = new Utilisateur(uId,motDePasse,name,pren,identifiant,pho,email);
+                user = new Utilisateur(uId,motDePasse,name,pren,identifiant,pho,email,bestFriend);
             }
 
             // Ajout de l'utilisateur à la liste.
