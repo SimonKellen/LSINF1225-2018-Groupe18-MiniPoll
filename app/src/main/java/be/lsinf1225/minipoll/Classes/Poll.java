@@ -53,6 +53,23 @@ public abstract class Poll {
         db.close();
     }
 
+    public void addQuestionsInDb(Poll poll,int nombredeProp[],String format[],Question questions[]){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        int size = questions.length;
+
+        for(int i=0;i<size;i++){
+            ContentValues values = new ContentValues();
+            values.put("ID_Question",questions[i].getId());
+            values.put("Numero_Ordre",i+1);
+            values.put("Format_Reponse",format[i]);
+            values.put("Enonce",questions[i].getEnonce());
+            values.put("ID_Poll",poll.getId());
+            values.put("Nombres_de_Propositions",nombredeProp[i]);
+            db.insert("Questions",null,values);
+        }
+        db.close();
+    }
+
     public String getEtat() {
         return etat;
     }

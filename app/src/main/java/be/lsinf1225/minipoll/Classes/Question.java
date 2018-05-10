@@ -14,7 +14,9 @@ public class Question {
     //Variables
 
     private final int id;
+    private String enonce;
     private String[] reponse;
+    private int[] idreponse;
     private int bonne_rep; //Prends la valeur (-1) si un sondage n'a pas de bonne réponse (ex. sondage pour accord)
 
     /**
@@ -31,7 +33,7 @@ public class Question {
         quesSparseArray.put(id,this);
     }
 
-    public int[] addReponseInDb(Question question){
+    public void addReponseInDb(Question question){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         int size=question.getReponse().length;
         int index=question.getLowestReponsesIdAvailable();
@@ -45,12 +47,12 @@ public class Question {
             db.insert("Reponses",null,values);
         }
         db.close();
-        return returnvalue;
+        question.idreponse=returnvalue;
     }
 
     public void addqrInDb(Question question){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        int index[] = addReponseInDb(question);
+        int index[] = question.idreponse;
         int size=index.length;
         for(int i=0;i<size;i++){
             ContentValues values = new ContentValues();
@@ -117,5 +119,21 @@ public class Question {
 
     public void setReponse(String[] reponse) {
         this.reponse = reponse;
+    }
+
+    public int[] getIdreponse() {
+        return idreponse;
+    }
+
+    public void setIdreponse(int[] idreponse) {
+        this.idreponse = idreponse;
+    }
+
+    public String getEnonce() {
+        return enonce;
+    }
+
+    public void setEnonce(String enonce) {
+        this.enonce = enonce;
     }
 }

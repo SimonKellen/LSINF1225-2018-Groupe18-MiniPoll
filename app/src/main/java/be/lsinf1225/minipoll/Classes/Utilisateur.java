@@ -68,7 +68,7 @@ public class Utilisateur {
         db.close();
     }
 
-    public void UtilisateurInDb(Utilisateur utilisateur){
+    public void addUtilisateurInDb(Utilisateur utilisateur){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put("ID_User",utilisateur.getId());
@@ -82,6 +82,25 @@ public class Utilisateur {
         db.insert("Utilisateurs",null,values);
         db.close();
     }
+
+    public void addurInDb(Utilisateur utilisateur,Question question,int choosenIndex, int givenvalue){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("ID_User",utilisateur.getId());
+        int rep[]=question.getIdreponse();
+        for(int i=0;i<rep.length;i++){
+            values.put("ID_Reponse",rep[i]);
+            if(i==choosenIndex){
+                values.put("Score",givenvalue);
+            }
+            else{
+                values.put("Score",0);
+            }
+            db.insert("UtilisateurRéponse",null,values);
+        }
+        db.close();
+    }
+
 
 
 
@@ -379,7 +398,7 @@ public class Utilisateur {
                 //alors c est un questionnaire
                 Questionnaire ques = Questionnaire.quesSparseArray.get(idp);
                 if(ques==null){
-                    ques=new Questionnaire(idp, this,titre, null, null);
+                    ques=new Questionnaire(idp, this ,titre, null, null,etat="o");
                 }
                 polls.put(idp,ques);
             }
