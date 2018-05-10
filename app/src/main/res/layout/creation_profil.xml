@@ -112,7 +112,7 @@
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditText3"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/textView7"

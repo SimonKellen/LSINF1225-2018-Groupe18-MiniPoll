@@ -50,6 +50,7 @@ public class CreationProfilActivity extends AppCompatActivity {
         edit2 = (EditText) findViewById(R.id.EditText2);
         edit3 = (EditText) findViewById(R.id.EditText3);
         text1 = (TextView) findViewById(R.id.textView7) ;
+        profilPicture.setImageResource(R.drawable.ic_launcher_foreground);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,8 +129,9 @@ public class CreationProfilActivity extends AppCompatActivity {
         }
         else
         {
-            Utilisateur.connectedUser = new Utilisateur(Utilisateur.userSparseArray.size(), password, nom, prenom, username, photo, mail);
-            Utilisateur.addUtilisateurInDb(Utilisateur.connectedUser);
+            Utilisateur newUser = new Utilisateur(Utilisateur.userSparseArray.size(), password, nom, prenom, username, photo, mail);
+            Utilisateur.addUtilisateurInDb(newUser);
+            Utilisateur.connectedUser = newUser;
             Intent intent = new Intent(this, MenuPrincipalActivity.class);
             startActivity(intent);
         }
