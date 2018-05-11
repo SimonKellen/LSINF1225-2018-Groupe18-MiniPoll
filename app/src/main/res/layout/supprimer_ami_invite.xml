@@ -15,7 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
         android:gravity="center"
-        android:text="Inviter un nouvel ami"
+        android:text="Supprimer un des invités"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
