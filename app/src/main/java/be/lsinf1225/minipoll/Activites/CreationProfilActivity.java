@@ -135,6 +135,7 @@ public class CreationProfilActivity extends AppCompatActivity {
 
             Intent intent = new Intent(this, MenuPrincipalActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 

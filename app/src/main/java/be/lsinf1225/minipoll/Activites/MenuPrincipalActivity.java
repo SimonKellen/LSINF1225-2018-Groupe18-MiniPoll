@@ -1,11 +1,18 @@
 package be.lsinf1225.minipoll.Activites;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
+import be.lsinf1225.minipoll.Classes.Utilisateur;
 import be.lsinf1225.minipoll.R;
 
 
@@ -91,6 +98,27 @@ public class MenuPrincipalActivity extends AppCompatActivity
                 openProfilActivity();
             }
         });
+
+        SparseArray<Utilisateur> demandeAmis = Utilisateur.connectedUser.getDemandeAmisdb();
+        for(int i=0; i<demandeAmis.size(); i++)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+            final Utilisateur  newAmi = demandeAmis.get(i);
+            builder.setTitle("Demande d'ami");
+            builder.setMessage("Accepter la demande en ami de " + newAmi.toString()+" ?")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Utilisateur.connectedUser.accepter_demande_ami(newAmi);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Utilisateur.connectedUser.refuser_demande_ami(newAmi);
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
     }
 
     public void openAmiActivity(){

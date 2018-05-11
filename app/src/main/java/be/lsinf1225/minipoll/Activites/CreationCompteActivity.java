@@ -68,6 +68,7 @@ public class CreationCompteActivity extends AppCompatActivity {
             b.putString("password",password);
             intent.putExtras(b);
             startActivity(intent);
+            finish();
         }
 
     }

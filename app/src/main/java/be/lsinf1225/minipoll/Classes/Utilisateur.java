@@ -19,7 +19,6 @@ public class Utilisateur {
     private String photo;
     private int bestFriend;
     private SparseArray<Utilisateur> amis;
-    private SparseArray<Utilisateur> demandeAmis;
     private SparseArray<Poll> poll;
     private String mail;
 
@@ -34,7 +33,6 @@ public class Utilisateur {
         this.photo = photo;
         this.bestFriend = bestFriend;
         this.amis = null;
-        this.demandeAmis = null;
         this.poll = null;
         this.mail = mail;
         Utilisateur.userSparseArray.put(id, this);
@@ -47,7 +45,6 @@ public class Utilisateur {
     Met à jour la bdd une fois l'opération effectuée
      */
     public void demande_ami(Utilisateur utilisateur){
-        utilisateur.getDemandeAmis().put(this.getId(), this);
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -238,12 +235,6 @@ public class Utilisateur {
         return poll;
     }
 
-    /*
-    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
-     */
-    public SparseArray<Utilisateur> getDemandeAmis() {
-        return demandeAmis;
-    }
 
     /*
     fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
@@ -322,12 +313,6 @@ public class Utilisateur {
         this.amis.put(ami.id, ami);
     }
 
-    /*
-    fonction uniquement à utiliser sur les objets pour les manipuler. Pas de lien avec la bdd
-     */
-    public void setDemandeAmis(SparseArray<Utilisateur> demandeAmis) {
-        this.demandeAmis = demandeAmis;
-    }
 
     /*
     fonction uniquement à utiliser sur les objets pour les manipuler. actualisé dans la bdd
@@ -558,40 +543,31 @@ public class Utilisateur {
      *
      * @return liste des utilisateurs lui ayant envoye une demande d ami
      */
-    /**public SparseArray<Utilisateur> getDemandeAmisdb(){
+    public SparseArray<Utilisateur> getDemandeAmisdb(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-
-
-        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User!=9",null );//TODO Simon: commande pour recuperer toute la ligne des utilisateurs ayant envoye une demande d ami a l utilisateur dont l id est 9 par exemple(voir quand l'id est 9 dans la deuxième collone et avoir la mention 'E' comme état
-
-        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Nom\", \"Prenom\", \"Mail\", \"Pic\", \"Password\", \"BestFriend\" FROM Utilisateurs U INNER JOIN Ami A ON U.ID_User = A.ID_User1 WHERE Etat = 'E' AND A.ID_User2 = 2",null );//TODO Martin remplacer le 2, on est bien d'accord que quand on envoie une demande d'ami, il crée une ligne avec comme ID_User1 celui qui a envoyé la demande, ID_User2 celui qui reçoit la demande ?(Simon: commande pour recuperer toute la ligne des utilisateurs ayant envoye une demande d ami a l utilisateur dont l id est 9 par exemple)
-
-
-        String arg = Integer.toString(this.getId());
-        Cursor cursor = db.rawQuery("SELECT \"ID_User\", \"Nom\", \"Prenom\", \"Mail\", \"Pic\", \"Password\", \"Identifiant\" FROM Utilisateurs U INNER JOIN Ami A ON U.ID_User = A.ID_User1 WHERE Etat = 'E' AND A.ID_User2 ="+arg,null );
-
+        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs U INNER JOIN Ami A ON U.ID_User = A.ID_User1 WHERE Etat = 'E' AND A.ID_User2 = 2",null );
         cursor.moveToFirst();
         SparseArray<Utilisateur> users = new SparseArray<>();
         while (!cursor.isAfterLast()){
             int idu = cursor.getInt(0);
-            String prenom = cursor.getString(2);
-            String nom = cursor.getString(1);
-            String password = cursor.getString(5);
-            String photo = cursor.getString(4);
-            String mail = cursor.getString(3);
-            String identifiant = cursor.getString(6);
+            String prenom = cursor.getString(1);
+            String nom = cursor.getString(2);
+            String password = cursor.getString(3);
+            int bestFriend = cursor.getInt(4);
+            String photo = cursor.getString(5);
+            String mail = cursor.getString(6);
+            String identifiant = cursor.getString(7);
             Utilisateur user = Utilisateur.userSparseArray.get(idu);
             if(user==null){
-                user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail);
+                user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail,bestFriend);
             }
             users.put(idu,user);
             cursor.moveToNext();
         }
         cursor.close();
         db.close();
-        this.amis=users;
         return users;
-    }*/
+    }
 
     /**
      *
@@ -756,5 +732,10 @@ public class Utilisateur {
         return(found1 && found2);
     }
 
+    @Override
+    public String toString()
+    {
+        return this.getIdentifiant()+"( "+this.getPrenom()+" "+this.getNom()+" )";
+    }
 }
 

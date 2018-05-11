@@ -41,7 +41,8 @@ public class GestionAmisActivity extends AppCompatActivity {
         });
     }
 
-    public void openAjoutAmiActivity(){
+    public void openAjoutAmiActivity()
+    {
         Intent intent = new Intent(this, AjoutAmiActivity.class);
         startActivity(intent);
     }
