@@ -85,13 +85,46 @@ public class AjoutAmiActivity extends AppCompatActivity {
 
                 public void onSwipeRight()
                 {
-                    MiniPollApp.notifyShort(R.string.swipe_right);
+                    count--;
+                    Utilisateur previous;
+                    if(Utilisateur.connectedUser.getId() == count)
+                    {
+                        count--;
+                    }
+                    if(count<0)
+                    {
+                        if(Utilisateur.connectedUser.getId() == 0)
+                        {
+                            count =count+2;
+                        }
+                        else {
+                            count++;
+                        }
+                    }
+                    else {
+                        previous = existingUsers.get(count);
+                        if (previous.getPhoto().equals("Image par defaut")) {
+                            profilPic.setImageResource(R.mipmap.default_picture);
+                        } else {
+                            Bitmap bitmap;
+                            Uri data = Uri.parse(previous.getPhoto());
+                            try {
+                                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(data));
+                                profilPic.setImageBitmap(bitmap);
+                            } catch (FileNotFoundException e) {
+
+                                e.printStackTrace();
+                            }
+                        }
+                        text1.setText(previous.getNom() + " " + previous.getPrenom());
+                        text2.setText(previous.getIdentifiant());
+                        text3.setText(previous.getMail());
+                    }
 
                 }
 
                 public void onSwipeLeft()
                 {
-                    MiniPollApp.notifyShort(R.string.swipe_left);
                     count++;
                     Utilisateur next;
                     if(Utilisateur.connectedUser.getId() == count)
@@ -100,7 +133,13 @@ public class AjoutAmiActivity extends AppCompatActivity {
                     }
                     if(count>existingUsers.size()-1)
                     {
-                        count--;
+                        if(Utilisateur.connectedUser.getId() == existingUsers.size()-1)
+                        {
+                            count = count - 2;
+                        }
+                        else {
+                            count--;
+                        }
                     }
                     else {
                         next = existingUsers.get(count);
