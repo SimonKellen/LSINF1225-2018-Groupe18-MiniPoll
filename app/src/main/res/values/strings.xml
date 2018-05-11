@@ -18,6 +18,9 @@
     <string name="modif">Modification enregistrée</string>
     <string name="incorrect_current_password">Le mot de passe actuel ne corrrespond pas</string>
     <string name="diff_password_new">Les nouveaux mots de passe ne correspondent pas</string>
+    <string name="swipe_left">Swipe left détecté</string>
+    <string name="swipe_right">Swipe right détecté</string>
+    <string name="one_user">Vous êtes le seul utilisateur, impossible d\'ajouter un ami</string>
 
 
 

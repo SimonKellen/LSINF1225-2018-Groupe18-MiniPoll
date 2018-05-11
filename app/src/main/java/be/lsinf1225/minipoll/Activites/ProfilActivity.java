@@ -51,11 +51,11 @@ public class ProfilActivity extends AppCompatActivity {
         button1 = (Button) findViewById(R.id.button1);
         button2 = (Button) findViewById(R.id.button2);
 
-        if(Utilisateur.connectedUser.getPhoto().equals(R.string.default_picture))
+        if(Utilisateur.connectedUser.getPhoto().equals("Image par defaut"))
         {
-            picture.setImageResource(R.drawable.ic_launcher_foreground);
+            picture.setImageResource(R.mipmap.default_picture);
         }
-        else {
+        else{
             Bitmap bitmap;
             Uri data = Uri.parse(Utilisateur.connectedUser.getPhoto());
             try {

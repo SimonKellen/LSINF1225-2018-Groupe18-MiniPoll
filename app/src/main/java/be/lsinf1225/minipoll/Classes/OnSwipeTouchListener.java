@@ -7,6 +7,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
+
+/**
+ * Cette classe a été proposée par l'utilisateur Mirek Rusin à l'adresse :
+ * https://stackoverflow.com/questions/4139288/android-how-to-handle-right-to-left-swipe-gestures.
+ *
+ */
 public class OnSwipeTouchListener implements OnTouchListener {
 
     private final GestureDetector gestureDetector;
