@@ -729,7 +729,26 @@ public class Utilisateur {
             }
 
         }
-        return(found1 && found2);
+        if(found1 && found2){
+            SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT Mail FROM Utilisateurs ",null );
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String email = cursor.getString(0);
+                if(email.equals(mail)){
+                    cursor.close();
+                    db.close();
+                    return false;
+                }
+                cursor.moveToNext();
+            }
+            cursor.close();
+            db.close();
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
