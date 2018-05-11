@@ -61,15 +61,13 @@ public class Utilisateur {
     Lorsque l'on veut accepter des demandes d'amis on en choisit une pour l'accepter, la base de données est mise à jour
      */
     public void accepter_demande_ami(Utilisateur demandeAmis){
-        this.getAmis().put(demandeAmis.getId(), demandeAmis);
-        demandeAmis.getAmis().put(this.id, this);
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put("Etat", "A");
         // updating row
-        db.update("Ami", values, "ID_User1 = '" + demandeAmis.getId() + "' AND ID_User2 = '" + this.getId() + "'", null);
+        db.update("Ami", values, "ID_User1 = " + demandeAmis.getId() + " AND ID_User2 = " + this.getId() + "'", null);
         db.close();
     }
 
@@ -133,7 +131,6 @@ public class Utilisateur {
      */
     public void supprimer_amis(Utilisateur utilisateur){
         this.getAmis().remove(utilisateur.id);
-        utilisateur.getAmis().remove(this.id);
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         db.delete("Amis", "ID_User1 = '" + utilisateur.getId() + "' AND ID_User2 = '" + this.getId()  + "'",null);
         db.delete("Amis", "ID_User1 = '" + this.getId() + "' AND ID_User2 = '" + utilisateur.getId()  + "'",null);
@@ -561,7 +558,8 @@ public class Utilisateur {
      */
     public SparseArray<Utilisateur> getDemandeAmisdb(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs U INNER JOIN Ami A ON U.ID_User = A.ID_User1 WHERE Etat = 'E' AND A.ID_User2 = 2",null );
+        String arg = Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs U INNER JOIN Ami A ON U.ID_User = A.ID_User1 WHERE Etat = 'E' AND A.ID_User2 =" + arg,null );
         cursor.moveToFirst();
         SparseArray<Utilisateur> users = new SparseArray<>();
         while (!cursor.isAfterLast()){
@@ -770,7 +768,7 @@ public class Utilisateur {
     @Override
     public String toString()
     {
-        return this.getIdentifiant()+"( "+this.getPrenom()+" "+this.getNom()+" )";
+        return this.getIdentifiant()+" ( "+this.getPrenom()+" "+this.getNom()+" )";
     }
 }
 

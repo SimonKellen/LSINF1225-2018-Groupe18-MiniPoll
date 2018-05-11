@@ -30,7 +30,7 @@ public class AccepterDemande extends AppCompatActivity {
 
         demandeAmis = Utilisateur.connectedUser.getDemandeAmisdb();
 
-        text.setText(R.string.friend_request2+demandeAmis.get(count).toString());
+        text.setText("Vous avez reçu une demande d'ami de la part de "+demandeAmis.get(count).toString() + ".");
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -99,4 +99,11 @@ public class ConnexionActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        edit2.setText("");
+
+    }
+
 }

@@ -44,7 +44,7 @@ public class ListeAmisActivity extends AppCompatActivity {
         final SparseArray<Utilisateur> friends = Utilisateur.connectedUser.getListeAmis();
 
         int nbreUtilisateur = friends.size();
-        if (nbreUtilisateur == 1) {
+        if (nbreUtilisateur == 0) {
             MiniPollApp.notifyLong(R.string.no_friend);
         } else {
 
@@ -70,6 +70,7 @@ public class ListeAmisActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Utilisateur.connectedUser.setBestFriend(currentFriend);
+                    MiniPollApp.notifyShort(R.string.new_best);
                 }
             });
 

@@ -94,6 +94,7 @@ public class MenuPrincipalActivity extends AppCompatActivity
     public void openAmiActivity(){
         Intent intent = new Intent(this, GestionAmisActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void openCreationActivity(){

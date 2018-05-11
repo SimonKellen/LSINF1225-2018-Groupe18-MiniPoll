@@ -9,6 +9,7 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 
+import be.lsinf1225.minipoll.Classes.MiniPollApp;
 import be.lsinf1225.minipoll.Classes.Utilisateur;
 import be.lsinf1225.minipoll.R;
 
@@ -52,11 +53,15 @@ public class GestionAmisActivity extends AppCompatActivity {
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             answer = true;
+                            MiniPollApp.notifyShort(R.string.swipe_left);
+                            openAddFriendActivity();
                         }
                     })
                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             answer = false;
+                            MiniPollApp.notifyShort(R.string.swipe_right);
+                            openAddFriendActivity();
                         }
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
@@ -84,6 +89,13 @@ public class GestionAmisActivity extends AppCompatActivity {
     public void openListeAmisActivity() {
         Intent intent = new Intent(this, ListeAmisActivity.class);
         startActivity(intent);
+    }
+
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(this, MenuPrincipalActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
 
