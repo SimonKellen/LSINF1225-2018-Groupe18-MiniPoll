@@ -11,7 +11,7 @@
     <string name="incomplete_field">Veuillez complèter tous les champs</string>
     <string name="diff_password">Les mots de passe ne correspondent pas</string>
     <string name="unavailable_id">Cet identifiant n\'est pas disponible</string>
-    <string name="test">TEST TEST 1 2 1 2</string>
+    <string name="test">Connexion...</string>
     <string name="wrong_mail_format">Veuillez entrer une adresse mail valide</string>
     <string name="default_picture">Image par defaut</string>
     <string name="dialog_id">Modification de l\'identifiant</string>

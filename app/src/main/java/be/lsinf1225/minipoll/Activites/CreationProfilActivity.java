@@ -110,7 +110,7 @@ public class CreationProfilActivity extends AppCompatActivity {
     public void setPhotoToDefault()
     {
         text1.setText(R.string.default_picture);
-        profilPicture.setImageResource(R.drawable.ic_launcher_foreground);
+        profilPicture.setImageResource(R.mipmap.default_picture);
     }
 
     public void openMenuActivity(String password, String username)
