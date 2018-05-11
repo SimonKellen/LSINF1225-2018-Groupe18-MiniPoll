@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:gravity="center"
-        android:text="Modification de votre identifiant."
+        android:text="Modifier son identifiant"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintHorizontal_bias="0.504"
@@ -45,14 +45,15 @@
         app:layout_constraintTop_toBottomOf="@+id/editText1" />
 
 
-
     <Button
         android:id="@+id/button1"
-        android:layout_width="wrap_content"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="28dp"
         android:text="Enregistrer"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"/>
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+
 </android.support.constraint.ConstraintLayout>

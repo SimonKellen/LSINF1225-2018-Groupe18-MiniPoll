@@ -7,12 +7,12 @@
             android:translateY="252.63158">
       <path
           android:pathData="M0,0h1600v1600h-1600z"
-          android:fillColor="#0074FF"/>
+          android:fillColor="#0091EA"/>
       <path
           android:pathData="M0,592l0,1008l582,0z"
-          android:fillColor="#0068FF"/>
+          android:fillColor="#0074FF"/>
       <path
           android:pathData="M282,0l923.7,1600l394.3,0l0,-1600z"
-          android:fillColor="#0068FF"/>
+          android:fillColor="#0074FF"/>
     </group>
 </vector>
