@@ -175,6 +175,12 @@ public class Utilisateur {
      * @return Vrai (true) si l'utilisateur à l'autorisation de se connecter, false sinon.
      */
     public boolean login(String passwordToTry) {
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        String arg=Integer.toString(this.getId());
+        Cursor cursor = db.rawQuery("SELECT Password FROM Utilisateurs WHERE ID_User=" + arg,null);
+        cursor.moveToFirst();
+        String mdp = cursor.getString(0);
+        this.motDePasse=mdp;
         if (this.motDePasse.equals(passwordToTry)) {
             // Si le mot de passe est correct, modification de l'utilisateur connecté.
             Utilisateur.connectedUser = this;
