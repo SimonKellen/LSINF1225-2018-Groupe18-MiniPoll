@@ -40,7 +40,7 @@ public class AjoutAmiActivity extends AppCompatActivity {
         text3 = (TextView) findViewById(R.id.textView4);
         button = (Button) findViewById(R.id.button2);
 
-        SparseArray<Utilisateur> existingUsers = Utilisateur.userSparseArray;
+        final SparseArray<Utilisateur> existingUsers = Utilisateur.userSparseArray;
         int nbreUtilisateur = existingUsers.size();
         if(nbreUtilisateur == 1)
         {
@@ -48,19 +48,20 @@ public class AjoutAmiActivity extends AppCompatActivity {
         }
         else
         {
+            final Utilisateur firstOne;
             if(Utilisateur.connectedUser.getId() == count)
             {
                 count++;
             }
-            Utilisateur currentOne = existingUsers.get(count);
-            if(currentOne.getPhoto().equals("Image par defaut"))
+            firstOne = existingUsers.get(count);
+            if(firstOne.getPhoto().equals("Image par defaut"))
             {
                 profilPic.setImageResource(R.mipmap.default_picture);
             }
             else
                 {
                 Bitmap bitmap;
-                Uri data = Uri.parse(Utilisateur.connectedUser.getPhoto());
+                Uri data = Uri.parse(firstOne.getPhoto());
                 try {
                     bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(data));
                     profilPic.setImageBitmap(bitmap);
@@ -69,28 +70,65 @@ public class AjoutAmiActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            text1.setText(currentOne.getNom() +" "+ currentOne.getPrenom());
-            text2.setText(currentOne.getIdentifiant());
-            text3.setText(currentOne.getMail());
+            text1.setText(firstOne.getNom() +" "+ firstOne.getPrenom());
+            text2.setText(firstOne.getIdentifiant());
+            text3.setText(firstOne.getMail());
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Utilisateur.connectedUser.demande_ami(firstOne);
+                }
+            });
+
+            findViewById(android.R.id.content).setOnTouchListener(new OnSwipeTouchListener(AjoutAmiActivity.this) {
+
+                public void onSwipeRight()
+                {
+                    MiniPollApp.notifyShort(R.string.swipe_right);
+
+                }
+
+                public void onSwipeLeft()
+                {
+                    MiniPollApp.notifyShort(R.string.swipe_left);
+                    count++;
+                    Utilisateur next;
+                    if(Utilisateur.connectedUser.getId() == count)
+                    {
+                        count++;
+                    }
+                    if(count>existingUsers.size()-1)
+                    {
+                        count--;
+                    }
+                    else {
+                        next = existingUsers.get(count);
+                        if (next.getPhoto().equals("Image par defaut")) {
+                            profilPic.setImageResource(R.mipmap.default_picture);
+                        } else {
+                            Bitmap bitmap;
+                            Uri data = Uri.parse(next.getPhoto());
+                            try {
+                                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(data));
+                                profilPic.setImageBitmap(bitmap);
+                            } catch (FileNotFoundException e) {
+
+                                e.printStackTrace();
+                            }
+                        }
+                        text1.setText(next.getNom() + " " + next.getPrenom());
+                        text2.setText(next.getIdentifiant());
+                        text3.setText(next.getMail());
+                    }
+
+
+                }
+
+            });
+
         }
 
-
-        findViewById(android.R.id.content).setOnTouchListener(new OnSwipeTouchListener(AjoutAmiActivity.this) {
-           
-            public void onSwipeRight() 
-            {
-                MiniPollApp.notifyShort(R.string.swipe_right);
-            }
-
-            public void onSwipeLeft() 
-            {
-               MiniPollApp.notifyShort(R.string.swipe_left);
-               count++;
-
-
-            }
-            
-        });
 
     }
 }
