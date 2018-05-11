@@ -51,6 +51,8 @@
 
         <activity android:name=".Activites.ModifIdActivity"/>
 
+        <activity android:name=".Activites.AccepterDemande"/>
+
 
     </application>
 

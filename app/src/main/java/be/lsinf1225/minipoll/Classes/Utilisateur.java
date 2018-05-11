@@ -637,7 +637,7 @@ public class Utilisateur {
     public Utilisateur getBestFriendDb(){
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
         String arg = Integer.toString(this.getId());
-        Cursor cursor = db.rawQuery("SELECT BestFriend FROM Utilisateur WHERE ID_User=" + arg,null);
+        Cursor cursor = db.rawQuery("SELECT BestFriend FROM Utilisateurs WHERE ID_User=" + arg,null);
         cursor.moveToFirst();
         int idbf = cursor.getInt(0);
         Utilisateur user=Utilisateur.isUtilisateur(idbf);

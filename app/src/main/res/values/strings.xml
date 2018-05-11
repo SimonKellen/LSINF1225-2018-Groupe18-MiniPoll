@@ -21,6 +21,9 @@
     <string name="swipe_left">Swipe left détecté</string>
     <string name="swipe_right">Swipe right détecté</string>
     <string name="one_user">Vous êtes le seul utilisateur, impossible d\'ajouter un ami</string>
+    <string name="no_friend">Vous n\'avez pas encore d\'ami</string>
+    <string name="friend_request">Une demande d\'ami a été envoyée</string>
+    <string name="friend_request2">Vous avez reçu une demande d'ami de la part de </string>
 
 
 

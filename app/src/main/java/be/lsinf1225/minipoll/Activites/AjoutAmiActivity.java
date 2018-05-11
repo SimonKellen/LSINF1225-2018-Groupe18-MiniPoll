@@ -26,7 +26,8 @@ public class AjoutAmiActivity extends AppCompatActivity {
     private TextView text2;
     private TextView text3;
     private Button button;
-    private static int count = 0;
+    private int count = 0;
+    private Utilisateur current;
 
 
     @Override
@@ -48,20 +49,20 @@ public class AjoutAmiActivity extends AppCompatActivity {
         }
         else
         {
-            final Utilisateur firstOne;
+
             if(Utilisateur.connectedUser.getId() == count)
             {
                 count++;
             }
-            firstOne = existingUsers.get(count);
-            if(firstOne.getPhoto().equals("Image par defaut"))
+            current = existingUsers.get(count);
+            if(current.getPhoto().equals("Image par defaut"))
             {
                 profilPic.setImageResource(R.mipmap.default_picture);
             }
             else
                 {
                 Bitmap bitmap;
-                Uri data = Uri.parse(firstOne.getPhoto());
+                Uri data = Uri.parse(current.getPhoto());
                 try {
                     bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(data));
                     profilPic.setImageBitmap(bitmap);
@@ -70,14 +71,15 @@ public class AjoutAmiActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            text1.setText(firstOne.getNom() +" "+ firstOne.getPrenom());
-            text2.setText(firstOne.getIdentifiant());
-            text3.setText(firstOne.getMail());
+            text1.setText(current.getNom() +" "+ current.getPrenom());
+            text2.setText(current.getIdentifiant());
+            text3.setText(current.getMail());
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Utilisateur.connectedUser.demande_ami(firstOne);
+                    Utilisateur.connectedUser.demande_ami(current);
+                    MiniPollApp.notifyShort(R.string.friend_request);
                 }
             });
 
@@ -86,7 +88,6 @@ public class AjoutAmiActivity extends AppCompatActivity {
                 public void onSwipeRight()
                 {
                     count--;
-                    Utilisateur previous;
                     if(Utilisateur.connectedUser.getId() == count)
                     {
                         count--;
@@ -102,12 +103,12 @@ public class AjoutAmiActivity extends AppCompatActivity {
                         }
                     }
                     else {
-                        previous = existingUsers.get(count);
-                        if (previous.getPhoto().equals("Image par defaut")) {
+                        current = existingUsers.get(count);
+                        if (current.getPhoto().equals("Image par defaut")) {
                             profilPic.setImageResource(R.mipmap.default_picture);
                         } else {
                             Bitmap bitmap;
-                            Uri data = Uri.parse(previous.getPhoto());
+                            Uri data = Uri.parse(current.getPhoto());
                             try {
                                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(data));
                                 profilPic.setImageBitmap(bitmap);
@@ -116,9 +117,9 @@ public class AjoutAmiActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-                        text1.setText(previous.getNom() + " " + previous.getPrenom());
-                        text2.setText(previous.getIdentifiant());
-                        text3.setText(previous.getMail());
+                        text1.setText(current.getNom() + " " + current.getPrenom());
+                        text2.setText(current.getIdentifiant());
+                        text3.setText(current.getMail());
                     }
 
                 }
@@ -126,7 +127,6 @@ public class AjoutAmiActivity extends AppCompatActivity {
                 public void onSwipeLeft()
                 {
                     count++;
-                    Utilisateur next;
                     if(Utilisateur.connectedUser.getId() == count)
                     {
                         count++;
@@ -142,12 +142,12 @@ public class AjoutAmiActivity extends AppCompatActivity {
                         }
                     }
                     else {
-                        next = existingUsers.get(count);
-                        if (next.getPhoto().equals("Image par defaut")) {
+                        current = existingUsers.get(count);
+                        if (current.getPhoto().equals("Image par defaut")) {
                             profilPic.setImageResource(R.mipmap.default_picture);
                         } else {
                             Bitmap bitmap;
-                            Uri data = Uri.parse(next.getPhoto());
+                            Uri data = Uri.parse(current.getPhoto());
                             try {
                                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(data));
                                 profilPic.setImageBitmap(bitmap);
@@ -156,9 +156,9 @@ public class AjoutAmiActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-                        text1.setText(next.getNom() + " " + next.getPrenom());
-                        text2.setText(next.getIdentifiant());
-                        text3.setText(next.getMail());
+                        text1.setText(current.getNom() + " " + current.getPrenom());
+                        text2.setText(current.getIdentifiant());
+                        text3.setText(current.getMail());
                     }
 
 
