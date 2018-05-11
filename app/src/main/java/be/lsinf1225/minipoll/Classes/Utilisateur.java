@@ -128,6 +128,22 @@ public class Utilisateur {
         db.close(); // Closing database connection
     }
 
+    /*
+    supprime un ami de la liste d'ami
+     */
+    public void supprimer_amis(Utilisateur utilisateur){
+        this.getAmis().remove(utilisateur.id);
+        utilisateur.getAmis().remove(this.id);
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        db.delete("Amis", "ID_User1 = '" + utilisateur.getId() + "' AND ID_User2 = '" + this.getId()  + "'",null);
+        db.delete("Amis", "ID_User1 = '" + this.getId() + "' AND ID_User2 = '" + utilisateur.getId()  + "'",null);
+        if(this.getBestFriend()==utilisateur.getId()){
+            this.bestFriend=0;
+        }
+        db.close();
+    }
+
+
 
     /**
      * Contient les instances déjà existantes des utilisateurs afin d'éviter de créer deux instances
