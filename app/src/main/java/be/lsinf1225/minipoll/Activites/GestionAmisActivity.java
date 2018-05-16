@@ -53,23 +53,16 @@ public class GestionAmisActivity extends AppCompatActivity {
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             answer = true;
-                            MiniPollApp.notifyShort(R.string.swipe_left);
                             openAddFriendActivity();
                         }
                     })
                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             answer = false;
-                            MiniPollApp.notifyShort(R.string.swipe_right);
-                            openAddFriendActivity();
                         }
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
-        }
-        if(answer)
-        {
-            openAddFriendActivity();
         }
     }
 

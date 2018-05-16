@@ -67,7 +67,7 @@ public class Utilisateur {
         ContentValues values = new ContentValues();
         values.put("Etat", "A");
         // updating row
-        db.update("Ami", values, "ID_User1 = " + demandeAmis.getId() + " AND ID_User2 = " + this.getId() + "'", null);
+        db.update("Ami", values, "ID_User1 = " + demandeAmis.getId() + " AND ID_User2 = " + this.getId(), null);
         db.close();
     }
 
@@ -132,8 +132,8 @@ public class Utilisateur {
     public void supprimer_amis(Utilisateur utilisateur){
         this.getAmis().remove(utilisateur.id);
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-        db.delete("Amis", "ID_User1 = '" + utilisateur.getId() + "' AND ID_User2 = '" + this.getId()  + "'",null);
-        db.delete("Amis", "ID_User1 = '" + this.getId() + "' AND ID_User2 = '" + utilisateur.getId()  + "'",null);
+        db.delete("Ami", "ID_User1 = '" + utilisateur.getId() + "' AND ID_User2 = '" + this.getId()  + "'",null);
+        db.delete("Ami", "ID_User1 = '" + this.getId() + "' AND ID_User2 = '" + utilisateur.getId()  + "'",null);
         if(this.getBestFriend()==utilisateur.getId()){
             this.bestFriend=0;
         }
@@ -535,6 +535,7 @@ public class Utilisateur {
         String arg = Integer.toString(this.getId());
         Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs WHERE ID_User in (SELECT ID_User1 FROM Ami WHERE ID_User2 =" + arg + " and Etat = 'A') UNION SELECT * FROM Utilisateurs WHERE ID_User in (SELECT ID_User2 FROM Ami WHERE ID_User1 =" + arg + " and Etat = 'A')",null );
         cursor.moveToFirst();
+        int count = 0;
         SparseArray<Utilisateur> users = new SparseArray<>();
         while (!cursor.isAfterLast()){
             int idu = cursor.getInt(0);
@@ -549,7 +550,7 @@ public class Utilisateur {
             if(user==null){
                 user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail,bestFriend);
             }
-            users.put(idu,user);
+            users.put(count,user);
             cursor.moveToNext();
         }
         cursor.close();
@@ -568,6 +569,7 @@ public class Utilisateur {
         Cursor cursor = db.rawQuery("SELECT * FROM Utilisateurs U INNER JOIN Ami A ON U.ID_User = A.ID_User1 WHERE Etat = 'E' AND A.ID_User2 =" + arg,null );
         cursor.moveToFirst();
         SparseArray<Utilisateur> users = new SparseArray<>();
+        int num = 0;
         while (!cursor.isAfterLast()){
             int idu = cursor.getInt(0);
             String prenom = cursor.getString(1);
@@ -581,7 +583,8 @@ public class Utilisateur {
             if(user==null){
                 user=new Utilisateur(idu,password,nom,prenom,identifiant,photo,mail,bestFriend);
             }
-            users.put(idu,user);
+            users.put(num,user);
+            num++;
             cursor.moveToNext();
         }
         cursor.close();

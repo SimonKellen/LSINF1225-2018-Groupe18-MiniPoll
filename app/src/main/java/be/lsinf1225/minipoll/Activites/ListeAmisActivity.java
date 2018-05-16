@@ -78,6 +78,7 @@ public class ListeAmisActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Utilisateur.connectedUser.supprimer_amis(currentFriend);
+                    finish();
                 }
             });
 
